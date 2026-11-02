@@ -41,7 +41,7 @@
     </div>
     <dl class="facts">
       <div><dt>Year</dt><dd>2025</dd></div>
-      <div><dt>Duration</dt><dd>8 months</dd></div>
+      <div><dt>Duration</dt><dd>~8 months</dd></div>
       <div><dt>Team</dt><dd>3 people</dd></div>
       <div><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
       <div><dt>Context</dt><dd>Brassart · graduation</dd></div>
@@ -86,6 +86,12 @@
         </div>
       </div>
     </div>
+    <h3 class="sub">The team</h3>
+    <ul class="team">
+      <li><b>Esteban Lafargue</b><span>Gameplay &amp; UI Programmer · Technical / Game Designer · UX</span></li>
+      <li><b>Roni Poggioli</b><span>Level Designer · VFX Artist · Tech Artist</span></li>
+      <li><b>Samuel Guibert</b><span>Sound Designer · Producer · Composer</span></li>
+    </ul>
   </section>
 
   <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M760 0 C760 70 500 40 500 110"/><path class="wire__live" pathLength="1" d="M760 0 C760 70 500 40 500 110"/></svg>
@@ -114,6 +120,7 @@
           <div class="step__text">
             <h3>One table drives every buildable piece</h3>
             <p>To spawn the desired structure, I implemented a <mark class="hl">Data Table–driven system</mark> that enables <mark class="hl">Designers</mark> to easily associate meshes and construction <mark class="hl">data</mark>. Based on the enumeration selected in the <mark class="hl">construction inventory</mark>, the system queries the Data Table to retrieve the relevant assets and parameters, which are then assigned to the corresponding <mark class="hl">preview actor</mark> used during the placement phase.</p>
+            <div class="why"><b>Designer autonomy</b><mark class="hl">19 buildable pieces</mark>, all defined in the Data Table. My teammates edited it themselves: Roni in particular iterated on the construction pieces and tested them in gameplay straight away, without waiting for me.</div>
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-01.jpg" aria-label="Picking a piece in the construction inventory spawns its preview"><source src="../assets/video/klappen/step-01.mp4" type="video/mp4"></video></div><span class="caption">Picking a piece in the construction inventory spawns its preview</span></div>
         </div>
@@ -127,6 +134,7 @@
             <p>The placement system was the most <mark class="hl">technically demanding</mark> part of the project, requiring <mark class="hl">extensive iteration</mark> based on playtesting and game feel feedback. The main challenge was to preserve <mark class="hl">player freedom</mark> while enabling fast, <mark class="hl">fluid construction chaining</mark>.</p>
             <p>The system relies on a <mark class="hl">continuous Line Trace</mark> to determine the target placement location in world space. When no valid hit is detected, the preview actor provides <mark class="hl">immediate visual feedback</mark> by switching to an invalid (red) material.</p>
             <p>When a valid hit is found, the system first checks for <mark class="hl">snapping points</mark> based on nearby compatible construction actors using <mark class="hl">BoxCollisions and trace results</mark>. If a snapping point is detected, its transform data is extracted and applied directly to the <mark class="hl">preview actor</mark>.</p>
+            <div class="why"><b>Iteration</b>The first version was too free, so a default grid became necessary. Players then wanted to build in the context of an existing structure, which led to the snapping points. A few pieces still don’t always align the way players expect, but playtesters were satisfied overall, and we learned a lot.</div>
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-02.jpg" aria-label="Snapping onto nearby structures"><source src="../assets/video/klappen/step-02.mp4" type="video/mp4"></video></div><span class="caption">Snapping onto nearby structures</span></div>
         </div>
@@ -180,6 +188,7 @@
             <p>The conversion of construction actors into Hierarchical Instanced Static Meshes (HISM) quickly became a <mark class="hl">critical performance optimization</mark> as the number of placed structures increased. Each additional actor introduced rendering and tick overhead, significantly impacting performance in <mark class="hl">large player-built environments</mark>.</p>
             <p>To address this, I implemented a dedicated <mark class="hl">“Storage” Blueprint system</mark> responsible for serializing placed structures into <mark class="hl">lightweight data</mark> representations (HISM instance data containing transform and type).</p>
             <p>Instead of keeping all actors active in the world, the player character uses a <mark class="hl">Sphere Overlap detection</mark> system to monitor nearby constructions. When a structure exits this radius, the original actor is <mark class="hl">destroyed</mark> and immediately replaced by a corresponding <mark class="hl">HISM instance</mark>, dramatically reducing draw calls and actor overhead. At the same time, its data is <mark class="hl">stored</mark> within the Storage system for later <mark class="hl">reconstruction</mark>.</p>
+            <div class="why"><b>Result</b>On long sessions, the more structures players placed, the more FPS dropped, because every one of them stayed loaded and active. With only the structures within interaction range (<mark class="hl">2,000 Unreal units</mark>) kept as full actors, the problem disappeared completely. HISM were chosen so that similar pieces are grouped together, which reduces the cost of each structure even further.</div>
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-06.jpg" aria-label="Structures leaving the sphere become HISM instances (editor view)"><source src="../assets/video/klappen/step-06.mp4" type="video/mp4"></video></div><span class="caption">Structures leaving the sphere become HISM instances (editor view)</span></div>
         </div>
@@ -193,6 +202,7 @@
             <p>When the player moves back within range of <mark class="hl">structures previously converted</mark> into HISM instances, the same Sphere Overlap detection processes each overlapping instance individually and triggers a <mark class="hl">reconversion function</mark>.</p>
             <p>This function removes the corresponding HISM instance and respawns its original <mark class="hl">Blueprint-based actor</mark> from the stored <mark class="hl">serialized data</mark> (transform and type). Restoring the Blueprint actor re-enables <mark class="hl">interactive features</mark> such as <mark class="hl">object-based snapping</mark> and the <mark class="hl">destruction system</mark>.</p>
             <p>As the video shows, the reconversion is <mark class="hl">fully seamless</mark>: it executes within a single frame, making the transition <mark class="hl">imperceptible</mark> to the player, with no visible popping or functional delay.</p>
+            <div class="why"><b>Verified</b>Profiled with <mark class="hl">Unreal Insights</mark>: the reconversion is invisible to the player and takes very little time.</div>
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-07.jpg" aria-label="Coming back: instances turn back into actors, no popping"><source src="../assets/video/klappen/step-07.mp4" type="video/mp4"></video></div><span class="caption">Coming back: instances turn back into actors, no popping</span></div>
         </div>
@@ -206,6 +216,7 @@
             <p>The player also has access to a dedicated <mark class="hl">Destruction Mode</mark>, allowing multiple structures to be removed <mark class="hl">consecutively</mark> while refunding their <mark class="hl">resource cost</mark>.</p>
             <p>When the mode is activated, the current <mark class="hl">construction preview data</mark> is cached, and a Tick-based Line Trace continuously detects <mark class="hl">targeted structures</mark>. On a valid hit, the structure’s material switches through a <mark class="hl">Dynamic Material Instance</mark> (MID) for real-time visual feedback.</p>
             <p>Holding the input past a short <mark class="hl">timed hold threshold</mark> destroys the targeted actor, and a <mark class="hl">progressive acceleration system</mark> shortens the hold for each following destruction, enabling fast <mark class="hl">chained removals</mark>.</p>
+            <div class="why"><b>Tuning</b>The hold starts at <mark class="hl">1.5 s</mark> and gets <mark class="hl">0.15 s</mark> shorter with each consecutive destruction, down to <mark class="hl">1 s</mark>.</div>
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-08.jpg" aria-label="Destruction Mode: hold to remove, faster each time, resources refunded"><source src="../assets/video/klappen/step-08.mp4" type="video/mp4"></video></div><span class="caption">Destruction Mode: hold to remove, faster each time, resources refunded</span></div>
         </div>
@@ -222,6 +233,7 @@
       <div class="node" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>PCG per biome<span class="meta">soon</span></div><div class="node__body">Procedural resources placed per biome.</div></div>
       <div class="node" style="--c:var(--c-passions)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Thousands of trees<span class="meta">soon</span></div><div class="node__body">HISM forest, optimised without lag.</div></div>
       <div class="node" style="--c:var(--c-projects)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Inventory &amp; harvesting<span class="meta">soon</span></div><div class="node__body">Inventory menu and resource collection.</div></div>
+      <div class="node" style="--c:var(--c-soft)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Cabin validation<span class="meta">soon</span></div><div class="node__body">Line traces on every side tell each animal whether its cabin has walls, a floor, a roof and decorations nearby.</div></div>
     </div>
   </section>
 
