@@ -112,11 +112,10 @@
         <div class="node__head"><span class="n">01</span>Spawning from inventory<span class="meta">Data Table → Preview Actor</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>One table drives every buildable piece</h3>
-            <p>Selecting a piece in the inventory reads its row in a Data Table: mesh, construction data and cost. That data feeds a single, generic preview actor, so adding a new piece never needs new code.</p>
+            <p>To spawn the desired structure, I implemented a <mark class="hl">Data Table–driven system</mark> that enables <mark class="hl">Designers</mark> to easily associate meshes and construction <mark class="hl">data</mark>. Based on the enumeration selected in the <mark class="hl">construction inventory</mark>, the system queries the Data Table to retrieve the relevant assets and parameters, which are then assigned to the corresponding <mark class="hl">preview actor</mark> used during the placement phase.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[Capture · Data Table + preview]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[Capture · Data Table + preview]</span></div></div>
         </div>
       </article>
 
@@ -124,23 +123,24 @@
         <div class="node__head"><span class="n">02</span>Line trace &amp; snapping<span class="meta">Validation</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
-            <h3>Snap first, validate always</h3>
-            <p>A continuous line trace checks the surface under the cursor. Box colliders placed on each structure act as snap points, and the preview turns red as soon as a placement is invalid.</p>
+            <h3>Freedom without friction</h3>
+            <p>The placement system was the most <mark class="hl">technically demanding</mark> part of the project, requiring <mark class="hl">extensive iteration</mark> based on playtesting and game feel feedback. The main challenge was to preserve <mark class="hl">player freedom</mark> while enabling fast, <mark class="hl">fluid construction chaining</mark>.</p>
+            <p>The system relies on a <mark class="hl">continuous Line Trace</mark> to determine the target placement location in world space. When no valid hit is detected, the preview actor provides <mark class="hl">immediate visual feedback</mark> by switching to an invalid (red) material.</p>
+            <p>When a valid hit is found, the system first checks for <mark class="hl">snapping points</mark> based on nearby compatible construction actors using <mark class="hl">BoxCollisions and trace results</mark>. If a snapping point is detected, its transform data is extracted and applied directly to the <mark class="hl">preview actor</mark>.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[GIF · snapping]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[GIF · snapping]</span></div></div>
         </div>
       </article>
 
       <article class="node step reveal" id="step-3" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">03</span>Grid fallback<span class="meta">Transform</span></div>
+        <div class="node__head"><span class="n">03</span>Grid fallback<span class="meta">Virtual grid</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>When there is nothing to snap to</h3>
-            <p>If no snap point is found, a math function rounds the hit location to a world grid, so free-standing pieces still line up. The preview turns green when the placement is valid.</p>
+            <p>If no snapping point is found, a <mark class="hl">mathematically generated virtual snapping grid</mark> is used to calculate the placement transform in world space.</p>
+            <p>The resulting transform is applied via <code>SetActorTransform</code>, and the <mark class="hl">preview material</mark> is updated to a valid (green) state, indicating that the structure can be placed. This approach allows for <mark class="hl">precise placement</mark>, intuitive snapping and responsive feedback while remaining fully <mark class="hl">data-driven and scalable</mark>.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[GIF · grid]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[GIF · grid]</span></div></div>
         </div>
       </article>
 
@@ -148,12 +148,13 @@
         <div class="node__head"><span class="n">04</span>90° rotation<span class="meta">Playtest-driven</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>Less freedom, more fun</h3>
-            <p>Full 360° rotation was tested first, then limited to 90° yaw steps. Preset variants cover the other orientations.</p>
-            <div class="why"><b>Why</b>[What did the playtests show? This is the strongest design decision of the page.]</div>
+            <p>The rotation system initially supported <mark class="hl">full 360° rotation on all axes</mark>, providing high freedom but requiring strong <mark class="hl">3D spatial awareness</mark> from players, which negatively affected usability.</p>
+            <p>After several playtests, we constrained rotation to <mark class="hl">90-degree increments on a single axis</mark> (yaw) to improve clarity, grid consistency and <mark class="hl">placement fluidity</mark>.</p>
+            <p>To preserve <mark class="hl">flexibility</mark>, we created <mark class="hl">preset variations</mark> of similar structures covering alternative orientations on the <mark class="hl">remaining axes</mark>, maintaining visual diversity without reintroducing complexity.</p>
+            <div class="why"><b>Design decision</b>Playtests showed that full 3D rotation cost more in usability than it gave in freedom: one axis, 90° steps, plus preset variants.</div>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[GIF · rotation]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[GIF · rotation]</span></div></div>
         </div>
       </article>
 
@@ -161,11 +162,13 @@
         <div class="node__head"><span class="n">05</span>Placement pipeline<span class="meta">PlayerController → Player</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
-            <h3>Two steps, two owners</h3>
-            <p>The PlayerController checks the build mode and limits placements per input. The Player logic then spawns the final actor and plays its build animation. Input rules and world changes stay separate.</p>
+            <h3>Two stages, two owners</h3>
+            <p>The construction placement pipeline was divided into two stages.</p>
+            <p>First, at the <mark class="hl">PlayerController</mark>, the current build mode was evaluated to determine <mark class="hl">which behavior</mark> to execute and to enforce placement constraints, such as limiting spawned instances per input.</p>
+            <p>Second, within the <mark class="hl">Player logic</mark>, the system retrieved the final transform from the <mark class="hl">preview actor</mark> (world-aligned or snap-based), queried the appropriate entry from the <mark class="hl">Data Table</mark>, and spawned the definitive structure actor into the world. The placement animation was triggered, and the <mark class="hl">construction loop</mark> resumed seamlessly.</p>
+            <div class="why"><b>In hindsight</b>The build-mode logic would ideally have been structured as a <mark class="hl">Switch on Enum</mark>–based state system, for better scalability.</div>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[Diagram · pipeline]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[Diagram · pipeline]</span></div></div>
         </div>
       </article>
 
@@ -173,12 +176,12 @@
         <div class="node__head"><span class="n">06</span>HISM conversion<span class="meta">Optimisation</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>Far away, structures become instances</h3>
-            <p>Structures outside the player’s overlap sphere are converted into Hierarchical Instanced Static Meshes, cutting actor and draw-call overhead. Their data is kept in a storage system.</p>
-            <div class="why"><b>Result</b>[Numbers: actors / draw calls / FPS before → after]</div>
+            <p>The conversion of construction actors into Hierarchical Instanced Static Meshes (HISM) quickly became a <mark class="hl">critical performance optimization</mark> as the number of placed structures increased. Each additional actor introduced rendering and tick overhead, significantly impacting performance in <mark class="hl">large player-built environments</mark>.</p>
+            <p>To address this, I implemented a dedicated <mark class="hl">“Storage” Blueprint system</mark> responsible for serializing placed structures into <mark class="hl">lightweight data</mark> representations (HISM instance data containing transform and type).</p>
+            <p>Instead of keeping all actors active in the world, the player character uses a <mark class="hl">Sphere Overlap detection</mark> system to monitor nearby constructions. When a structure exits this radius, the original actor is <mark class="hl">destroyed</mark> and immediately replaced by a corresponding <mark class="hl">HISM instance</mark>, dramatically reducing draw calls and actor overhead. At the same time, its data is <mark class="hl">stored</mark> within the Storage system for later <mark class="hl">reconstruction</mark>.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[Capture · overlap sphere]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[Capture · overlap sphere]</span></div></div>
         </div>
       </article>
 
@@ -186,11 +189,12 @@
         <div class="node__head"><span class="n">07</span>Re-conversion, no popping<span class="meta">Single frame</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>The player never sees the swap</h3>
-            <p>When the player comes back, the stored instances are swapped back into full actors within a single frame, so nothing pops.</p>
+            <p>When the player moves back within range of <mark class="hl">structures previously converted</mark> into HISM instances, the same Sphere Overlap detection processes each overlapping instance individually and triggers a <mark class="hl">reconversion function</mark>.</p>
+            <p>This function removes the corresponding HISM instance and respawns its original <mark class="hl">Blueprint-based actor</mark> from the stored <mark class="hl">serialized data</mark> (transform and type). Restoring the Blueprint actor re-enables <mark class="hl">interactive features</mark> such as <mark class="hl">object-based snapping</mark> and the <mark class="hl">destruction system</mark>.</p>
+            <p>As the video shows, the reconversion is <mark class="hl">fully seamless</mark>: it executes within a single frame, making the transition <mark class="hl">imperceptible</mark> to the player, with no visible popping or functional delay.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[GIF · swap]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[Vidéo · swap]</span></div></div>
         </div>
       </article>
 
@@ -198,11 +202,12 @@
         <div class="node__head"><span class="n">08</span>Destruction &amp; refund<span class="meta">Hold to remove</span></div>
         <div class="step__grid">
           <div class="step__text">
-            <span class="draft">Draft — to be replaced with your Carrd text</span>
             <h3>Removing should feel as good as building</h3>
-            <p>A timed hold removes a structure and refunds its resources. The hold gets shorter with each removal in a row, and a dynamic material highlights the target.</p>
+            <p>The player also has access to a dedicated <mark class="hl">Destruction Mode</mark>, allowing multiple structures to be removed <mark class="hl">consecutively</mark> while refunding their <mark class="hl">resource cost</mark>.</p>
+            <p>When the mode is activated, the current <mark class="hl">construction preview data</mark> is cached, and a Tick-based Line Trace continuously detects <mark class="hl">targeted structures</mark>. On a valid hit, the structure’s material switches through a <mark class="hl">Dynamic Material Instance</mark> (MID) for real-time visual feedback.</p>
+            <p>Holding the input past a short <mark class="hl">timed hold threshold</mark> destroys the targeted actor, and a <mark class="hl">progressive acceleration system</mark> shortens the hold for each following destruction, enabling fast <mark class="hl">chained removals</mark>.</p>
           </div>
-          <div class="step__media"><div class="media"><span class="card__ph">[GIF · destruction]</span></div><span class="caption">[Caption]</span></div>
+          <div class="step__media"><div class="media"><span class="card__ph">[GIF · destruction]</span></div></div>
         </div>
       </article>
     </div>

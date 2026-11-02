@@ -52,3 +52,7 @@
 
 .next { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .next .node { opacity: .75; }
+
+/* Keyword highlight (green in the original Carrd text) */
+.hl { background: none; color: var(--ac); font-weight: 500; }
+.step__text code { font: 13px var(--mono); color: var(--text-strong); background: #ffffff0f; padding: 1px 6px; border-radius: 4px; }
