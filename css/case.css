@@ -40,7 +40,7 @@
 .step__text h3 { margin: 0 0 10px; font-size: 22px; font-weight: 600; color: var(--text-strong); letter-spacing: -.01em; }
 .step__text p { margin: 0 0 12px; }
 .step__media { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
-.media { position: relative; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--node-2); border: 1px solid var(--line-soft); }
+.media { position: relative; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: var(--node-2); border: 1px solid var(--line-soft); }
 .media img, .media video { width: 100%; height: 100%; object-fit: cover; }
 .media .card__ph { text-align: center; padding: 0 16px; }
 .caption { font: 12px var(--mono); color: var(--text-faint); }
@@ -56,3 +56,7 @@
 /* Keyword highlight (green in the original Carrd text) */
 .hl { background: none; color: var(--ac); font-weight: 500; }
 .step__text code { font: 13px var(--mono); color: var(--text-strong); background: #ffffff0f; padding: 1px 6px; border-radius: 4px; }
+
+/* Videos */
+.demo { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.media video.loop { cursor: pointer; }

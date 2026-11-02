@@ -49,3 +49,22 @@
     card.addEventListener('blur', stop);
   });
 })();
+
+/* 4. Step clips: play while visible, pause when off-screen; click toggles */
+(() => {
+  const clips = document.querySelectorAll('video.loop');
+  if (!clips.length) return;
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  clips.forEach((v) => {
+    v.addEventListener('click', () => (v.paused ? v.play() : v.pause()));
+    if (calm) v.controls = true;
+  });
+  if (calm || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    }
+  }, { threshold: 0.4 });
+  clips.forEach((v) => io.observe(v));
+})();
