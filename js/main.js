@@ -69,24 +69,32 @@
   clips.forEach((v) => io.observe(v));
 })();
 
-/* 5. Blueprint lightbox: click a graph to view it full size, ← → to browse */
+/* 5. Blueprint lightbox: click a graph to view it full size, click again to zoom, ← → to browse */
 (() => {
   const dlg = document.querySelector('dialog.lightbox');
   if (!dlg || typeof dlg.showModal !== 'function') return;
-  const img = dlg.querySelector('img');
-  const cap = dlg.querySelector('figcaption');
+  const stage = dlg.querySelector('.lightbox__stage');
+  const img = stage.querySelector('img');
+  const cap = dlg.querySelector('.lightbox__cap');
   const num = dlg.querySelector('.lightbox__n');
   let set = [], i = 0;
   const show = () => {
     const b = set[i];
+    stage.classList.remove('is-zoomed');
     img.src = b.dataset.full; img.alt = b.dataset.caption; cap.textContent = b.dataset.caption;
     num.textContent = `${i + 1} / ${set.length}`;
   };
   document.querySelectorAll('.bp__thumb').forEach((b) => b.addEventListener('click', () => {
-    set = [...b.closest('.bp__grid').querySelectorAll('.bp__thumb')];
+    set = [...b.closest('.bp__list').querySelectorAll('.bp__thumb')];
     i = set.indexOf(b); show(); dlg.showModal();
   }));
   const step = (d) => { i = (i + d + set.length) % set.length; show(); };
+  img.addEventListener('click', (e) => {
+    const r = img.getBoundingClientRect();
+    const fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+    const z = stage.classList.toggle('is-zoomed');
+    if (z) { stage.scrollLeft = fx * img.naturalWidth - stage.clientWidth / 2; stage.scrollTop = fy * img.naturalHeight - stage.clientHeight / 2; }
+  });
   dlg.addEventListener('click', (e) => {
     const a = e.target.closest('[data-lb]');
     if (a) { a.dataset.lb === 'close' ? dlg.close() : step(a.dataset.lb === 'next' ? 1 : -1); }
