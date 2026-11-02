@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Case-study pages — builds on style.css (nodes, pins, wires, chips)
+   ========================================================================== */
+
+[data-theme="klappen"] { --ac: #3ddc97; --halo: #0f2a22; }
+
+.back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 13px var(--mono); color: var(--text-muted); }
+.back:hover { color: var(--ac); }
+
+/* ---------- Case hero ---------- */
+.case-hero { padding: 48px 0 8px; }
+.case-hero h1 { margin: 12px 0 0; font-size: clamp(56px, 9vw, 104px); font-weight: 600; line-height: .95; letter-spacing: -.03em; color: var(--text-strong); }
+.case-hero__pitch { margin: 22px 0 0; max-width: 720px; font-size: clamp(19px, 2.2vw, 23px); font-weight: 300; line-height: 1.45; color: var(--text-strong); }
+.case-hero__row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; margin: 36px 0 0; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.facts div { background: var(--node); padding: 14px 16px; }
+.facts dt { font: 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); }
+.facts dd { margin: 4px 0 0; color: var(--text-strong); font-weight: 500; }
+
+/* ---------- Prose ---------- */
+.prose { max-width: 760px; }
+.prose p { margin: 0 0 16px; }
+.prose strong { color: var(--text-strong); font-weight: 600; }
+.lead { font-size: 18px; color: var(--text-strong); }
+
+.roles { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+/* ---------- Pipeline overview (step map) ---------- */
+.pipeline { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; counter-reset: step; }
+.pipeline a { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--node); color: var(--text); font-size: 14px; transition: border-color .2s, transform .2s; }
+.pipeline a:hover { color: var(--text-strong); border-color: var(--ac); transform: translateY(-2px); }
+.pipeline .n { font: 12px var(--mono); color: var(--ac); flex: none; }
+
+/* ---------- Steps ---------- */
+.step { scroll-margin-top: 90px; }
+.step .node__head .n { font-family: var(--mono); font-size: 13px; color: var(--ac); font-weight: 500; }
+.step__grid { display: flex; flex-wrap: wrap; gap: 24px 32px; padding: 22px 22px 24px; }
+.step__text { flex: 1 1 360px; min-width: 0; }
+.step__text h3 { margin: 0 0 10px; font-size: 22px; font-weight: 600; color: var(--text-strong); letter-spacing: -.01em; }
+.step__text p { margin: 0 0 12px; }
+.step__media { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.media { position: relative; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--node-2); border: 1px solid var(--line-soft); }
+.media img, .media video { width: 100%; height: 100%; object-fit: cover; }
+.media .card__ph { text-align: center; padding: 0 16px; }
+.caption { font: 12px var(--mono); color: var(--text-faint); }
+
+.why { margin-top: 14px; padding: 14px 16px; border-radius: 8px; background: color-mix(in srgb, var(--c-edu) 8%, transparent); border: 1px solid color-mix(in srgb, var(--c-edu) 35%, transparent); font-size: 14px; }
+.why b { display: block; margin-bottom: 4px; font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--c-edu); }
+
+.draft { display: inline-block; margin-bottom: 10px; padding: 2px 8px; border-radius: 4px; background: #ff5f6d22; border: 1px solid #ff5f6d66; color: #ff9aa3; font: 11px var(--mono); }
+
+.next { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.next .node { opacity: .75; }
