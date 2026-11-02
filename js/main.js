@@ -68,3 +68,32 @@
   }, { threshold: 0.4 });
   clips.forEach((v) => io.observe(v));
 })();
+
+/* 5. Blueprint lightbox: click a graph to view it full size, ← → to browse */
+(() => {
+  const dlg = document.querySelector('dialog.lightbox');
+  if (!dlg || typeof dlg.showModal !== 'function') return;
+  const img = dlg.querySelector('img');
+  const cap = dlg.querySelector('figcaption');
+  const num = dlg.querySelector('.lightbox__n');
+  let set = [], i = 0;
+  const show = () => {
+    const b = set[i];
+    img.src = b.dataset.full; img.alt = b.dataset.caption; cap.textContent = b.dataset.caption;
+    num.textContent = `${i + 1} / ${set.length}`;
+  };
+  document.querySelectorAll('.bp__thumb').forEach((b) => b.addEventListener('click', () => {
+    set = [...b.closest('.bp__grid').querySelectorAll('.bp__thumb')];
+    i = set.indexOf(b); show(); dlg.showModal();
+  }));
+  const step = (d) => { i = (i + d + set.length) % set.length; show(); };
+  dlg.addEventListener('click', (e) => {
+    const a = e.target.closest('[data-lb]');
+    if (a) { a.dataset.lb === 'close' ? dlg.close() : step(a.dataset.lb === 'next' ? 1 : -1); }
+    else if (e.target === dlg) dlg.close();
+  });
+  dlg.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+})();

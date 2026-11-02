@@ -124,6 +124,15 @@
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-01.jpg" aria-label="Picking a piece in the construction inventory spawns its preview"><source src="../assets/video/klappen/step-01.mp4" type="video/mp4"></video></div><span class="caption">Picking a piece in the construction inventory spawns its preview</span></div>
         </div>
+              <details class="bp">
+          <summary><span class="exec" aria-hidden="true"></span>View Blueprint <span class="bp__count">4 graphs</span></summary>
+          <div class="bp__grid">
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-1.jpg" data-caption="Get the building structure from the Data Table: E Placeable → row name → S Placeable"><img src="../assets/img/klappen/bp/step-01-1.jpg" alt="Get the building structure from the Data Table: E Placeable → row name → S Placeable" width="948" height="339" loading="lazy"></button><figcaption>Get the building structure from the Data Table: E Placeable → row name → S Placeable</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-2.jpg" data-caption="DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh"><img src="../assets/img/klappen/bp/step-01-2.jpg" alt="DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh" width="1913" height="799" loading="lazy"></button><figcaption>DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-3.jpg" data-caption="Spawning the preview actor of the structure"><img src="../assets/img/klappen/bp/step-01-3.jpg" alt="Spawning the preview actor of the structure" width="879" height="354" loading="lazy"></button><figcaption>Spawning the preview actor of the structure</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-4.jpg" data-caption="Preview set-up: decal, no snapping boxes, resource cost, no collision"><img src="../assets/img/klappen/bp/step-01-4.jpg" alt="Preview set-up: decal, no snapping boxes, resource cost, no collision" width="1077" height="597" loading="lazy"></button><figcaption>Preview set-up: decal, no snapping boxes, resource cost, no collision</figcaption></figure>
+          </div>
+        </details>
       </article>
 
       <article class="node step reveal" id="step-2" style="--c:var(--c-gameplay)">
@@ -138,6 +147,16 @@
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-02.jpg" aria-label="Snapping onto nearby structures"><source src="../assets/video/klappen/step-02.mp4" type="video/mp4"></video></div><span class="caption">Snapping onto nearby structures</span></div>
         </div>
+              <details class="bp">
+          <summary><span class="exec" aria-hidden="true"></span>View Blueprint <span class="bp__count">5 graphs</span></summary>
+          <div class="bp__grid">
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-1.jpg" data-caption="Raycast from the camera to find where the structure will appear"><img src="../assets/img/klappen/bp/step-02-1.jpg" alt="Raycast from the camera to find where the structure will appear" width="1038" height="456" loading="lazy"></button><figcaption>Raycast from the camera to find where the structure will appear</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-2.jpg" data-caption="No hit: update the preview location and switch it to red"><img src="../assets/img/klappen/bp/step-02-2.jpg" alt="No hit: update the preview location and switch it to red" width="1065" height="279" loading="lazy"></button><figcaption>No hit: update the preview location and switch it to red</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-3.jpg" data-caption="Hit: compare classes, then cast the hit component to a BoxComponent"><img src="../assets/img/klappen/bp/step-02-3.jpg" alt="Hit: compare classes, then cast the hit component to a BoxComponent" width="1149" height="362" loading="lazy"></button><figcaption>Hit: compare classes, then cast the hit component to a BoxComponent</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-4.jpg" data-caption="The snapping boxes placed around each piece"><img src="../assets/img/klappen/bp/step-02-4.jpg" alt="The snapping boxes placed around each piece" width="1373" height="678" loading="lazy"></button><figcaption>The snapping boxes placed around each piece</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-5.jpg" data-caption="Get the snap location from the BoxComponent that was hit"><img src="../assets/img/klappen/bp/step-02-5.jpg" alt="Get the snap location from the BoxComponent that was hit" width="1033" height="309" loading="lazy"></button><figcaption>Get the snap location from the BoxComponent that was hit</figcaption></figure>
+          </div>
+        </details>
       </article>
 
       <article class="node step reveal" id="step-3" style="--c:var(--c-gameplay)">
@@ -150,6 +169,15 @@
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-03.jpg" aria-label="Line trace feedback (red / green) and the virtual grid"><source src="../assets/video/klappen/step-03.mp4" type="video/mp4"></video></div><span class="caption">Line trace feedback (red / green) and the virtual grid</span></div>
         </div>
+              <details class="bp">
+          <summary><span class="exec" aria-hidden="true"></span>View Blueprint <span class="bp__count">4 graphs</span></summary>
+          <div class="bp__grid">
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-1.jpg" data-caption="Math function snapping: rounds the trace location to the virtual grid on X, Y and Z"><img src="../assets/img/klappen/bp/step-03-1.jpg" alt="Math function snapping: rounds the trace location to the virtual grid on X, Y and Z" width="908" height="625" loading="lazy"></button><figcaption>Math function snapping: rounds the trace location to the virtual grid on X, Y and Z</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-2.jpg" data-caption="Applying the transform with Set Actor Transform (grid or snap)"><img src="../assets/img/klappen/bp/step-03-2.jpg" alt="Applying the transform with Set Actor Transform (grid or snap)" width="1046" height="592" loading="lazy"></button><figcaption>Applying the transform with Set Actor Transform (grid or snap)</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-3.jpg" data-caption="Hit: update the preview location, then green or red depending on Can Build Here"><img src="../assets/img/klappen/bp/step-03-3.jpg" alt="Hit: update the preview location, then green or red depending on Can Build Here" width="1093" height="516" loading="lazy"></button><figcaption>Hit: update the preview location, then green or red depending on Can Build Here</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-4.jpg" data-caption="Visual feedback: green overlay material and valid placement flag"><img src="../assets/img/klappen/bp/step-03-4.jpg" alt="Visual feedback: green overlay material and valid placement flag" width="1126" height="448" loading="lazy"></button><figcaption>Visual feedback: green overlay material and valid placement flag</figcaption></figure>
+          </div>
+        </details>
       </article>
 
       <article class="node step reveal" id="step-4" style="--c:var(--c-gameplay)">
@@ -164,6 +192,13 @@
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-04.jpg" aria-label="Yaw rotation in 90° steps"><source src="../assets/video/klappen/step-04.mp4" type="video/mp4"></video></div><span class="caption">Yaw rotation in 90° steps</span></div>
         </div>
+              <details class="bp">
+          <summary><span class="exec" aria-hidden="true"></span>View Blueprint <span class="bp__count">2 graphs</span></summary>
+          <div class="bp__grid">
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-04-1.jpg" data-caption="Final rotation input: mouse wheel and keys, ±90° on yaw"><img src="../assets/img/klappen/bp/step-04-1.jpg" alt="Final rotation input: mouse wheel and keys, ±90° on yaw" width="982" height="448" loading="lazy"></button><figcaption>Final rotation input: mouse wheel and keys, ±90° on yaw</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-04-2.jpg" data-caption="The first, free 360° rotation system (spherical angles), dropped after playtests"><img src="../assets/img/klappen/bp/step-04-2.jpg" alt="The first, free 360° rotation system (spherical angles), dropped after playtests" width="1104" height="433" loading="lazy"></button><figcaption>The first, free 360° rotation system (spherical angles), dropped after playtests</figcaption></figure>
+          </div>
+        </details>
       </article>
 
       <article class="node step reveal" id="step-5" style="--c:var(--c-gameplay)">
@@ -178,6 +213,16 @@
           </div>
           <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-05.jpg" aria-label="Chaining placements"><source src="../assets/video/klappen/step-05.mp4" type="video/mp4"></video></div><span class="caption">Chaining placements</span></div>
         </div>
+              <details class="bp">
+          <summary><span class="exec" aria-hidden="true"></span>View Blueprint <span class="bp__count">5 graphs</span></summary>
+          <div class="bp__grid">
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-1.jpg" data-caption="IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks"><img src="../assets/img/klappen/bp/step-05-1.jpg" alt="IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks" width="1097" height="478" loading="lazy"></button><figcaption>IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-2.jpg" data-caption="Resource check, then Placing Building, with a Do Once and a short delay per input"><img src="../assets/img/klappen/bp/step-05-2.jpg" alt="Resource check, then Placing Building, with a Do Once and a short delay per input" width="1126" height="327" loading="lazy"></button><figcaption>Resource check, then Placing Building, with a Do Once and a short delay per input</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-3.jpg" data-caption="Placing Building: refuses a placement at the default position or on the same snap"><img src="../assets/img/klappen/bp/step-05-3.jpg" alt="Placing Building: refuses a placement at the default position or on the same snap" width="1163" height="508" loading="lazy"></button><figcaption>Placing Building: refuses a placement at the default position or on the same snap</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-4.jpg" data-caption="Read the Data Table row and spawn the final actor at the preview transform"><img src="../assets/img/klappen/bp/step-05-4.jpg" alt="Read the Data Table row and spawn the final actor at the preview transform" width="1157" height="287" loading="lazy"></button><figcaption>Read the Data Table row and spawn the final actor at the preview transform</figcaption></figure>
+          <figure><button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-5.jpg" data-caption="Cast, collision, VFX at location, destroy the preview, recreate it, play the animation"><img src="../assets/img/klappen/bp/step-05-5.jpg" alt="Cast, collision, VFX at location, destroy the preview, recreate it, play the animation" width="1033" height="413" loading="lazy"></button><figcaption>Cast, collision, VFX at location, destroy the preview, recreate it, play the animation</figcaption></figure>
+          </div>
+        </details>
       </article>
 
       <article class="node step reveal" id="step-6" style="--c:var(--c-passions)">
@@ -254,6 +299,16 @@
     <span>Hand-built · no framework · hosted on GitHub Pages</span>
   </footer>
 </main>
+
+<dialog class="lightbox" aria-label="Blueprint viewer">
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <div class="lightbox__bar">
+    <button type="button" data-lb="prev" aria-label="Previous graph">◂</button>
+    <span class="lightbox__n mono"></span>
+    <button type="button" data-lb="next" aria-label="Next graph">▸</button>
+    <button type="button" data-lb="close" aria-label="Close">✕</button>
+  </div>
+</dialog>
 
 <script src="../js/main.js" defer></script>
 </body>

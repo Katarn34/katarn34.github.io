@@ -67,3 +67,28 @@
 .team li { background: var(--node); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
 .team b { color: var(--text-strong); font-weight: 600; }
 .team span { font-size: 14px; color: var(--text-muted); }
+
+/* ---------- View Blueprint ---------- */
+.bp { border-top: 1px solid var(--line-soft); }
+.bp summary { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 22px; cursor: pointer; list-style: none; font: 500 13px var(--mono); color: var(--text-strong); }
+.bp summary::-webkit-details-marker { display: none; }
+.bp summary .exec { border-top-width: 5px; border-bottom-width: 5px; border-left-width: 8px; transition: transform .2s; }
+.bp[open] summary .exec { transform: rotate(90deg); }
+.bp summary:hover { color: var(--ac); }
+.bp__count { color: var(--text-faint); font-weight: 400; }
+.bp__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; padding: 4px 22px 22px; }
+.bp figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.bp__thumb { display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #1a1a1a; cursor: zoom-in; transition: border-color .2s; }
+.bp__thumb:hover { border-color: var(--ac); }
+.bp__thumb img { width: 100%; height: 100%; object-fit: contain; }
+.bp figcaption { font-size: 13px; line-height: 1.45; color: var(--text-muted); }
+
+.lightbox { width: min(96vw, 1600px); max-height: 94vh; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: #0b0f16; color: var(--text); overflow: hidden; }
+.lightbox::backdrop { background: #000000d9; }
+.lightbox figure { margin: 0; display: flex; flex-direction: column; }
+.lightbox img { width: 100%; max-height: calc(94vh - 120px); object-fit: contain; background: #161616; }
+.lightbox figcaption { padding: 12px 18px 0; font-size: 14px; color: var(--text-strong); }
+.lightbox__bar { display: flex; align-items: center; gap: 8px; padding: 10px 12px 12px 18px; }
+.lightbox__n { margin-right: auto; font-size: 12px; color: var(--text-faint); order: -1; }
+.lightbox__bar button { min-width: 44px; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--text-strong); font-size: 16px; cursor: pointer; }
+.lightbox__bar button:hover { border-color: var(--ac); color: var(--ac); }
