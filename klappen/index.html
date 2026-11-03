@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=4">
-  <link rel="stylesheet" href="../css/case.css?v=4">
+  <link rel="stylesheet" href="../css/style.css?v=5">
+  <link rel="stylesheet" href="../css/case.css?v=5">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -23,7 +23,7 @@
       <a href="#systems">Systems</a>
       <a href="#lessons">Lessons</a>
       <a href="../#contact">Contact</a>
-      <a class="btn btn--primary" href="../assets/Esteban_Lafargue_CV.pdf">CV · PDF ↓</a>
+      <a class="btn btn--primary" href="../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf">CV · PDF ↓</a>
     </nav>
   </div>
 </header>
@@ -32,8 +32,8 @@
 
   <!-- ===== Hero ===== -->
   <section class="case-hero">
-    <a class="back" href="../#work">◂ All case studies</a>
-    <div class="eyebrow" style="margin-top:18px"><span class="exec" aria-hidden="true"></span>Case Study 01 · Graduation project</div>
+    <a class="back" href="../projects/">◂ All projects</a>
+    <div class="eyebrow" data-stop style="margin-top:18px;--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Case Study 01 · Graduation project</div>
     <h1>Kläppen<span class="dot">.</span></h1>
     <p class="case-hero__pitch">A cozy, wholesome building game with sandbox elements. The player is a forest spirit, building cabins to shelter animals while respecting each one’s unique needs.</p>
     <div class="case-hero__row">
@@ -49,19 +49,15 @@
     </dl>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Gameplay</span></div>
-
   <!-- ===== Gameplay ===== -->
-  <section class="node reveal" style="--c:var(--c-gameplay)" aria-labelledby="trailer-title">
+  <section class="node reveal" data-stop style="--c:var(--c-gameplay);margin-top:72px" aria-labelledby="trailer-title">
     <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="trailer-title">Gameplay · building a cabin</span><span class="meta">38 s</span></div>
     <video class="demo" controls preload="metadata" playsinline poster="../assets/img/klappen/building-demo.jpg">
       <source src="../assets/video/klappen/building-demo.mp4" type="video/mp4">
     </video>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · My Role</span></div>
-
-  <section id="role" aria-labelledby="role-title">
+  <section id="role" aria-labelledby="role-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-profile)"><span class="stitle__tag" id="role-title">My Role</span><span class="stitle__rule"></span></h2>
     <div class="card__tags" style="margin-bottom:24px">
       <span class="chip" style="--c:var(--c-gameplay)">Gameplay Programmer</span>
@@ -94,10 +90,8 @@
     </ul>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Systems I built</span></div>
-
   <!-- ===== Systems ===== -->
-  <section id="systems" aria-labelledby="systems-title">
+  <section id="systems" aria-labelledby="systems-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="systems-title">Systems I built</span><span class="stitle__rule"></span></h2>
     <p class="lead prose" style="margin:0 0 28px">Each system has its own breakdown: reasoning, Blueprint graphs, trade-offs and what I would do differently. Pick one to dive in.</p>
 
@@ -126,10 +120,8 @@
     </div>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Lessons learned</span></div>
-
   <!-- ===== Lessons teaser ===== -->
-  <section id="lessons" aria-labelledby="lessons-title">
+  <section id="lessons" aria-labelledby="lessons-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="lessons-title">Lessons learned</span><span class="stitle__rule"></span></h2>
     <div class="lessons">
       <a class="node reveal lesson" href="building/#post-mortem" style="--c:var(--c-edu)">
@@ -145,7 +137,7 @@
 
   <section class="contact" aria-labelledby="contact-title">
     <div>
-      <div class="eyebrow"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
       <h2 id="contact-title">Want this kind of system in your game<span class="dot">?</span></h2>
     </div>
     <div class="contact__links">
@@ -161,6 +153,6 @@
   </footer>
 </main>
 
-<script src="../js/main.js?v=4" defer></script>
+<script src="../js/main.js?v=5" defer></script>
 </body>
 </html>

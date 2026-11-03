@@ -1,0 +1,194 @@
+{
+  "_readme": "Project list, read by js/projects.js. One entry per project, sorted by date automatically (newest first). 'featured': a number puts the project on the home page, in that order. Edit freely, like a Data Table: no code needed.",
+  "categories": {
+    "professional": {
+      "label": "Professional",
+      "color": "--c-xp"
+    },
+    "student": {
+      "label": "Student projects",
+      "color": "--c-edu"
+    },
+    "personal": {
+      "label": "Personal",
+      "color": "--c-projects"
+    },
+    "jam": {
+      "label": "Game Jams",
+      "color": "--c-soft"
+    },
+    "rnd": {
+      "label": "R&D · Tools",
+      "color": "--c-tools"
+    },
+    "teaching": {
+      "label": "Teaching",
+      "color": "--c-gameplay"
+    }
+  },
+  "projects": [
+    {
+      "id": "klappen",
+      "title": "Kläppen",
+      "category": "student",
+      "date": "2025-06",
+      "period": "2025 · ~8 months",
+      "team": "Team of 3",
+      "role": "Gameplay & UI Programmer · Technical Designer",
+      "pitch": "A cozy building game: snapping, PCG resources per biome, thousands of trees without lag.",
+      "tags": [
+        "Building",
+        "PCG",
+        "HISM",
+        "UI"
+      ],
+      "status": "case-study",
+      "url": "klappen/",
+      "thumb": "assets/img/klappen/building-demo.jpg",
+      "hover": "assets/video/klappen/card-hover.mp4",
+      "featured": 1
+    },
+    {
+      "id": "flying-ai",
+      "title": "Flying AI",
+      "category": "rnd",
+      "date": "2026-03",
+      "period": "2026",
+      "team": "Solo",
+      "role": "AI Programmer · Technical Designer",
+      "pitch": "A space fighter that dodges based on its speed and its target.",
+      "tags": [
+        "AI",
+        "Tuning tools"
+      ],
+      "status": "video",
+      "url": "https://youtu.be/hd8LiWmTqG4",
+      "thumb": "https://i.ytimg.com/vi/hd8LiWmTqG4/hqdefault.jpg",
+      "featured": 2
+    },
+    {
+      "id": "vr-fabre",
+      "title": "VR Game · Musée Fabre",
+      "category": "student",
+      "date": "2025-12",
+      "period": "2025 · 10 days",
+      "team": "[Team size]",
+      "role": "Gameplay Programmer · Tools",
+      "pitch": "Integration tools for 20+ 3D Artists, played at the museum on 12 Feb 2026.",
+      "tags": [
+        "Tools",
+        "VR"
+      ],
+      "status": "soon",
+      "featured": 3
+    },
+    {
+      "id": "bp-conventions",
+      "title": "Blueprint Conventions",
+      "category": "rnd",
+      "date": "2026-01",
+      "period": "Ongoing",
+      "team": "Solo",
+      "role": "Technical Designer",
+      "pitch": "Defensive Blueprint rules in the spirit of MISRA, with before / after graphs.",
+      "tags": [
+        "Methods & Quality"
+      ],
+      "status": "soon",
+      "featured": 4
+    },
+    {
+      "id": "wolfpeak",
+      "title": "WolfPeak Studio",
+      "category": "professional",
+      "date": "2026-01",
+      "period": "2025 – now",
+      "team": "Studio · NDA",
+      "role": "Gameplay Programmer, then Technical Designer",
+      "pitch": "Enemy AI, debug tools, inventory and crafting rebuild, a no-code effect system. Described without visuals (NDA).",
+      "tags": [
+        "AI",
+        "Tools",
+        "C++"
+      ],
+      "status": "nda",
+      "url": "#experience"
+    },
+    {
+      "id": "interim-14",
+      "title": "Interim-14",
+      "category": "jam",
+      "date": "2026-02",
+      "period": "2026 · 1 week",
+      "team": "[Team size]",
+      "role": "[Role]",
+      "pitch": "A minimalist horror game made in a one-week game jam.",
+      "tags": [
+        "Horror",
+        "Game Jam"
+      ],
+      "status": "soon"
+    },
+    {
+      "id": "splashdown",
+      "title": "Splashdown",
+      "category": "student",
+      "date": "2025-01",
+      "period": "2025 · 3 months",
+      "team": "[Team size]",
+      "role": "[Role]",
+      "pitch": "A party game made at school for a city event.",
+      "tags": [
+        "Party game"
+      ],
+      "status": "soon"
+    },
+    {
+      "id": "project-defender",
+      "title": "Project Defender",
+      "category": "personal",
+      "date": "2024-06",
+      "period": "2024 · 2 months",
+      "team": "Solo",
+      "role": "Everything",
+      "pitch": "A space-combat fan game made alone in two months.",
+      "tags": [
+        "Space combat",
+        "Solo"
+      ],
+      "status": "external",
+      "url": "https://katarn34.itch.io/star-wars-project-defender"
+    },
+    {
+      "id": "abyss",
+      "title": "Project Abyss",
+      "category": "personal",
+      "date": "2026-10",
+      "period": "In progress",
+      "team": "Solo",
+      "role": "Technical Designer",
+      "pitch": "An underwater ecosystem with a tuning tool for Designers.",
+      "tags": [
+        "AI",
+        "Ecosystem",
+        "Tools"
+      ],
+      "status": "wip"
+    },
+    {
+      "id": "workshops",
+      "title": "Tiered Blueprint workshops",
+      "category": "teaching",
+      "date": "2026-01",
+      "period": "2025 – now",
+      "team": "60+ students",
+      "role": "Unreal Engine Instructor · Brassart",
+      "pitch": "Bronze / Silver / Gold Blueprint workshops, with a brief for students and a solution for instructors.",
+      "tags": [
+        "Blueprint",
+        "Teaching"
+      ],
+      "status": "soon"
+    }
+  ]
+}

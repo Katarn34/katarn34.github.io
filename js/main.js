@@ -105,3 +105,63 @@
     if (e.key === 'ArrowLeft') step(-1);
   });
 })();
+
+/* 6. Exec rail: one continuous Blueprint wire in the left margin.
+      Every section title (.stitle) or [data-stop] element gets a pin; the wire fills as you read. */
+(() => {
+  const main = document.querySelector('main.wrap');
+  if (!main) return;
+  document.documentElement.classList.add('has-rail');
+  const rail = document.createElement('div');
+  rail.className = 'rail';
+  rail.setAttribute('aria-hidden', 'true');
+  rail.innerHTML = '<i class="rail__fill"></i>';
+  main.prepend(rail);
+  let stops = [];
+
+  const layout = () => {
+    rail.querySelectorAll('.rail__stop').forEach((n) => n.remove());
+    const els = [...main.querySelectorAll('.stitle, [data-stop]')].filter((e) => e.offsetParent !== null);
+    if (els.length < 2) { rail.hidden = true; return; }
+    rail.hidden = false;
+    const mTop = main.getBoundingClientRect().top + scrollY;
+    const rLeft = rail.getBoundingClientRect().left;
+    stops = els.map((el) => {
+      const r = el.getBoundingClientRect();
+      const anchor = el.querySelector('.stitle__tag, .node__head') || el;
+      const ar = anchor.getBoundingClientRect();
+      const y = ar.top + scrollY - mTop + Math.min(ar.height, 44) / 2;
+      const c = getComputedStyle(anchor).getPropertyValue('--c').trim() || getComputedStyle(el).getPropertyValue('--c').trim();
+      const s = document.createElement('span');
+      s.className = 'rail__stop';
+      s.style.top = `${y}px`;
+      if (c) s.style.setProperty('--c', c);
+      s.style.setProperty('--w', `${Math.max(0, r.left - rLeft - 6)}px`);
+      rail.append(s);
+      return { y, s };
+    });
+    const first = stops[0].y, last = stops[stops.length - 1].y;
+    rail.style.setProperty('--top', `${first}px`);
+    rail.style.setProperty('--len', `${last - first}px`);
+    update();
+  };
+
+  const update = () => {
+    if (!stops.length) return;
+    const mTop = main.getBoundingClientRect().top + scrollY;
+    const reading = scrollY + innerHeight * 0.55 - mTop;
+    const first = stops[0].y, last = stops[stops.length - 1].y;
+    const fill = Math.max(0, Math.min(reading, last) - first);
+    rail.style.setProperty('--fill', `${fill}px`);
+    stops.forEach(({ y, s }) => s.classList.toggle('is-on', y <= reading));
+  };
+
+  let raf = 0;
+  addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+  addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); });
+  addEventListener('load', layout);
+  document.addEventListener('layout:changed', () => requestAnimationFrame(layout));
+  document.querySelectorAll('details').forEach((d) => d.addEventListener('toggle', () => requestAnimationFrame(layout)));
+  if ('ResizeObserver' in window) new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }).observe(main);
+  layout();
+})();

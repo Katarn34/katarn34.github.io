@@ -1,0 +1,97 @@
+/* Projects: reads data/projects.json and renders cards.
+   <div data-projects="featured" data-base=""></div>      → featured cards (home)
+   <div data-projects="all" data-base="../"></div>        → filters + year timeline (projects page) */
+(() => {
+  'use strict';
+  const hosts = document.querySelectorAll('[data-projects]');
+  if (!hosts.length) return;
+
+  const CTA = {
+    'case-study': 'Read case study ▷',
+    video: 'Watch the video ↗',
+    external: 'Play on itch.io ↗',
+    nda: 'Under NDA · see Experience ▷',
+    soon: 'Case study coming soon',
+    wip: 'In progress'
+  };
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const abs = (u, base) => (!u || /^(https?:|#|mailto:)/.test(u) ? u : base + u);
+
+  function card(p, cats, base) {
+    const cat = cats[p.category] || { label: p.category, color: '--c-projects' };
+    const linked = p.url && !['soon', 'wip'].includes(p.status);
+    const tag = linked ? 'a' : 'div';
+    const href = linked ? ` href="${esc(abs(p.url, base))}"` : '';
+    const ext = linked && /^https?:/.test(p.url) ? ' target="_blank" rel="noopener"' : '';
+    const media = p.thumb
+      ? `<img src="${esc(abs(p.thumb, base))}" alt="" loading="lazy">${p.hover ? `<video muted loop playsinline preload="none" src="${esc(abs(p.hover, base))}"></video>` : ''}`
+      : `<span class="card__ph card__ph--${esc(p.status)}">${p.status === 'nda' ? 'NDA · no visuals' : esc(cat.label)}</span>`;
+    return `<${tag} class="node card reveal${linked ? '' : ' card--soon'}" style="--c:var(${cat.color})"${href}${ext}>
+      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(p.title)}<span class="meta">${esc(p.period)}</span></div>
+      <div class="card__media">${media}</div>
+      <div class="card__body">
+        <div class="card__cat"><span class="chip" style="--c:var(${cat.color})">${esc(cat.label)}</span><span class="card__team">${esc(p.team)}</span></div>
+        <p class="card__pitch">${esc(p.pitch)}</p>
+        <p class="card__role">${esc(p.role)}</p>
+        <span class="card__cta">${CTA[p.status] || ''}</span>
+      </div>
+    </${tag}>`;
+  }
+
+  function wireHover(root) {
+    root.querySelectorAll('.card').forEach((c) => {
+      const v = c.querySelector('video');
+      if (!v) return;
+      const play = () => v.play().then(() => v.classList.add('is-ready')).catch(() => {});
+      c.addEventListener('mouseenter', play); c.addEventListener('focus', play);
+      c.addEventListener('mouseleave', () => v.pause()); c.addEventListener('blur', () => v.pause());
+    });
+    root.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-live'));
+  }
+
+  hosts.forEach(async (host) => {
+    const base = host.dataset.base || '';
+    let data;
+    try { data = await (await fetch(base + 'data/projects.json')).json(); } catch { return; }
+    const cats = data.categories;
+    const list = [...data.projects].sort((a, b) => b.date.localeCompare(a.date));
+
+    if (host.dataset.projects === 'featured') {
+      host.innerHTML = `<div class="cards">${list.filter((p) => p.featured).sort((a, b) => a.featured - b.featured).map((p) => card(p, cats, base)).join('')}</div>`;
+      const n = document.querySelector('[data-projects-count]');
+      if (n) n.textContent = list.length;
+      wireHover(host);
+      return;
+    }
+
+    /* All projects: filters + grouped by year */
+    const counts = list.reduce((m, p) => ((m[p.category] = (m[p.category] || 0) + 1), m), {});
+    const keys = Object.keys(cats).filter((k) => counts[k]);
+    host.innerHTML = `
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" class="filter" aria-pressed="true" data-f="all">All <span>${list.length}</span></button>
+        ${keys.map((k) => `<button type="button" class="filter" aria-pressed="false" data-f="${k}" style="--c:var(${cats[k].color})">${esc(cats[k].label)} <span>${counts[k]}</span></button>`).join('')}
+      </div>
+      <div class="timeline" aria-live="polite"></div>`;
+    const tl = host.querySelector('.timeline');
+    const render = (f) => {
+      const items = list.filter((p) => f === 'all' || p.category === f);
+      const years = [...new Set(items.map((p) => p.date.slice(0, 4)))];
+      tl.innerHTML = years.map((y) => `
+        <section class="year" aria-label="${y}">
+          <h2 class="year__label stitle" style="--c:var(--ac)"><span class="stitle__tag">${y}</span><span class="stitle__rule"></span></h2>
+          <div class="cards">${items.filter((p) => p.date.startsWith(y)).map((p) => card(p, cats, base)).join('')}</div>
+        </section>`).join('');
+      wireHover(tl);
+      document.dispatchEvent(new CustomEvent('layout:changed'));
+    };
+    host.querySelectorAll('.filter').forEach((b) => b.addEventListener('click', () => {
+      host.querySelectorAll('.filter').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      render(b.dataset.f);
+      try { history.replaceState(null, '', b.dataset.f === 'all' ? location.pathname : `#${b.dataset.f}`); } catch {}
+    }));
+    const start = location.hash.slice(1);
+    const btn = host.querySelector(`.filter[data-f="${CSS.escape(start)}"]`);
+    if (btn) btn.click(); else render('all');
+  });
+})();

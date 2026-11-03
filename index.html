@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -22,10 +22,11 @@
     <a class="nav__logo" href="#top" aria-label="Esteban Lafargue, home">EL<span>.</span></a>
     <nav class="nav__links" aria-label="Main">
       <a href="#work">Work</a>
+      <a href="projects/">All projects</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <a class="btn btn--primary" href="assets/Esteban_Lafargue_CV.pdf">CV · PDF ↓</a>
+      <a class="btn btn--primary" href="assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf">CV · PDF ↓</a>
     </nav>
   </div>
 </header>
@@ -35,13 +36,13 @@
   <!-- ===== Event BeginPlay ===== -->
   <section class="hero">
     <div class="hero__text">
-      <div class="eyebrow"><span class="exec" aria-hidden="true"></span>Event BeginPlay · Montpellier, France</div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event BeginPlay · Montpellier, France</div>
       <h1>Esteban<br>Lafargue<span class="dot">.</span></h1>
       <div class="hero__role">Technical Designer <span>/</span> Unreal Engine 5</div>
       <div class="hero__sub">Gameplay &amp; AI Systems · Tools for Designers · <a href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR">Unreal Authorized Instructor ↗</a></div>
       <p class="hero__quote">“Designers shouldn’t have to wait for code to iterate.”</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#work">See the case studies →</a>
+        <a class="btn btn--primary" href="#work">See my work →</a>
         <a class="btn btn--ghost" href="#contact">Contact</a>
         <span class="status">Open to work · on site or remote</span>
       </div>
@@ -66,74 +67,23 @@
     </aside>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M760 0 C760 70 500 40 500 110"/><path class="wire__live" pathLength="1" d="M760 0 C760 70 500 40 500 110"/></svg>
-
   <!-- ===== Showreel ===== -->
-  <section class="node reveal" style="--c:var(--c-projects)" aria-labelledby="reel-title">
+  <section class="node reveal" data-stop style="--c:var(--c-projects);margin-top:72px" aria-labelledby="reel-title">
     <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="reel-title">Play Showreel</span><span class="meta">60–90 s</span></div>
     <div class="yt" data-yt="uDd7VYA2TL0" data-title="Showreel — Esteban Lafargue">
       <button class="yt__btn" type="button"><span class="yt__play" aria-hidden="true"></span><span class="yt__label">Play showreel</span></button>
     </div>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M500 0 C500 70 240 40 240 110"/><path class="wire__live" pathLength="1" d="M500 0 C500 70 240 40 240 110"/></svg>
-
   <!-- ===== Case studies ===== -->
-  <section id="work" aria-labelledby="work-title">
-    <h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="work-title">Case Studies</span><span class="stitle__rule"></span></h2>
-    <div class="cards">
-
-      <a class="node card reveal" href="klappen/">
-        <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>Kläppen<span class="meta">2025 · team of 3</span></div>
-        <div class="card__media">
-          <img src="assets/img/klappen/building-demo.jpg" alt="" loading="lazy">
-          <video muted loop playsinline preload="none" src="assets/video/klappen/card-hover.mp4"></video>
-        </div>
-        <div class="card__body">
-          <p class="card__pitch" style="margin:0">A cozy building game: snapping, PCG resources per biome, thousands of trees without lag.</p>
-          <div class="card__tags"><span class="chip" style="--c:var(--c-gameplay)">Building</span><span class="chip" style="--c:var(--c-edu)">PCG</span><span class="chip" style="--c:var(--c-passions)">HISM</span></div>
-          <span class="card__cta">Read case study ▷</span>
-        </div>
-      </a>
-
-      <a class="node card reveal" href="https://youtu.be/hd8LiWmTqG4">
-        <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>Flying AI<span class="meta">2026 · solo</span></div>
-        <div class="card__media">
-          <img src="https://i.ytimg.com/vi/hd8LiWmTqG4/hqdefault.jpg" alt="" loading="lazy">
-        </div>
-        <div class="card__body">
-          <p class="card__pitch" style="margin:0">A space fighter that dodges based on its speed and its target.</p>
-          <div class="card__tags"><span class="chip" style="--c:var(--c-xp)">AI</span><span class="chip" style="--c:var(--c-tools)">Tuning tools</span></div>
-          <span class="card__cta">Watch the video ↗ · case study soon</span>
-        </div>
-      </a>
-
-      <div class="node card card--soon reveal" aria-disabled="true">
-        <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>VR Game · Musée Fabre<span class="meta">2025 · 10 days</span></div>
-        <div class="card__media"><span class="card__ph">[Capture]</span></div>
-        <div class="card__body">
-          <p class="card__pitch" style="margin:0">Integration tools for 20+ 3D Artists, played at the museum on 12 Feb 2026.</p>
-          <div class="card__tags"><span class="chip" style="--c:var(--c-tools)">Tools</span><span class="chip" style="--c:var(--c-soft)">VR</span></div>
-          <span class="card__cta">Case study coming soon</span>
-        </div>
-      </div>
-
-      <div class="node card card--soon reveal" aria-disabled="true">
-        <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>Blueprint Conventions<span class="meta">rulebook</span></div>
-        <div class="card__media"><span class="card__ph">[Before / after]</span></div>
-        <div class="card__body">
-          <p class="card__pitch" style="margin:0">Defensive Blueprint rules in the spirit of MISRA, with before / after graphs.</p>
-          <div class="card__tags"><span class="chip" style="--c:var(--c-passions)">Methods &amp; Quality</span></div>
-          <span class="card__cta">Case study coming soon</span>
-        </div>
-      </div>
-    </div>
+  <section id="work" aria-labelledby="work-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="work-title">Featured Work</span><span class="stitle__rule"></span></h2>
+    <div data-projects="featured" data-base=""><noscript><p><a href="projects/">See all projects</a></p></noscript></div>
+    <p class="more"><a class="btn btn--ghost" href="projects/">See all projects (<span data-projects-count>10</span>) · by type and date ▷</a></p>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M240 0 C240 70 500 40 500 110"/><path class="wire__live" pathLength="1" d="M240 0 C240 70 500 40 500 110"/></svg>
-
   <!-- ===== Skills ===== -->
-  <section id="skills" aria-labelledby="skills-title">
+  <section id="skills" aria-labelledby="skills-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="skills-title">UE5 Expertise</span><span class="stitle__rule"></span></h2>
     <div class="skills">
       <div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Gameplay</div><div class="node__body">Gameplay Framework · advanced Blueprints · Interfaces · Dispatchers · Gameplay Tags · UMG · CommonUI · Anim Notifies</div></div>
@@ -143,10 +93,8 @@
     </div>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M500 0 C500 70 760 40 760 110"/><path class="wire__live" pathLength="1" d="M500 0 C500 70 760 40 760 110"/></svg>
-
   <!-- ===== Experience ===== -->
-  <section id="experience" class="node reveal" style="--c:var(--c-xp)" aria-labelledby="xp-title">
+  <section id="experience" class="node reveal" data-stop style="--c:var(--c-xp);margin-top:96px" aria-labelledby="xp-title">
     <div class="node__head"><span class="node__icon" aria-hidden="true">⇉</span><h2 id="xp-title" style="margin:0;font-size:inherit">Sequence · Experience</h2></div>
     <div class="seq">
       <div class="seq__row"><span class="seq__pin"><span class="exec"></span>Then 0</span><div class="seq__main"><b>Unreal Engine Instructor</b> — <span class="org">Brassart Montpellier</span><p>Lead technical teacher in Game Design, 60+ students · graduation-project technical follow-up · tiered Blueprint workshops, VR workshops, production standards.</p></div><span class="seq__date">Dec 2025 – now</span></div>
@@ -160,7 +108,7 @@
   <!-- ===== Event OnContact ===== -->
   <section id="contact" class="contact" aria-labelledby="contact-title">
     <div>
-      <div class="eyebrow"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
       <h2 id="contact-title">Let’s build tools your Designers love<span class="dot">.</span></h2>
     </div>
     <div class="contact__links">
@@ -177,6 +125,7 @@
   </footer>
 </main>
 
-<script src="js/main.js?v=4" defer></script>
+<script src="js/projects.js?v=5" defer></script>
+<script src="js/main.js?v=5" defer></script>
 </body>
 </html>

@@ -213,3 +213,40 @@ a:hover { color: var(--ac); }
   .wire { height: 72px; }
   .nav__links a:not(.btn) { padding: 10px 8px; }
 }
+
+/* ---------- Exec rail (connector B) ---------- */
+main.wrap { position: relative; }
+.has-rail main.wrap { padding-left: 76px; }
+.rail { position: absolute; left: 30px; top: 0; bottom: 0; width: 2px; pointer-events: none; z-index: 1; }
+.rail::before, .rail__fill { content: ""; position: absolute; left: 0; top: var(--top, 0); width: 2px; border-radius: 2px; }
+.rail::before { height: var(--len, 0); background: #ffffff1a; }
+.rail__fill { height: var(--fill, 0); background: var(--ac); box-shadow: 0 0 10px var(--ac); transition: height .12s linear; }
+.rail__stop { --c: var(--ac); position: absolute; left: -7px; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; border: 2px solid var(--c); background: var(--bg); transition: background .3s, box-shadow .3s; }
+.rail__stop::after { content: ""; position: absolute; left: 14px; top: 5px; width: var(--w, 30px); height: 2px; background: color-mix(in srgb, var(--c) 35%, transparent); transition: background .3s; }
+.rail__stop.is-on { background: var(--c); box-shadow: 0 0 12px var(--c); }
+.rail__stop.is-on::after { background: color-mix(in srgb, var(--c) 75%, transparent); }
+@media (max-width: 640px) {
+  .has-rail main.wrap { padding-left: 44px; }
+  .rail { left: 16px; }
+  .rail__stop { width: 14px; height: 14px; margin-top: -7px; left: -6px; }
+  .rail__stop::after { left: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .rail__fill { transition: none; } }
+
+/* ---------- Project cards (data-driven) ---------- */
+.card__cat { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.card__team { font: 12px var(--mono); color: var(--text-faint); }
+.card__pitch { margin: 0; }
+.card__role { margin: 0; font-size: 13px; color: var(--text-muted); }
+.card__ph { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--c) 7%, transparent) 0 14px, transparent 14px 28px); }
+.card--soon { opacity: .72; }
+.more { margin: 28px 0 0; }
+
+/* ---------- Projects page ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; position: sticky; top: 69px; z-index: 5; padding: 12px 0; background: #050505f2; backdrop-filter: blur(10px); border-bottom: 1px solid #ffffff0d; }
+.filter { --c: var(--ac); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border-radius: 22px; border: 1px solid var(--line); background: var(--node); color: var(--text-muted); font: 500 13px var(--font); cursor: pointer; transition: border-color .2s, color .2s, background .2s; }
+.filter span { font: 12px var(--mono); color: var(--text-faint); }
+.filter:hover { color: var(--text-strong); border-color: color-mix(in srgb, var(--c) 60%, var(--line)); }
+.filter[aria-pressed="true"] { color: var(--text-strong); border-color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--node)); }
+.year { margin-top: 56px; }
+.year__label .stitle__tag { font-family: var(--mono); letter-spacing: .08em; }

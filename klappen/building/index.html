@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../../css/style.css?v=4">
-  <link rel="stylesheet" href="../../css/case.css?v=4">
+  <link rel="stylesheet" href="../../css/style.css?v=5">
+  <link rel="stylesheet" href="../../css/case.css?v=5">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -22,7 +22,7 @@
       <a href="#steps">Steps</a>
       <a href="#post-mortem">Post-mortem</a>
       <a href="../">Kläppen</a>
-      <a class="btn btn--primary" href="../../assets/Esteban_Lafargue_CV.pdf">CV · PDF ↓</a>
+      <a class="btn btn--primary" href="../../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf">CV · PDF ↓</a>
     </nav>
   </div>
 </header>
@@ -30,8 +30,8 @@
 <main class="wrap">
 
   <section class="case-hero">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="../../#work">Case studies</a><span aria-hidden="true">▸</span><a href="../">Kläppen</a><span aria-hidden="true">▸</span><span aria-current="page">Building System</span></nav>
-    <div class="eyebrow" style="margin-top:18px"><span class="exec" aria-hidden="true"></span>Kläppen · System 01</div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../../projects/">Projects</a><span aria-hidden="true">▸</span><a href="../">Kläppen</a><span aria-hidden="true">▸</span><span aria-current="page">Building System</span></nav>
+    <div class="eyebrow" data-stop style="margin-top:18px;--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Kläppen · System 01</div>
     <h1>Building System<span class="dot">.</span></h1>
     <p class="case-hero__pitch">From picking a piece in the inventory to removing it with a refund, in eight steps: how I kept building fast and readable for players, and editable for Designers.</p>
     <dl class="facts">
@@ -42,9 +42,7 @@
     </dl>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · The 8 steps</span></div>
-
-  <section id="steps" aria-labelledby="steps-title">
+  <section id="steps" aria-labelledby="steps-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="steps-title">The 8 steps</span><span class="stitle__rule"></span></h2>
     <ol class="pipeline" aria-label="Building system steps">
       <li><a href="#step-1"><span class="n">01</span>Spawning from inventory</a></li>
@@ -333,10 +331,8 @@
     </div>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Post-mortem</span></div>
-
   <!-- ===== Post-mortem ===== -->
-  <section id="post-mortem" class="step" aria-labelledby="pm-title">
+  <section id="post-mortem" class="step" aria-labelledby="pm-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="pm-title">Post-mortem</span><span class="stitle__rule"></span></h2>
     <p class="lead prose" style="margin:0 0 28px">What we believed, what playtests and hindsight showed, and what I would do now.</p>
     <div class="pm">
@@ -371,9 +367,7 @@
     </div>
   </section>
 
-  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Other systems in Kläppen</span></div>
-
-  <section aria-labelledby="other-title">
+  <section aria-labelledby="other-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="other-title">Other systems in Kläppen</span><span class="stitle__rule"></span></h2>
     <div class="sys__grid">
         <div class="sys sys--soon node" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>PCG per biome<span class="meta">soon</span></div><div class="node__body">Procedural resources placed per biome.</div></div>
@@ -387,7 +381,7 @@
 
   <section class="contact" aria-labelledby="contact-title">
     <div>
-      <div class="eyebrow"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
       <h2 id="contact-title">Want this kind of system in your game<span class="dot">?</span></h2>
     </div>
     <div class="contact__links">
@@ -415,6 +409,6 @@
   </div>
 </dialog>
 
-<script src="../../js/main.js?v=4" defer></script>
+<script src="../../js/main.js?v=5" defer></script>
 </body>
 </html>
