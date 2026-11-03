@@ -52,14 +52,16 @@
       "id": "flying-ai",
       "title": "Flying AI",
       "category": "rnd",
-      "date": "2026-03",
-      "period": "2026",
+      "date": "2026-05",
+      "period": "2026 · < 1 month",
       "team": "Solo",
-      "role": "AI Programmer · Technical Designer",
-      "pitch": "A space fighter that dodges based on its speed and its target.",
+      "role": "AI Programmer · Technical Designer · Instructor",
+      "pitch": "A 3D flying AI in Blueprint only that dodges obstacles in real time, built as a modular starter AI and as the tutorial behind my Unreal Authorized Instructor certification.",
       "tags": [
         "AI",
-        "Tuning tools"
+        "EQS",
+        "Tutorial",
+        "Tuning"
       ],
       "status": "video",
       "url": "https://youtu.be/hd8LiWmTqG4",
@@ -105,7 +107,7 @@
       "period": "2025 – now",
       "team": "Studio · NDA",
       "role": "Gameplay Programmer, then Technical Designer",
-      "pitch": "Enemy AI, debug tools, inventory and crafting rebuild, a no-code effect system. Described without visuals (NDA).",
+      "pitch": "Enemy AI and visual debug tools as an intern, then an inventory, crafting and UI rebuild and a no-code effect system as Technical Designer. Systems described in general terms; no visuals under NDA.",
       "tags": [
         "AI",
         "Tools",
