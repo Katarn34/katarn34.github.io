@@ -165,3 +165,31 @@
   if ('ResizeObserver' in window) new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(layout); }).observe(main);
   layout();
 })();
+
+/* 7. Contact form (Web3Forms): send in place, without leaving the page */
+(() => {
+  const form = document.querySelector('form[data-web3forms]');
+  if (!form) return;
+  const status = form.querySelector('.form__status');
+  const btn = form.querySelector('.form__send');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.access_key.value === 'WEB3FORMS_ACCESS_KEY') {
+      status.className = 'form__status is-err';
+      status.textContent = 'The form is not connected yet. Please use the email link for now.';
+      return;
+    }
+    btn.disabled = true; status.className = 'form__status'; status.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.message);
+      form.reset();
+      status.className = 'form__status is-ok';
+      status.textContent = 'Message sent. Thank you, I’ll get back to you soon.';
+    } catch {
+      status.className = 'form__status is-err';
+      status.textContent = 'Something went wrong. Please write to estebanlafargue34@gmail.com.';
+    } finally { btn.disabled = false; }
+  });
+})();
