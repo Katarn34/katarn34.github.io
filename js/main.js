@@ -38,7 +38,7 @@
   });
 
   /* 3. Case-study cards: play the hover clip if one is provided */
-  document.querySelectorAll('.card').forEach((card) => {
+  document.querySelectorAll('.card, .sys--main').forEach((card) => {
     const v = card.querySelector('video');
     if (!v) return;
     const play = () => { v.play().then(() => v.classList.add('is-ready')).catch(() => {}); };

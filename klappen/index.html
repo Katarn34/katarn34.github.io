@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kläppen — Building System · Esteban Lafargue</title>
-  <meta name="description" content="Kläppen, a cozy building game made in Unreal Engine 5: building system case study — snapping, grid fallback, placement pipeline, HISM conversion, destruction.">
+  <title>Kläppen — Case study · Esteban Lafargue</title>
+  <meta name="description" content="Kläppen, a cozy building game made in Unreal Engine 5 by a team of 3: project overview, my role, and the systems I built.">
   <meta name="theme-color" content="#050505">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=3">
-  <link rel="stylesheet" href="../css/case.css?v=3">
+  <link rel="stylesheet" href="../css/style.css?v=4">
+  <link rel="stylesheet" href="../css/case.css?v=4">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -20,7 +20,8 @@
     <a class="nav__logo" href="../" aria-label="Esteban Lafargue, home">EL<span>.</span></a>
     <nav class="nav__links" aria-label="Case study">
       <a href="#role">Role</a>
-      <a href="#building">Building System</a>
+      <a href="#systems">Systems</a>
+      <a href="#lessons">Lessons</a>
       <a href="../#contact">Contact</a>
       <a class="btn btn--primary" href="../assets/Esteban_Lafargue_CV.pdf">CV · PDF ↓</a>
     </nav>
@@ -36,8 +37,8 @@
     <h1>Kläppen<span class="dot">.</span></h1>
     <p class="case-hero__pitch">A cozy, wholesome building game with sandbox elements. The player is a forest spirit, building cabins to shelter animals while respecting each one’s unique needs.</p>
     <div class="case-hero__row">
-      <a class="btn btn--primary" href="https://katarn34.itch.io/klappen">Play on itch.io ↗</a>
-      <a class="btn btn--ghost" href="#building">Jump to the building system ↓</a>
+      <a class="btn btn--primary" href="#systems">Explore the systems ↓</a>
+      <a class="btn btn--ghost" href="https://katarn34.itch.io/klappen">Play on itch.io ↗</a>
     </div>
     <dl class="facts">
       <div><dt>Year</dt><dd>2025</dd></div>
@@ -48,19 +49,18 @@
     </dl>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M240 0 C240 70 500 40 500 110"/><path class="wire__live" pathLength="1" d="M240 0 C240 70 500 40 500 110"/></svg>
+  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Gameplay</span></div>
 
-  <!-- ===== Trailer ===== -->
+  <!-- ===== Gameplay ===== -->
   <section class="node reveal" style="--c:var(--c-gameplay)" aria-labelledby="trailer-title">
-    <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="trailer-title">Building system · full demo</span><span class="meta">38 s</span></div>
+    <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="trailer-title">Gameplay · building a cabin</span><span class="meta">38 s</span></div>
     <video class="demo" controls preload="metadata" playsinline poster="../assets/img/klappen/building-demo.jpg">
       <source src="../assets/video/klappen/building-demo.mp4" type="video/mp4">
     </video>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M500 0 C500 70 760 40 760 110"/><path class="wire__live" pathLength="1" d="M500 0 C500 70 760 40 760 110"/></svg>
+  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · My Role</span></div>
 
-  <!-- ===== Role ===== -->
   <section id="role" aria-labelledby="role-title">
     <h2 class="stitle" style="--c:var(--c-profile)"><span class="stitle__tag" id="role-title">My Role</span><span class="stitle__rule"></span></h2>
     <div class="card__tags" style="margin-bottom:24px">
@@ -94,310 +94,52 @@
     </ul>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M760 0 C760 70 500 40 500 110"/><path class="wire__live" pathLength="1" d="M760 0 C760 70 500 40 500 110"/></svg>
+  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Systems I built</span></div>
 
-  <!-- ===== Building system ===== -->
-  <section id="building" aria-labelledby="building-title">
-    <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="building-title">Building System</span><span class="stitle__rule"></span></h2>
-    <p class="lead prose" style="margin:0 0 28px">From picking a piece in the inventory to removing it with a refund, in eight steps — including the optimisation that keeps a whole village on screen without lag.</p>
+  <!-- ===== Systems ===== -->
+  <section id="systems" aria-labelledby="systems-title">
+    <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="systems-title">Systems I built</span><span class="stitle__rule"></span></h2>
+    <p class="lead prose" style="margin:0 0 28px">Each system has its own breakdown: reasoning, Blueprint graphs, trade-offs and what I would do differently. Pick one to dive in.</p>
 
-    <ol class="pipeline" aria-label="Building system steps">
-      <li><a href="#step-1"><span class="n">01</span>Spawning from inventory</a></li>
-      <li><a href="#step-2"><span class="n">02</span>Line trace &amp; snapping</a></li>
-      <li><a href="#step-3"><span class="n">03</span>Grid fallback</a></li>
-      <li><a href="#step-4"><span class="n">04</span>90° rotation</a></li>
-      <li><a href="#step-5"><span class="n">05</span>Placement pipeline</a></li>
-      <li><a href="#step-6"><span class="n">06</span>HISM conversion</a></li>
-      <li><a href="#step-7"><span class="n">07</span>Re-conversion, no popping</a></li>
-      <li><a href="#step-8"><span class="n">08</span>Destruction &amp; refund</a></li>
-    </ol>
+    <a class="sys sys--main node reveal" href="building/" style="--c:var(--c-gameplay)">
+      <div class="sys__media"><img src="../assets/img/klappen/building-demo.jpg" alt="" loading="lazy"><video muted loop playsinline preload="none" src="../assets/video/klappen/card-hover.mp4"></video></div>
+      <div class="sys__body">
+        <div class="eyebrow"><span class="exec" aria-hidden="true"></span>System 01 · 8 steps · post-mortem</div>
+        <h3>Building System</h3>
+        <p>From picking a piece in the inventory to removing it with a refund: snapping, a math grid fallback, a two-stage placement pipeline, and an HISM conversion that keeps large villages cheap.</p>
+        <ul class="sys__points">
+          <li><span class="pin is-live" style="--c:var(--c-gameplay)"></span>19 pieces, editable by Designers in a Data Table</li>
+          <li><span class="pin is-live" style="--c:var(--c-tools)"></span>Snapping points + virtual math grid</li>
+          <li><span class="pin is-live" style="--c:var(--c-passions)"></span>Actors → HISM beyond 2,000 units</li>
+          <li><span class="pin is-live" style="--c:var(--c-edu)"></span>20+ Blueprint graphs, profiled in Unreal Insights</li>
+        </ul>
+        <span class="btn btn--primary sys__cta">Open the breakdown ▷</span>
+      </div>
+    </a>
 
-    <div style="display:flex;flex-direction:column;gap:28px;margin-top:40px">
-
-      <article class="node step reveal" id="step-1" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">01</span>Spawning from inventory<span class="meta">Data Table → Preview Actor</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>One table drives every buildable piece</h3>
-            <p>To spawn the desired structure, I implemented a <mark class="hl">Data Table–driven system</mark> that enables <mark class="hl">Designers</mark> to easily associate meshes and construction <mark class="hl">data</mark>. Based on the enumeration selected in the <mark class="hl">construction inventory</mark>, the system queries the Data Table to retrieve the relevant assets and parameters, which are then assigned to the corresponding <mark class="hl">preview actor</mark> used during the placement phase.</p>
-            <div class="why"><b>Designer autonomy</b><mark class="hl">19 buildable pieces</mark>, all defined in the Data Table. My teammates edited it themselves: Roni in particular iterated on the construction pieces and tested them in gameplay straight away, without waiting for me.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-01.jpg" aria-label="Picking a piece in the construction inventory spawns its preview"><source src="../assets/video/klappen/step-01.mp4" type="video/mp4"></video></div><span class="caption">Picking a piece in the construction inventory spawns its preview</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">4 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-1.jpg" data-caption="Get the building structure from the Data Table: E Placeable → row name → S Placeable" aria-label="Enlarge graph 1: Get the building structure from the Data Table: E Placeable → row name → S Placeable"><img src="../assets/img/klappen/bp/step-01-1.jpg" alt="" width="948" height="339" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Get the building structure from the Data Table: E Placeable → row name → S Placeable</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-2.jpg" data-caption="DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh" aria-label="Enlarge graph 2: DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh"><img src="../assets/img/klappen/bp/step-01-2.jpg" alt="" width="1913" height="799" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>DT_Placeable: the 19 buildable pieces, each a Blueprint class and a mesh</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-3.jpg" data-caption="Spawning the preview actor of the structure" aria-label="Enlarge graph 3: Spawning the preview actor of the structure"><img src="../assets/img/klappen/bp/step-01-3.jpg" alt="" width="879" height="354" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Spawning the preview actor of the structure</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-01-4.jpg" data-caption="Preview set-up: decal, no snapping boxes, resource cost, no collision" aria-label="Enlarge graph 4: Preview set-up: decal, no snapping boxes, resource cost, no collision"><img src="../assets/img/klappen/bp/step-01-4.jpg" alt="" width="1077" height="597" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">04</span>Preview set-up: decal, no snapping boxes, resource cost, no collision</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-2" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">02</span>Line trace &amp; snapping<span class="meta">Validation</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>Freedom without friction</h3>
-            <p>The placement system was the most <mark class="hl">technically demanding</mark> part of the project, requiring <mark class="hl">extensive iteration</mark> based on playtesting and game feel feedback. The main challenge was to preserve <mark class="hl">player freedom</mark> while enabling fast, <mark class="hl">fluid construction chaining</mark>.</p>
-            <p>The system relies on a <mark class="hl">continuous Line Trace</mark> to determine the target placement location in world space. When no valid hit is detected, the preview actor provides <mark class="hl">immediate visual feedback</mark> by switching to an invalid (red) material.</p>
-            <p>When a valid hit is found, the system first checks for <mark class="hl">snapping points</mark> based on nearby compatible construction actors using <mark class="hl">BoxCollisions and trace results</mark>. If a snapping point is detected, its transform data is extracted and applied directly to the <mark class="hl">preview actor</mark>.</p>
-            <div class="why"><b>Iteration</b>The first version was too free, so a default grid became necessary. Players then wanted to build in the context of an existing structure, which led to the snapping points. A few pieces still don’t always align the way players expect, but playtesters were satisfied overall, and we learned a lot.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-02.jpg" aria-label="Snapping onto nearby structures"><source src="../assets/video/klappen/step-02.mp4" type="video/mp4"></video></div><span class="caption">Snapping onto nearby structures</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">5 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-1.jpg" data-caption="Raycast from the camera to find where the structure will appear" aria-label="Enlarge graph 1: Raycast from the camera to find where the structure will appear"><img src="../assets/img/klappen/bp/step-02-1.jpg" alt="" width="1038" height="456" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Raycast from the camera to find where the structure will appear</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-2.jpg" data-caption="No hit: update the preview location and switch it to red" aria-label="Enlarge graph 2: No hit: update the preview location and switch it to red"><img src="../assets/img/klappen/bp/step-02-2.jpg" alt="" width="1065" height="279" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>No hit: update the preview location and switch it to red</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-3.jpg" data-caption="Hit: compare classes, then cast the hit component to a BoxComponent" aria-label="Enlarge graph 3: Hit: compare classes, then cast the hit component to a BoxComponent"><img src="../assets/img/klappen/bp/step-02-3.jpg" alt="" width="1149" height="362" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Hit: compare classes, then cast the hit component to a BoxComponent</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-4.jpg" data-caption="The snapping boxes placed around each piece" aria-label="Enlarge graph 4: The snapping boxes placed around each piece"><img src="../assets/img/klappen/bp/step-02-4.jpg" alt="" width="1373" height="678" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">04</span>The snapping boxes placed around each piece</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-02-5.jpg" data-caption="Get the snap location from the BoxComponent that was hit" aria-label="Enlarge graph 5: Get the snap location from the BoxComponent that was hit"><img src="../assets/img/klappen/bp/step-02-5.jpg" alt="" width="1033" height="309" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">05</span>Get the snap location from the BoxComponent that was hit</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-3" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">03</span>Grid fallback<span class="meta">Virtual grid</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>When there is nothing to snap to</h3>
-            <p>If no snapping point is found, a <mark class="hl">mathematically generated virtual snapping grid</mark> is used to calculate the placement transform in world space.</p>
-            <p>The resulting transform is applied via <code>SetActorTransform</code>, and the <mark class="hl">preview material</mark> is updated to a valid (green) state, indicating that the structure can be placed. This approach allows for <mark class="hl">precise placement</mark>, intuitive snapping and responsive feedback while remaining fully <mark class="hl">data-driven and scalable</mark>.</p>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-03.jpg" aria-label="Line trace feedback (red / green) and the virtual grid"><source src="../assets/video/klappen/step-03.mp4" type="video/mp4"></video></div><span class="caption">Line trace feedback (red / green) and the virtual grid</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">4 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-1.jpg" data-caption="Math function snapping: rounds the trace location to the virtual grid on X, Y and Z" aria-label="Enlarge graph 1: Math function snapping: rounds the trace location to the virtual grid on X, Y and Z"><img src="../assets/img/klappen/bp/step-03-1.jpg" alt="" width="908" height="625" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Math function snapping: rounds the trace location to the virtual grid on X, Y and Z</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-2.jpg" data-caption="Applying the transform with Set Actor Transform (grid or snap)" aria-label="Enlarge graph 2: Applying the transform with Set Actor Transform (grid or snap)"><img src="../assets/img/klappen/bp/step-03-2.jpg" alt="" width="1046" height="592" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>Applying the transform with Set Actor Transform (grid or snap)</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-3.jpg" data-caption="Hit: update the preview location, then green or red depending on Can Build Here" aria-label="Enlarge graph 3: Hit: update the preview location, then green or red depending on Can Build Here"><img src="../assets/img/klappen/bp/step-03-3.jpg" alt="" width="1093" height="516" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Hit: update the preview location, then green or red depending on Can Build Here</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-03-4.jpg" data-caption="Visual feedback: green overlay material and valid placement flag" aria-label="Enlarge graph 4: Visual feedback: green overlay material and valid placement flag"><img src="../assets/img/klappen/bp/step-03-4.jpg" alt="" width="1126" height="448" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">04</span>Visual feedback: green overlay material and valid placement flag</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-4" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">04</span>90° rotation<span class="meta">Playtest-driven</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>Less freedom, more fun</h3>
-            <p>The rotation system initially supported <mark class="hl">full 360° rotation on all axes</mark>, providing high freedom but requiring strong <mark class="hl">3D spatial awareness</mark> from players, which negatively affected usability.</p>
-            <p>After several playtests, we constrained rotation to <mark class="hl">90-degree increments on a single axis</mark> (yaw) to improve clarity, grid consistency and <mark class="hl">placement fluidity</mark>.</p>
-            <p>To preserve <mark class="hl">flexibility</mark>, we created <mark class="hl">preset variations</mark> of similar structures covering alternative orientations on the <mark class="hl">remaining axes</mark>, maintaining visual diversity without reintroducing complexity.</p>
-            <div class="why"><b>Design decision</b>Playtests showed that full 3D rotation cost more in usability than it gave in freedom: one axis, 90° steps, plus preset variants.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-04.jpg" aria-label="Yaw rotation in 90° steps"><source src="../assets/video/klappen/step-04.mp4" type="video/mp4"></video></div><span class="caption">Yaw rotation in 90° steps</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">2 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-04-1.jpg" data-caption="Final rotation input: mouse wheel and keys, ±90° on yaw" aria-label="Enlarge graph 1: Final rotation input: mouse wheel and keys, ±90° on yaw"><img src="../assets/img/klappen/bp/step-04-1.jpg" alt="" width="982" height="448" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Final rotation input: mouse wheel and keys, ±90° on yaw</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-04-2.jpg" data-caption="The first, free 360° rotation system (spherical angles), dropped after playtests" aria-label="Enlarge graph 2: The first, free 360° rotation system (spherical angles), dropped after playtests"><img src="../assets/img/klappen/bp/step-04-2.jpg" alt="" width="1104" height="433" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>The first, free 360° rotation system (spherical angles), dropped after playtests</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-5" style="--c:var(--c-gameplay)">
-        <div class="node__head"><span class="n">05</span>Placement pipeline<span class="meta">PlayerController → Player</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>Two stages, two owners</h3>
-            <p>The construction placement pipeline was divided into two stages.</p>
-            <p>First, at the <mark class="hl">PlayerController</mark>, the current build mode was evaluated to determine <mark class="hl">which behavior</mark> to execute and to enforce placement constraints, such as limiting spawned instances per input.</p>
-            <p>Second, within the <mark class="hl">Player logic</mark>, the system retrieved the final transform from the <mark class="hl">preview actor</mark> (world-aligned or snap-based), queried the appropriate entry from the <mark class="hl">Data Table</mark>, and spawned the definitive structure actor into the world. The placement animation was triggered, and the <mark class="hl">construction loop</mark> resumed seamlessly.</p>
-            <div class="why"><b>In hindsight</b>The build-mode logic would ideally have been structured as a <mark class="hl">Switch on Enum</mark>–based state system, for better scalability.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-05.jpg" aria-label="Chaining placements"><source src="../assets/video/klappen/step-05.mp4" type="video/mp4"></video></div><span class="caption">Chaining placements</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">6 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-1.jpg" data-caption="IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks" aria-label="Enlarge graph 1: IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks"><img src="../assets/img/klappen/bp/step-05-1.jpg" alt="" width="1097" height="478" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>IA_PlaceBuild: routing by mode (decoration, animal, building) and validity checks</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-2.jpg" data-caption="Resource check, then Placing Building, with a Do Once and a short delay per input" aria-label="Enlarge graph 2: Resource check, then Placing Building, with a Do Once and a short delay per input"><img src="../assets/img/klappen/bp/step-05-2.jpg" alt="" width="1126" height="327" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>Resource check, then Placing Building, with a Do Once and a short delay per input</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-3.jpg" data-caption="Placing Building: refuses a placement at the default position or on the same snap" aria-label="Enlarge graph 3: Placing Building: refuses a placement at the default position or on the same snap"><img src="../assets/img/klappen/bp/step-05-3.jpg" alt="" width="1163" height="508" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Placing Building: refuses a placement at the default position or on the same snap</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-4.jpg" data-caption="Read the Data Table row and spawn the final actor at the preview transform" aria-label="Enlarge graph 4: Read the Data Table row and spawn the final actor at the preview transform"><img src="../assets/img/klappen/bp/step-05-4.jpg" alt="" width="1157" height="287" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">04</span>Read the Data Table row and spawn the final actor at the preview transform</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-5.jpg" data-caption="Cast, collision, VFX at location, destroy the preview, recreate it, play the animation" aria-label="Enlarge graph 5: Cast, collision, VFX at location, destroy the preview, recreate it, play the animation"><img src="../assets/img/klappen/bp/step-05-5.jpg" alt="" width="1033" height="413" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">05</span>Cast, collision, VFX at location, destroy the preview, recreate it, play the animation</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-05-6.jpg" data-caption="Placing animation: mesh and decal scaled with two Timelines" aria-label="Enlarge graph 6: Placing animation: mesh and decal scaled with two Timelines"><img src="../assets/img/klappen/bp/step-05-6.jpg" alt="" width="1015" height="564" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">06</span>Placing animation: mesh and decal scaled with two Timelines</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-6" style="--c:var(--c-passions)">
-        <div class="node__head"><span class="n">06</span>HISM conversion<span class="meta">Optimisation</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>Far away, structures become instances</h3>
-            <p>The conversion of construction actors into Hierarchical Instanced Static Meshes (HISM) quickly became a <mark class="hl">critical performance optimization</mark> as the number of placed structures increased. Each additional actor introduced rendering and tick overhead, significantly impacting performance in <mark class="hl">large player-built environments</mark>.</p>
-            <p>To address this, I implemented a dedicated <mark class="hl">“Storage” Blueprint system</mark> responsible for serializing placed structures into <mark class="hl">lightweight data</mark> representations (HISM instance data containing transform and type).</p>
-            <p>Instead of keeping all actors active in the world, the player character uses a <mark class="hl">Sphere Overlap detection</mark> system to monitor nearby constructions. When a structure exits this radius, the original actor is <mark class="hl">destroyed</mark> and immediately replaced by a corresponding <mark class="hl">HISM instance</mark>, dramatically reducing draw calls and actor overhead. At the same time, its data is <mark class="hl">stored</mark> within the Storage system for later <mark class="hl">reconstruction</mark>.</p>
-            <div class="why"><b>Result</b>On long sessions, the more structures players placed, the more FPS dropped, because every one of them stayed loaded and active. With only the structures within interaction range (<mark class="hl">2,000 Unreal units</mark>) kept as full actors, the problem disappeared completely. HISM were chosen so that similar pieces are grouped together, which reduces the cost of each structure even further.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-06.jpg" aria-label="Structures leaving the sphere become HISM instances (editor view)"><source src="../assets/video/klappen/step-06.mp4" type="video/mp4"></video></div><span class="caption">Structures leaving the sphere become HISM instances (editor view)</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">3 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-06-1.jpg" data-caption="End Overlap of the conversion sphere: a structure leaving the radius triggers Blueprint To HISM" aria-label="Enlarge graph 1: End Overlap of the conversion sphere: a structure leaving the radius triggers Blueprint To HISM"><img src="../assets/img/klappen/bp/step-06-1.jpg" alt="" width="1495" height="247" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>End Overlap of the conversion sphere: a structure leaving the radius triggers Blueprint To HISM</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-06-2.jpg" data-caption="Spawning one Storage Blueprint per resource type from DT_Ressources, kept in a map" aria-label="Enlarge graph 2: Spawning one Storage Blueprint per resource type from DT_Ressources, kept in a map"><img src="../assets/img/klappen/bp/step-06-2.jpg" alt="" width="1764" height="499" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>Spawning one Storage Blueprint per resource type from DT_Ressources, kept in a map</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-06-3.jpg" data-caption="Blueprint to HISM: find the type’s storage, add an instance at the actor’s transform, destroy the actor" aria-label="Enlarge graph 3: Blueprint to HISM: find the type’s storage, add an instance at the actor’s transform, destroy the actor"><img src="../assets/img/klappen/bp/step-06-3.jpg" alt="" width="1866" height="355" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Blueprint to HISM: find the type’s storage, add an instance at the actor’s transform, destroy the actor</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-7" style="--c:var(--c-passions)">
-        <div class="node__head"><span class="n">07</span>Re-conversion, no popping<span class="meta">Single frame</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>The player never sees the swap</h3>
-            <p>When the player moves back within range of <mark class="hl">structures previously converted</mark> into HISM instances, the same Sphere Overlap detection processes each overlapping instance individually and triggers a <mark class="hl">reconversion function</mark>.</p>
-            <p>This function removes the corresponding HISM instance and respawns its original <mark class="hl">Blueprint-based actor</mark> from the stored <mark class="hl">serialized data</mark> (transform and type). Restoring the Blueprint actor re-enables <mark class="hl">interactive features</mark> such as <mark class="hl">object-based snapping</mark> and the <mark class="hl">destruction system</mark>.</p>
-            <p>As the video shows, the reconversion is <mark class="hl">fully seamless</mark>: it executes within a single frame, making the transition <mark class="hl">imperceptible</mark> to the player, with no visible popping or functional delay.</p>
-            <div class="why"><b>Verified</b>Profiled with <mark class="hl">Unreal Insights</mark>: the reconversion is invisible to the player and takes very little time.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-07.jpg" aria-label="Coming back: instances turn back into actors, no popping"><source src="../assets/video/klappen/step-07.mp4" type="video/mp4"></video></div><span class="caption">Coming back: instances turn back into actors, no popping</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">3 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-07-1.jpg" data-caption="Begin Overlap: structures re-entering the sphere are queued by storage, with unique instance indexes" aria-label="Enlarge graph 1: Begin Overlap: structures re-entering the sphere are queued by storage, with unique instance indexes"><img src="../assets/img/klappen/bp/step-07-1.jpg" alt="" width="1366" height="279" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Begin Overlap: structures re-entering the sphere are queued by storage, with unique instance indexes</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-07-2.jpg" data-caption="A 0.2 s looping timer processes the queue and clears it" aria-label="Enlarge graph 2: A 0.2 s looping timer processes the queue and clears it"><img src="../assets/img/klappen/bp/step-07-2.jpg" alt="" width="1112" height="544" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>A 0.2 s looping timer processes the queue and clears it</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-07-3.jpg" data-caption="HISM to Blueprint: read each instance transform, respawn the actor, remove the instances" aria-label="Enlarge graph 3: HISM to Blueprint: read each instance transform, respawn the actor, remove the instances"><img src="../assets/img/klappen/bp/step-07-3.jpg" alt="" width="1340" height="480" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>HISM to Blueprint: read each instance transform, respawn the actor, remove the instances</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
-
-      <article class="node step reveal" id="step-8" style="--c:var(--c-soft)">
-        <div class="node__head"><span class="n">08</span>Destruction &amp; refund<span class="meta">Hold to remove</span></div>
-        <div class="step__grid">
-          <div class="step__text">
-            <h3>Removing should feel as good as building</h3>
-            <p>The player also has access to a dedicated <mark class="hl">Destruction Mode</mark>, allowing multiple structures to be removed <mark class="hl">consecutively</mark> while refunding their <mark class="hl">resource cost</mark>.</p>
-            <p>When the mode is activated, the current <mark class="hl">construction preview data</mark> is cached, and a Tick-based Line Trace continuously detects <mark class="hl">targeted structures</mark>. On a valid hit, the structure’s material switches through a <mark class="hl">Dynamic Material Instance</mark> (MID) for real-time visual feedback.</p>
-            <p>Holding the input past a short <mark class="hl">timed hold threshold</mark> destroys the targeted actor, and a <mark class="hl">progressive acceleration system</mark> shortens the hold for each following destruction, enabling fast <mark class="hl">chained removals</mark>.</p>
-            <div class="why"><b>Tuning</b>The hold starts at <mark class="hl">1.5 s</mark> and gets <mark class="hl">0.15 s</mark> shorter with each consecutive destruction, down to <mark class="hl">1 s</mark>.</div>
-          </div>
-          <div class="step__media"><div class="media"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/klappen/step-08.jpg" aria-label="Destruction Mode: hold to remove, faster each time, resources refunded"><source src="../assets/video/klappen/step-08.mp4" type="video/mp4"></video></div><span class="caption">Destruction Mode: hold to remove, faster each time, resources refunded</span></div>
-        </div>
-        <details class="bp">
-          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">4 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
-          <div class="bp__list">
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-08-1.jpg" data-caption="Destruction Input Mode: Switch on E_DestroyMode toggles between building and destroying" aria-label="Enlarge graph 1: Destruction Input Mode: Switch on E_DestroyMode toggles between building and destroying"><img src="../assets/img/klappen/bp/step-08-1.jpg" alt="" width="1384" height="449" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">01</span>Destruction Input Mode: Switch on E_DestroyMode toggles between building and destroying</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-08-2.jpg" data-caption="Targeting: the hit structure gets a Dynamic Material, the previous one is reset" aria-label="Enlarge graph 2: Targeting: the hit structure gets a Dynamic Material, the previous one is reset"><img src="../assets/img/klappen/bp/step-08-2.jpg" alt="" width="1620" height="612" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">02</span>Targeting: the hit structure gets a Dynamic Material, the previous one is reset</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-08-3.jpg" data-caption="Hold to destroy: delta time × Destruct Speed fills the crosshair’s radial slider" aria-label="Enlarge graph 3: Hold to destroy: delta time × Destruct Speed fills the crosshair’s radial slider"><img src="../assets/img/klappen/bp/step-08-3.jpg" alt="" width="1333" height="353" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">03</span>Hold to destroy: delta time × Destruct Speed fills the crosshair’s radial slider</figcaption>
-            </figure>
-            <figure>
-              <button type="button" class="bp__thumb" data-full="../assets/img/klappen/bp/step-08-4.jpg" data-caption="Destroying an animal, a decoration or a structure, which is recycled into resources" aria-label="Enlarge graph 4: Destroying an animal, a decoration or a structure, which is recycled into resources"><img src="../assets/img/klappen/bp/step-08-4.jpg" alt="" width="1376" height="554" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
-              <figcaption><span class="bp__n">04</span>Destroying an animal, a decoration or a structure, which is recycled into resources</figcaption>
-            </figure>
-          </div>
-        </details>
-      </article>
+    <div class="sys__grid">
+        <div class="sys sys--soon node" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>PCG per biome<span class="meta">soon</span></div><div class="node__body">Procedural resources placed per biome.</div></div>
+        <div class="sys sys--soon node" style="--c:var(--c-passions)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Thousands of trees<span class="meta">soon</span></div><div class="node__body">A HISM forest, optimised without lag.</div></div>
+        <div class="sys sys--soon node" style="--c:var(--c-projects)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Inventory &amp; UI<span class="meta">soon</span></div><div class="node__body">Construction inventory, menus and resource feedback.</div></div>
+        <div class="sys sys--soon node" style="--c:var(--c-tools)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Resource harvesting<span class="meta">soon</span></div><div class="node__body">Collecting wood and stone to fund each build.</div></div>
+        <div class="sys sys--soon node" style="--c:var(--c-soft)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Cabin validation<span class="meta">soon</span></div><div class="node__body">Line traces on every side tell each animal whether its cabin has walls, a floor, a roof and decorations nearby.</div></div>
     </div>
   </section>
 
-  <svg class="wire" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true"><path class="wire__base" d="M500 0 C500 70 240 40 240 110"/><path class="wire__live" pathLength="1" d="M500 0 C500 70 240 40 240 110"/></svg>
+  <div class="link" aria-hidden="true"><span class="link__line"></span><span class="link__label"><span class="exec"></span>Then · Lessons learned</span></div>
 
-  <!-- ===== Coming next ===== -->
-  <section aria-labelledby="next-title">
-    <h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="next-title">Also in Kläppen</span><span class="stitle__rule"></span></h2>
-    <div class="next">
-      <div class="node" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>PCG per biome<span class="meta">soon</span></div><div class="node__body">Procedural resources placed per biome.</div></div>
-      <div class="node" style="--c:var(--c-passions)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Thousands of trees<span class="meta">soon</span></div><div class="node__body">HISM forest, optimised without lag.</div></div>
-      <div class="node" style="--c:var(--c-projects)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Inventory &amp; harvesting<span class="meta">soon</span></div><div class="node__body">Inventory menu and resource collection.</div></div>
-      <div class="node" style="--c:var(--c-soft)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Cabin validation<span class="meta">soon</span></div><div class="node__body">Line traces on every side tell each animal whether its cabin has walls, a floor, a roof and decorations nearby.</div></div>
+  <!-- ===== Lessons teaser ===== -->
+  <section id="lessons" aria-labelledby="lessons-title">
+    <h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="lessons-title">Lessons learned</span><span class="stitle__rule"></span></h2>
+    <div class="lessons">
+      <a class="node reveal lesson" href="building/#post-mortem" style="--c:var(--c-edu)">
+        <div class="node__head"><span class="pin" aria-hidden="true"></span>Freedom is not creativity</div>
+        <div class="node__body">Total building freedom left players lost. A snapping grid made building readable, at the cost of precision we should have handed back to the player.<span class="lesson__more">Read the post-mortem ▷</span></div>
+      </a>
+      <a class="node reveal lesson" href="building/#post-mortem" style="--c:var(--c-edu)">
+        <div class="node__head"><span class="pin" aria-hidden="true"></span>Optimise for the real need</div>
+        <div class="node__body">Our HISM conversion worked, but the average session was too short to ever need it. Measure the real play session before optimising.<span class="lesson__more">Read the post-mortem ▷</span></div>
+      </a>
     </div>
   </section>
 
@@ -419,18 +161,6 @@
   </footer>
 </main>
 
-<dialog class="lightbox" aria-label="Blueprint viewer">
-  <div class="lightbox__stage"><img alt=""></div>
-  <p class="lightbox__cap"></p>
-  <div class="lightbox__bar">
-    <span class="lightbox__hint">Click the graph to zoom · ← → to browse</span>
-    <button type="button" data-lb="prev" aria-label="Previous graph">◂</button>
-    <span class="lightbox__n mono"></span>
-    <button type="button" data-lb="next" aria-label="Next graph">▸</button>
-    <button type="button" data-lb="close" aria-label="Close">✕</button>
-  </div>
-</dialog>
-
-<script src="../js/main.js?v=3" defer></script>
+<script src="../js/main.js?v=4" defer></script>
 </body>
 </html>
