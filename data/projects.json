@@ -81,8 +81,7 @@
         "Tools",
         "VR"
       ],
-      "status": "soon",
-      "featured": 3
+      "status": "soon"
     },
     {
       "id": "bp-conventions",
@@ -96,15 +95,14 @@
       "tags": [
         "Methods & Quality"
       ],
-      "status": "soon",
-      "featured": 4
+      "status": "soon"
     },
     {
       "id": "wolfpeak",
       "title": "WolfPeak Studio",
       "category": "professional",
       "date": "2026-01",
-      "period": "2025 – now",
+      "period": "Jul 2025 – now",
       "team": "Studio · NDA",
       "role": "Gameplay Programmer, then Technical Designer",
       "pitch": "Enemy AI and visual debug tools as an intern, then an inventory, crafting and UI rebuild and a no-code effect system as Technical Designer. Systems described in general terms; no visuals under NDA.",
@@ -113,8 +111,9 @@
         "Tools",
         "C++"
       ],
-      "status": "nda",
-      "url": "#experience"
+      "status": "case-study",
+      "url": "wolfpeak/",
+      "featured": 3
     },
     {
       "id": "interim-14",
@@ -175,7 +174,8 @@
         "Ecosystem",
         "Tools"
       ],
-      "status": "wip"
+      "status": "wip",
+      "featured": 4
     },
     {
       "id": "workshops",

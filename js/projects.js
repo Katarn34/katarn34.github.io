@@ -11,6 +11,7 @@
     video: 'Watch the video ↗',
     external: 'Play on itch.io ↗',
     nda: 'Under NDA · see Experience ▷',
+    devlog: 'Read the devlog ▷',
     soon: 'Case study coming soon',
     wip: 'In progress'
   };
