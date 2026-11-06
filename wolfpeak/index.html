@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=7">
-  <link rel="stylesheet" href="../css/case.css?v=7">
+  <link rel="stylesheet" href="../css/style.css?v=8">
+  <link rel="stylesheet" href="../css/case.css?v=8">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -39,7 +39,7 @@
       <div><dt>Period</dt><dd>Jul 2025 – now</dd></div>
       <div><dt>Roles</dt><dd>Gameplay Programmer (intern), then Technical Designer</dd></div>
       <div><dt>Engine</dt><dd>Unreal Engine 5 · C++ / Blueprint</dd></div>
-      <div><dt>Team</dt><dd>[Team size]</dd></div>
+      <div><dt>Team</dt><dd>7 people</dd></div>
     </dl>
     <div class="nda">
       <span class="nda__tag">NDA</span>
@@ -52,9 +52,10 @@
     <div class="node__head"><span class="node__icon" aria-hidden="true">⇉</span><h2 id="glance-title" style="margin:0;font-size:inherit">At a glance</h2></div>
     <ul class="glance">
       <li><b>4 systems</b><span>Inventory, crafting, interaction and equipment, rebuilt and documented</span></li>
-      <li><b>Multiplayer-safe</b><span>No more hard-coded player 0: every system works for several players</span></li>
-      <li><b>Action Objects</b><span>A C++ base that lets Designers build item effects without code</span></li>
-      <li><b>4 enemy AIs</b><span>30+ custom BT / EQS nodes and 5 visual debug tools</span></li>
+      <li><b>0 bugs</b><span>The rebuilt systems stay stable, whatever the Designers throw at them</span></li>
+      <li><b>&lt; 1 minute</b><span>To create a new item, or a new interaction text, without a programmer</span></li>
+      <li><b>Action Objects</b><span>Item effects Designers configure without code, on a C++ base</span></li>
+      <li><b>4 enemy AIs</b><span>Patrol, roaming and a 3D perception tool used daily by Level Designers</span></li>
     </ul>
   </section>
 
@@ -72,12 +73,17 @@
           <div><dt>What I did</dt><dd>
             <p>I repaired the existing systems so the game kept working, marked the old code as <mark class="hl">DEPRECATED</mark>, then designed and rebuilt a <mark class="hl">scalable architecture</mark> for every new system and item.</p>
             <p><b>Interaction driven by data.</b> Each item carries <mark class="hl">Gameplay Tags</mark> describing what can be done with it. When a player interacts, the tag tells the system which interaction to run, and a <mark class="hl">Data Table</mark> provides the text to display for that type. A new item or a new interaction is a data entry, not new code.</p>
-            <p><b>Multiplayer from the ground up.</b> I removed the single-player assumptions (<code>Get Player Character</code> with index 0, unsafe casts) so every system works for several players.</p>
+            <p><b>Multiplayer-ready.</b> I removed the single-player assumptions (<code>Get Player Character</code> with index 0, unsafe casts) so every system works with several players. Networking was handled by my mentor; I worked closely with him, producing test builds to catch programming errors and multiplayer issues early.</p>
           </dd></div>
-          <div class="pm__next"><dt>Impact</dt><dd>[What changed for the team: e.g. bugs after a change, time to add an item, who can now add content.]</dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd>
+            <p><b>No more bugs:</b> the systems stay stable whatever tests the Designers run.</p>
+            <p><b>New item in under a minute:</b> duplicate an item’s <mark class="hl">Data Asset</mark>, fill in its data, place the item in the world with that Data Asset in its Details. Done.</p>
+            <p><b>New interaction text in about a minute:</b> add a line for the tag in the interactions Data Table, or create a new tag if needed.</p>
+            <p><b>Easy to extend:</b> new requests became simple to add, such as item-specific interactions in the inventory: hold to consume for some items, a single click for others.</p>
+          </dd></div>
         </dl>
         <figure class="flow" aria-label="Diagram: an item's Gameplay Tag selects the interaction, and a Data Table provides the prompt text">
-          <div class="flow__node" style="--c:var(--c-edu)"><b>Item</b><span>Gameplay Tags<br><code>Interact.Pickup</code></span></div>
+          <div class="flow__node" style="--c:var(--c-edu)"><b>Item</b><span>Data Asset + Gameplay Tags<br><code>Interact.Pickup</code></span></div>
           <span class="flow__arrow" aria-hidden="true"></span>
           <div class="flow__node" style="--c:var(--c-gameplay)"><b>Interaction system</b><span>Reads the tag, runs the matching interaction</span></div>
           <span class="flow__arrow" aria-hidden="true"></span>
@@ -95,9 +101,10 @@
           <div><dt>Problem</dt><dd>Item effects (abilities, consumables, equipment bonuses) needed a programmer each time. Designers couldn’t create or tune an effect on their own.</dd></div>
           <div><dt>What I did</dt><dd>
             <p>I designed <mark class="hl">Action Objects</mark>, an effect system with a <mark class="hl">C++ base</mark>. Designers create the effects they want and set any value each effect needs, directly on the item.</p>
-            <p>The key: using <mark class="hl">EditInlineNew</mark> and <mark class="hl">Instanced</mark> objects, the Details panel shows <mark class="hl">only the variables of the chosen effect type</mark>. Pick “Heal” and you see an amount and a duration; pick “Speed Buff” and you see a multiplier. No code, no unrelated fields.</p>
+            <p>The key: using <mark class="hl">EditInlineNew</mark> and <mark class="hl">Instanced</mark> objects, the Details panel shows <mark class="hl">only the variables of the chosen effect type</mark>. No code, no unrelated fields.</p>
+            <p><b>Example: Modify Stat.</b> Added to an item, it lets a Designer pick any stat through a <mark class="hl">Gameplay Tag</mark>, then restore or remove it, instantly or over a chosen duration. The same Action Object covers a health potion, a stamina drain or a poison.</p>
           </dd></div>
-          <div class="pm__next"><dt>Impact</dt><dd>[e.g. number of effects created by Designers, how long a new effect takes now.]</dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd>Designers now create any gameplay effect they need on their own. <mark class="hl">3+ Action Objects</mark> are in use today, each one reusable across every item.</dd></div>
         </dl>
 
         <div class="ao">
@@ -106,13 +113,17 @@
             <div class="details__sec">▾ Item</div>
             <div class="details__row"><span>Name</span><span class="details__val">Forest Tonic</span></div>
             <div class="details__sec">▾ Actions <em>2 array elements</em></div>
-            <div class="details__el"><span class="details__idx">Index [0]</span><span class="details__pick">Heal ▾</span></div>
+            <div class="details__el"><span class="details__idx">Index [0]</span><span class="details__pick">Modify Stat ▾</span></div>
+            <div class="details__row details__row--in"><span>Stat</span><span class="details__val">Stat.Health</span></div>
+            <div class="details__row details__row--in"><span>Mode</span><span class="details__val">Restore ▾</span></div>
             <div class="details__row details__row--in"><span>Amount</span><span class="details__val">25.0</span></div>
             <div class="details__row details__row--in"><span>Over Time</span><span class="details__val">☑</span></div>
             <div class="details__row details__row--in"><span>Duration</span><span class="details__val">5.0 s</span></div>
-            <div class="details__el"><span class="details__idx">Index [1]</span><span class="details__pick">Speed Buff ▾</span></div>
-            <div class="details__row details__row--in"><span>Multiplier</span><span class="details__val">1.2</span></div>
-            <div class="details__row details__row--in"><span>Duration</span><span class="details__val">10.0 s</span></div>
+            <div class="details__el"><span class="details__idx">Index [1]</span><span class="details__pick">Modify Stat ▾</span></div>
+            <div class="details__row details__row--in"><span>Stat</span><span class="details__val">Stat.Stamina</span></div>
+            <div class="details__row details__row--in"><span>Mode</span><span class="details__val">Remove ▾</span></div>
+            <div class="details__row details__row--in"><span>Amount</span><span class="details__val">10.0</span></div>
+            <div class="details__row details__row--in"><span>Over Time</span><span class="details__val">☐</span></div>
             <figcaption>What a Designer sees: each effect exposes only its own settings. Illustration, not project footage.</figcaption>
           </figure>
 
@@ -128,10 +139,13 @@
 };
 
 <span class="c">// Each effect only declares the values it needs</span>
-<span class="k">UCLASS</span>(DisplayName = <span class="s">"Heal"</span>)
-<span class="k">class</span> UAction_Heal : <span class="k">public</span> UActionObject
+<span class="k">UCLASS</span>(DisplayName = <span class="s">"Modify Stat"</span>)
+<span class="k">class</span> UAction_ModifyStat : <span class="k">public</span> UActionObject
 {
     GENERATED_BODY()
+    <span class="k">UPROPERTY</span>(EditAnywhere, meta = (Categories = <span class="s">"Stat"</span>))
+    FGameplayTag Stat;
+    <span class="k">UPROPERTY</span>(EditAnywhere) EStatMode Mode = EStatMode::Restore;
     <span class="k">UPROPERTY</span>(EditAnywhere) <span class="k">float</span> Amount = 25.f;
     <span class="k">UPROPERTY</span>(EditAnywhere) <span class="k">bool</span>  bOverTime = <span class="k">false</span>;
     <span class="k">UPROPERTY</span>(EditAnywhere, meta = (EditCondition = <span class="s">"bOverTime"</span>))
@@ -148,14 +162,46 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
 
       <!-- 03 AI -->
       <article class="node pm__item reveal" id="ai" style="--c:var(--c-xp)">
-        <div class="node__head"><span class="n">03</span>Enemy AI &amp; debug tools<span class="meta">Gameplay Programmer intern</span></div>
+        <div class="node__head"><span class="n">03</span>Enemy AI &amp; Designer tools<span class="meta">Gameplay Programmer intern</span></div>
         <dl class="pm__rows">
-          <div><dt>What I did</dt><dd>AI for <mark class="hl">4 enemy types</mark>: 3 Behavior Trees and <mark class="hl">30+ custom BT / EQS nodes</mark>, dynamic NavMesh and telegraphed attacks. I also built <mark class="hl">5 visual debug tools</mark>, so tuning could be applied live during sprint reviews.</dd></div>
-          <div class="pm__next"><dt>Details</dt><dd>Full breakdown coming soon.</dd></div>
+          <div><dt>Scope</dt><dd>AI for <mark class="hl">4 enemy types</mark>: 3 Behavior Trees and <mark class="hl">30+ custom BT / EQS nodes</mark>, dynamic NavMesh and telegraphed attacks. Above all, I built the tools that let Designers and Level Designers shape that behaviour themselves, live during sprint reviews.</dd></div>
+          <div><dt>Patrol System</dt><dd>Select an AI in the level and a <mark class="hl">Patrol System</mark> section appears in its Details. Level Designers pick the exact points it patrols, choose between several patrol modes, and set the wait time at each point and its random variation.</dd></div>
+          <div><dt>Movement fallbacks</dt><dd>Level Designers can also place <mark class="hl">Target Points</mark> for the AI to move to. Without them, it moves freely; if it comes from a spawner, it <mark class="hl">roams the spawner’s territory</mark> to guard it. Every AI has a sensible behaviour, even with no setup.</dd></div>
+          <div><dt>3D perception tool</dt><dd>Unreal’s default AI Perception debug doesn’t show sight in <mark class="hl">verticality</mark>, which matters as soon as levels have height. I built an editor tool that draws the AI’s full <mark class="hl">3D vision</mark> and lets Designers edit it, with the preview <mark class="hl">updating in real time in the editor</mark>.</dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd>These tools were used constantly by Designers and Level Designers to tune AI behaviour, without asking a programmer for each change.</dd></div>
         </dl>
+        <div class="ao">
+          <figure class="details" aria-label="Illustration of the Patrol System section in the Details panel">
+            <div class="details__bar">Details · BP_Enemy</div>
+            <div class="details__sec">▾ Patrol System</div>
+            <div class="details__row"><span>Patrol Points</span><span class="details__val">4 elements</span></div>
+            <div class="details__row"><span>Patrol Mode</span><span class="details__val">[Mode] ▾</span></div>
+            <div class="details__row"><span>Wait Time</span><span class="details__val">2.0 s</span></div>
+            <div class="details__row"><span>Wait Variation</span><span class="details__val">± 0.5 s</span></div>
+            <div class="details__sec">▾ Movement</div>
+            <div class="details__row"><span>Target Points</span><span class="details__val">None</span></div>
+            <div class="details__row"><span>Spawner Territory</span><span class="details__val">Roam ☑</span></div>
+            <figcaption>What a Level Designer sees on an AI. Illustration, not project footage.</figcaption>
+          </figure>
+          <figure class="sight" aria-label="Side view: default perception debug is flat, the tool shows the vertical angle of the AI's vision">
+            <svg viewBox="0 0 420 250" role="img" aria-label="Side view of an AI's 3D sight cone with its vertical angle">
+              <line x1="20" y1="215" x2="400" y2="215" stroke="#2a3140" stroke-width="2"/>
+              <path d="M70 140 L390 40 L390 240 Z" fill="#4da3ff22" stroke="#4da3ff" stroke-width="1.5"/>
+              <line x1="70" y1="140" x2="390" y2="140" stroke="#ffffff55" stroke-dasharray="5 5"/>
+              <rect x="300" y="60" width="40" height="155" fill="#1c2230" stroke="#2a3140"/>
+              <circle cx="320" cy="50" r="9" fill="#3ddc97"/>
+              <circle cx="70" cy="140" r="12" fill="#ff5f6d"/>
+              <rect x="58" y="152" width="24" height="63" rx="6" fill="#ff5f6d55"/>
+              <text x="130" y="128" fill="#a3a3a3" font-family="JetBrains Mono, monospace" font-size="11">default debug: flat</text>
+              <text x="200" y="30" fill="#4da3ff" font-family="JetBrains Mono, monospace" font-size="11">vertical angle, editable live</text>
+              <text x="250" y="70" fill="#3ddc97" font-family="JetBrains Mono, monospace" font-size="11">player on a ledge</text>
+            </svg>
+            <figcaption>Side view: with height in the level, the vertical angle decides whether the AI sees the player. Illustration.</figcaption>
+          </figure>
+        </div>
       </article>
 
-      <!-- 04 Training -->
+
       <article class="node pm__item reveal" id="training" style="--c:var(--c-edu)">
         <div class="node__head"><span class="n">04</span>Training the team<span class="meta">Adoption</span></div>
         <dl class="pm__rows">
@@ -183,6 +229,6 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
   </footer>
 </main>
 
-<script src="../js/main.js?v=7" defer></script>
+<script src="../js/main.js?v=8" defer></script>
 </body>
 </html>

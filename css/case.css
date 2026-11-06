@@ -204,3 +204,5 @@
 .code pre { margin: 0; padding: 14px 16px; overflow-x: auto; font: 12.5px/1.6 var(--mono); color: #d6d6d6; }
 .code .k { color: #4da3ff; } .code .h { color: #3ddc97; font-weight: 500; } .code .s { color: #f2c14e; } .code .c { color: #8a8a8a; }
 .code figcaption { padding: 0 16px 12px; }
+.sight { flex: 1 1 340px; min-width: 0; margin: 0; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #070a10; display: flex; flex-direction: column; gap: 10px; }
+.sight svg { width: 100%; height: auto; }
