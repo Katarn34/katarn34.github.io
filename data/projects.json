@@ -114,7 +114,8 @@
       ],
       "status": "case-study",
       "url": "wolfpeak/",
-      "featured": 3
+      "featured": 3,
+      "thumb": "assets/img/wolfpeak/wolfpeak-card.jpg"
     },
     {
       "id": "interim-14",

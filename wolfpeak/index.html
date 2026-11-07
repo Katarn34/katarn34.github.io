@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=10">
-  <link rel="stylesheet" href="../css/case.css?v=10">
+  <link rel="stylesheet" href="../css/style.css?v=11">
+  <link rel="stylesheet" href="../css/case.css?v=11">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -56,7 +56,7 @@
       <li><b>0 bugs</b><span>The rebuilt systems stay stable, whatever the Designers throw at them</span></li>
       <li><b>&lt; 1 minute</b><span>To create a new item, or a new interaction text, without a programmer</span></li>
       <li><b>Action Objects</b><span>Item effects Designers configure without code, on a C++ base</span></li>
-      <li><b>4 enemy AIs</b><span>30+ custom nodes, modular sub-trees, and tools used daily by Level Designers</span></li>
+      <li><b>4 enemy AIs</b><span>30+ custom nodes, modular sub-trees, and 5 debug tools used daily by Designers</span></li>
       <li><b>Skill cards</b><span>A full CommonUI card system, with health and XP systems behind it</span></li>
     </ul>
   </section>
@@ -168,6 +168,13 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
         <div class="node__head"><span class="n">03</span>Enemy AI &amp; Designer tools<span class="meta">Gameplay Programmer intern</span></div>
         <dl class="pm__rows">
           <div><dt>Scope</dt><dd>The AI was my largest area on the project: <mark class="hl">4 enemy types</mark>, plus the tools that let Designers and Level Designers shape their behaviour themselves, live during sprint reviews.</dd></div>
+          <div><dt>Enemies</dt><dd>
+            <ul class="enemies">
+              <li><b>Melee duelist</b>Built for close combat: dodges hits, picks different attacks depending on how the player behaves, kicks, draws its sword, jump attacks. Strong anticipation and feedback so the player can read every action.</li>
+              <li><b>Archer</b>Always keeps the right distance from the player while shooting, and moves through vertical spaces. Clear anticipation before each shot.</li>
+              <li><b>Swarm variants</b>Small, weak melee enemies that charge in a straight line and get in the player’s way: some apply debuffs, some leave a debuff effect when they die, some hinder movement, one self-destructs.</li>
+            </ul>
+          </dd></div>
           <div><dt>Architecture</dt><dd>
             <p><b>Inheritance first.</b> Each enemy has its own AI Controller, all inheriting from a <mark class="hl">common base controller</mark> that configures perception once for everyone.</p>
             <p><b>Modular Behavior Trees.</b> <mark class="hl">3 main trees and 5 reusable sub-trees</mark>, all on a shared Blackboard, so a behaviour written once serves several enemies.</p>
@@ -178,8 +185,16 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
           </dd></div>
           <div><dt>Patrol System</dt><dd>Select an AI in the level and a <mark class="hl">Patrol System</mark> section appears in its Details. Level Designers pick the exact points it patrols and set the wait time at each point and its random variation. Two modes: <mark class="hl">back and forth</mark> (A to X, then back through every point) or <mark class="hl">loop</mark> (A to X, then straight back to the start to close the circuit).</dd></div>
           <div><dt>Movement fallbacks</dt><dd>Level Designers can also place <mark class="hl">Target Points</mark> for the AI to move to. Without them, it moves freely; if it comes from a spawner, it <mark class="hl">roams the spawner’s territory</mark> to guard it. Every AI has a sensible behaviour, even with no setup.</dd></div>
-          <div><dt>3D perception tool</dt><dd>Unreal’s default AI Perception debug doesn’t show sight in <mark class="hl">verticality</mark>, which matters as soon as levels have height. I built an editor tool that draws the AI’s full <mark class="hl">3D vision</mark> and lets Designers edit it, with the preview <mark class="hl">updating in real time in the editor</mark>.</dd></div>
-          <div class="pm__next"><dt>Impact</dt><dd>These tools were used constantly by Designers and Level Designers to tune AI behaviour, without asking a programmer for each change.</dd></div>
+          <div><dt>5 debug tools</dt><dd>
+            <ul class="tools">
+              <li><b>3D perception</b>Unreal’s default AI Perception debug doesn’t show sight in verticality. My editor tool draws the AI’s full 3D vision and lets Designers edit it, updating in real time.</li>
+              <li><b>Spawner zones</b>Shows each spawner’s area of action and lets Designers reshape its dynamic NavMesh in real time.</li>
+              <li><b>Attack tokens</b>Shows which AI is about to attack, so the choreography and order of enemy actions in a fight become visible.</li>
+              <li><b>Last Known Position</b>Shows where each AI last saw its target, to understand and tune its search behaviour.</li>
+              <li><b>LineOfSight plugin</b>A plugin I implemented: it builds a line of sight dynamically on the ground and returns every actor hit or about to be hit. Placed in an <mark class="hl">Anim Notify State</mark>, it lets Designers set the area of any attack in the animation and see the result in gameplay right away.</li>
+            </ul>
+          </dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd>These tools were used constantly by Designers and Level Designers. During sprint reviews, we tuned AI <mark class="hl">live</mark>: areas of action, how readable each attack and behaviour is, animation play rates and how fast Behavior Tree tasks execute, all without asking a programmer for each change.</dd></div>
         </dl>
         <div class="ao">
           <figure class="details" aria-label="Illustration of the Patrol System section in the Details panel">
@@ -267,7 +282,14 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
       <article class="node pm__item reveal" id="training" style="--c:var(--c-edu)">
         <div class="node__head"><span class="n">07</span>Training the team<span class="meta">Adoption</span></div>
         <dl class="pm__rows">
-          <div><dt>What I did</dt><dd>A tool is only useful if people use it: I trained the whole team on the new systems and documented them, so anyone could add items, interactions and effects on their own.</dd></div>
+          <div><dt>What I did</dt><dd>
+            <p>A tool is only useful if people use it, so I trained the whole team on the systems I built:</p>
+            <ul class="enemies">
+              <li><b>Written docs &amp; videos</b>Technical and theoretical documentation on technologies such as Gameplay Tags and how the project uses them, and on each system I built.</li>
+              <li><b>C++ documentation</b>Everything I wrote in C++, documented for the Blueprint-first team.</li>
+              <li><b>Live sessions</b>Voice sessions explaining systems in real time, with examples prepared in advance.</li>
+            </ul>
+          </dd></div>
         </dl>
       </article>
     </div>
@@ -291,6 +313,6 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
   </footer>
 </main>
 
-<script src="../js/main.js?v=10" defer></script>
+<script src="../js/main.js?v=11" defer></script>
 </body>
 </html>
