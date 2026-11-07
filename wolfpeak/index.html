@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=9">
-  <link rel="stylesheet" href="../css/case.css?v=9">
+  <link rel="stylesheet" href="../css/style.css?v=10">
+  <link rel="stylesheet" href="../css/case.css?v=10">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -40,6 +40,7 @@
       <div><dt>Roles</dt><dd>Gameplay Programmer (intern), then Technical Designer</dd></div>
       <div><dt>Engine</dt><dd>Unreal Engine 5 · C++ / Blueprint</dd></div>
       <div><dt>Team</dt><dd>7 people</dd></div>
+      <div><dt>Ownership</dt><dd>Every system below: designed and built by me</dd></div>
     </dl>
     <div class="nda">
       <span class="nda__tag">NDA</span>
@@ -55,7 +56,8 @@
       <li><b>0 bugs</b><span>The rebuilt systems stay stable, whatever the Designers throw at them</span></li>
       <li><b>&lt; 1 minute</b><span>To create a new item, or a new interaction text, without a programmer</span></li>
       <li><b>Action Objects</b><span>Item effects Designers configure without code, on a C++ base</span></li>
-      <li><b>4 enemy AIs</b><span>27 custom BT nodes, modular sub-trees, and tools used daily by Level Designers</span></li>
+      <li><b>4 enemy AIs</b><span>30+ custom nodes, modular sub-trees, and tools used daily by Level Designers</span></li>
+      <li><b>Skill cards</b><span>A full CommonUI card system, with health and XP systems behind it</span></li>
     </ul>
   </section>
 
@@ -73,7 +75,7 @@
           <div><dt>What I did</dt><dd>
             <p>I repaired the existing systems so the game kept working, marked the old code as <mark class="hl">DEPRECATED</mark>, then designed and rebuilt a <mark class="hl">scalable architecture</mark> for every new system and item.</p>
             <p><b>Interaction driven by data.</b> Each item carries <mark class="hl">Gameplay Tags</mark> describing what can be done with it. When a player interacts, the tag tells the system which interaction to run, and a <mark class="hl">Data Table</mark> provides the text to display for that type. A new item or a new interaction is a data entry, not new code.</p>
-            <p><b>Multiplayer-ready.</b> I removed the single-player assumptions (<code>Get Player Character</code> with index 0, unsafe casts) so every system works with several players. Networking was handled by my mentor; I worked closely with him, producing test builds to catch programming errors and multiplayer issues early.</p>
+            <p><b>Clean ownership, ready for several players.</b> Every system knows who created what and who owns it, through proper references rather than shortcuts like <code>Get Player Character</code> with index 0 or unsafe casts. Today it runs in local split-screen, with one widget per player and the right Owning Player; networking was handled by my mentor, and I worked closely with him, producing test builds to catch programming and multiplayer issues early.</p>
           </dd></div>
           <div class="pm__next"><dt>Impact</dt><dd>
             <p><b>No more bugs:</b> the systems stay stable whatever tests the Designers run.</p>
@@ -105,7 +107,7 @@
             <p><b>Three C++ classes, everything else in Blueprint.</b> The studio works almost entirely in Blueprint, so I kept the C++ minimal: an <mark class="hl">abstract action class</mark>, instanced inline in Data Assets, whose execute function has a C++ base and can be fully overridden in Blueprint (with access to the World from a UObject); a <mark class="hl">Blueprint Function Library</mark> that creates a live instance of an action from the Designer’s template; and an item <mark class="hl">Primary Data Asset</mark> holding the list of actions run when the item is used or consumed.</p>
             <p><b>Example: Modify Stat.</b> Added to an item, it lets a Designer pick any stat through a <mark class="hl">Gameplay Tag</mark>, then restore or remove it, instantly or over a chosen duration. The same Action Object covers a health potion, a stamina drain or a poison. Stats are read and changed <mark class="hl">through a Gameplay Tag</mark> on the component that owns them, which keeps the systems decoupled.</p>
           </dd></div>
-          <div class="pm__next"><dt>Impact</dt><dd>Designers now create any gameplay effect they need on their own, in Blueprint, without touching the C++. The same pattern is reusable for other systems, such as abilities.</dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd><mark class="hl">8 effects</mark> created in Blueprint so far, without touching the C++. The latest ones feed a <mark class="hl">Blueprint skill system</mark>, built this way rather than with GAS so the team could stay out of C++.</dd></div>
         </dl>
 
         <div class="ao">
@@ -169,12 +171,12 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
           <div><dt>Architecture</dt><dd>
             <p><b>Inheritance first.</b> Each enemy has its own AI Controller, all inheriting from a <mark class="hl">common base controller</mark> that configures perception once for everyone.</p>
             <p><b>Modular Behavior Trees.</b> <mark class="hl">3 main trees and 5 reusable sub-trees</mark>, all on a shared Blackboard, so a behaviour written once serves several enemies.</p>
-            <p><b>Custom nodes.</b> <mark class="hl">27 custom nodes</mark>: 17 Tasks, 2 Services and 8 Decorators.</p>
-            <p><b>EQS.</b> <mark class="hl">6 queries and 3 custom contexts</mark> for tactical positioning and finding targets or points.</p>
+            <p><b>Custom nodes.</b> <mark class="hl">30+ custom nodes</mark>: Tasks, Services, Decorators and EQS contexts.</p>
+            <p><b>EQS.</b> <mark class="hl">6 queries</mark> with custom contexts, for tactical positioning and finding targets or points.</p>
             <p><b>Perception.</b> Sight, Hearing and Damage senses, with <mark class="hl">team affiliation</mark> (friend / enemy).</p>
             <p><b>Spawning &amp; coordination.</b> <mark class="hl">4 spawner types</mark>, and an <mark class="hl">attack token</mark> system that limits how many enemies attack at the same time, so fights stay readable.</p>
           </dd></div>
-          <div><dt>Patrol System</dt><dd>Select an AI in the level and a <mark class="hl">Patrol System</mark> section appears in its Details. Level Designers pick the exact points it patrols, choose between several patrol modes, and set the wait time at each point and its random variation.</dd></div>
+          <div><dt>Patrol System</dt><dd>Select an AI in the level and a <mark class="hl">Patrol System</mark> section appears in its Details. Level Designers pick the exact points it patrols and set the wait time at each point and its random variation. Two modes: <mark class="hl">back and forth</mark> (A to X, then back through every point) or <mark class="hl">loop</mark> (A to X, then straight back to the start to close the circuit).</dd></div>
           <div><dt>Movement fallbacks</dt><dd>Level Designers can also place <mark class="hl">Target Points</mark> for the AI to move to. Without them, it moves freely; if it comes from a spawner, it <mark class="hl">roams the spawner’s territory</mark> to guard it. Every AI has a sensible behaviour, even with no setup.</dd></div>
           <div><dt>3D perception tool</dt><dd>Unreal’s default AI Perception debug doesn’t show sight in <mark class="hl">verticality</mark>, which matters as soon as levels have height. I built an editor tool that draws the AI’s full <mark class="hl">3D vision</mark> and lets Designers edit it, with the preview <mark class="hl">updating in real time in the editor</mark>.</dd></div>
           <div class="pm__next"><dt>Impact</dt><dd>These tools were used constantly by Designers and Level Designers to tune AI behaviour, without asking a programmer for each change.</dd></div>
@@ -184,7 +186,7 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
             <div class="details__bar">Details · BP_Enemy</div>
             <div class="details__sec">▾ Patrol System</div>
             <div class="details__row"><span>Patrol Points</span><span class="details__val">4 elements</span></div>
-            <div class="details__row"><span>Patrol Mode</span><span class="details__val">[Mode] ▾</span></div>
+            <div class="details__row"><span>Patrol Mode</span><span class="details__val">Loop ▾</span></div>
             <div class="details__row"><span>Wait Time</span><span class="details__val">2.0 s</span></div>
             <div class="details__row"><span>Wait Variation</span><span class="details__val">± 0.5 s</span></div>
             <div class="details__sec">▾ Movement</div>
@@ -211,9 +213,47 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
       </article>
 
 
-      <!-- 04 Methods -->
+      <!-- 04 Health & XP -->
+      <article class="node pm__item reveal" id="health-xp" style="--c:var(--c-profile)">
+        <div class="node__head"><span class="n">04</span>Health &amp; progression<span class="meta">Gameplay systems</span></div>
+        <dl class="pm__rows">
+          <div><dt>Health</dt><dd>
+            <p>A <mark class="hl">plug &amp; play health component</mark>: added to any actor, it hooks into Unreal’s native damage system and notifies the other systems through dispatchers.</p>
+            <p>Enemies show a <mark class="hl">health bar above their head</mark>, the player doesn’t. I built it as a dedicated Widget Component class that <mark class="hl">initialises itself</mark>, so nobody has to wire it by hand, and handled the split-screen constraint: a Widget Component in Screen space only renders in player 1’s viewport. It works with several players.</p>
+          </dd></div>
+          <div><dt>XP curve</dt><dd>
+            <p>Level thresholds follow a <mark class="hl">quadratic formula</mark> (coefficient × level² + base) with named parameters Designers can tune. Large XP gains are processed in a loop, so <mark class="hl">several level-ups</mark> can happen at once, and the threshold of a level is kept separate from the remaining XP.</p>
+            <p><b>Why a formula and not a Curve Float?</b> A curve’s extrapolation doesn’t extend a quadratic progression past its last key, so levels beyond it would break. A formula scales to any level.</p>
+          </dd></div>
+        </dl>
+      </article>
+
+      <!-- 05 Skill cards -->
+      <article class="node pm__item reveal" id="skill-cards" style="--c:var(--c-projects)">
+        <div class="node__head"><span class="n">05</span>Skill card system<span class="meta">CommonUI · UI Programmer</span></div>
+        <dl class="pm__rows">
+          <div><dt>What I did</dt><dd>
+            <p>A complete skill card system in <mark class="hl">CommonUI</mark>, playable with a <mark class="hl">gamepad or keyboard and mouse</mark>: open the menu, reveal 3 cards, confirm one, return to the game.</p>
+            <p><b>One state machine.</b> The flow is driven by an enum and a single entry function, and navigation is locked during transitions, so no input can break a sequence halfway.</p>
+            <p><b>A confirmation that doesn’t break the layout.</b> The chosen card comes to the foreground over a fade to black. To do it, a <mark class="hl">proxy card</mark> is placed on top through a geometry conversion that stays correct at any DPI, while the real layout stays untouched.</p>
+            <p><b>Polish.</b> Focus animations for gamepad and mouse that reverse without visual jumps, plus back-button handling and default focus through Activatable Widgets.</p>
+          </dd></div>
+        </dl>
+        <figure class="flow" aria-label="Diagram of the card selection flow">
+          <div class="flow__node" style="--c:var(--c-projects)"><b>Menu</b><span>Single entry function</span></div>
+          <span class="flow__arrow" aria-hidden="true"></span>
+          <div class="flow__node" style="--c:var(--c-tools)"><b>Reveal</b><span>3 cards, navigation locked during the animation</span></div>
+          <span class="flow__arrow" aria-hidden="true"></span>
+          <div class="flow__node" style="--c:var(--c-edu)"><b>Confirm</b><span>Proxy card over a fade to black</span></div>
+          <span class="flow__arrow" aria-hidden="true"></span>
+          <div class="flow__node" style="--c:var(--c-gameplay)"><b>Back to game</b><span>Focus and back button restored</span></div>
+          <figcaption>Simplified illustration of the state machine.</figcaption>
+        </figure>
+      </article>
+
+      <!-- 06 Methods -->
       <article class="node pm__item reveal" id="methods" style="--c:var(--c-passions)">
-        <div class="node__head"><span class="n">04</span>Architecture &amp; team conventions<span class="meta">Methods &amp; quality</span></div>
+        <div class="node__head"><span class="n">06</span>Architecture &amp; team conventions<span class="meta">Methods &amp; quality</span></div>
         <dl class="pm__rows">
           <div><dt>Architecture</dt><dd><mark class="hl">Plug &amp; play Actor Components</mark> combined with inheritance, 6 Blueprint interfaces, and communication through <mark class="hl">Event Dispatchers</mark>, with attention to hard references and costly casts.</dd></div>
           <div><dt>Defensive Blueprint</dt><dd>Programming rules inspired by <mark class="hl">MISRA</mark>, adapted to Blueprint: every reference is validated and fails with an explicit error, never silently; every Switch handles its Default case; no magic values; short single-purpose functions; no dead code.</dd></div>
@@ -225,7 +265,7 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
 
       <!-- 05 Training -->
       <article class="node pm__item reveal" id="training" style="--c:var(--c-edu)">
-        <div class="node__head"><span class="n">05</span>Training the team<span class="meta">Adoption</span></div>
+        <div class="node__head"><span class="n">07</span>Training the team<span class="meta">Adoption</span></div>
         <dl class="pm__rows">
           <div><dt>What I did</dt><dd>A tool is only useful if people use it: I trained the whole team on the new systems and documented them, so anyone could add items, interactions and effects on their own.</dd></div>
         </dl>
@@ -251,6 +291,6 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
   </footer>
 </main>
 
-<script src="../js/main.js?v=9" defer></script>
+<script src="../js/main.js?v=10" defer></script>
 </body>
 </html>
