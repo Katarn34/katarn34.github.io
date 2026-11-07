@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../css/style.css?v=8">
-  <link rel="stylesheet" href="../css/case.css?v=8">
+  <link rel="stylesheet" href="../css/style.css?v=9">
+  <link rel="stylesheet" href="../css/case.css?v=9">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -55,7 +55,7 @@
       <li><b>0 bugs</b><span>The rebuilt systems stay stable, whatever the Designers throw at them</span></li>
       <li><b>&lt; 1 minute</b><span>To create a new item, or a new interaction text, without a programmer</span></li>
       <li><b>Action Objects</b><span>Item effects Designers configure without code, on a C++ base</span></li>
-      <li><b>4 enemy AIs</b><span>Patrol, roaming and a 3D perception tool used daily by Level Designers</span></li>
+      <li><b>4 enemy AIs</b><span>27 custom BT nodes, modular sub-trees, and tools used daily by Level Designers</span></li>
     </ul>
   </section>
 
@@ -102,9 +102,10 @@
           <div><dt>What I did</dt><dd>
             <p>I designed <mark class="hl">Action Objects</mark>, an effect system with a <mark class="hl">C++ base</mark>. Designers create the effects they want and set any value each effect needs, directly on the item.</p>
             <p>The key: using <mark class="hl">EditInlineNew</mark> and <mark class="hl">Instanced</mark> objects, the Details panel shows <mark class="hl">only the variables of the chosen effect type</mark>. No code, no unrelated fields.</p>
-            <p><b>Example: Modify Stat.</b> Added to an item, it lets a Designer pick any stat through a <mark class="hl">Gameplay Tag</mark>, then restore or remove it, instantly or over a chosen duration. The same Action Object covers a health potion, a stamina drain or a poison.</p>
+            <p><b>Three C++ classes, everything else in Blueprint.</b> The studio works almost entirely in Blueprint, so I kept the C++ minimal: an <mark class="hl">abstract action class</mark>, instanced inline in Data Assets, whose execute function has a C++ base and can be fully overridden in Blueprint (with access to the World from a UObject); a <mark class="hl">Blueprint Function Library</mark> that creates a live instance of an action from the Designer’s template; and an item <mark class="hl">Primary Data Asset</mark> holding the list of actions run when the item is used or consumed.</p>
+            <p><b>Example: Modify Stat.</b> Added to an item, it lets a Designer pick any stat through a <mark class="hl">Gameplay Tag</mark>, then restore or remove it, instantly or over a chosen duration. The same Action Object covers a health potion, a stamina drain or a poison. Stats are read and changed <mark class="hl">through a Gameplay Tag</mark> on the component that owns them, which keeps the systems decoupled.</p>
           </dd></div>
-          <div class="pm__next"><dt>Impact</dt><dd>Designers now create any gameplay effect they need on their own. <mark class="hl">3+ Action Objects</mark> are in use today, each one reusable across every item.</dd></div>
+          <div class="pm__next"><dt>Impact</dt><dd>Designers now create any gameplay effect they need on their own, in Blueprint, without touching the C++. The same pattern is reusable for other systems, such as abilities.</dd></div>
         </dl>
 
         <div class="ao">
@@ -164,7 +165,15 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
       <article class="node pm__item reveal" id="ai" style="--c:var(--c-xp)">
         <div class="node__head"><span class="n">03</span>Enemy AI &amp; Designer tools<span class="meta">Gameplay Programmer intern</span></div>
         <dl class="pm__rows">
-          <div><dt>Scope</dt><dd>AI for <mark class="hl">4 enemy types</mark>: 3 Behavior Trees and <mark class="hl">30+ custom BT / EQS nodes</mark>, dynamic NavMesh and telegraphed attacks. Above all, I built the tools that let Designers and Level Designers shape that behaviour themselves, live during sprint reviews.</dd></div>
+          <div><dt>Scope</dt><dd>The AI was my largest area on the project: <mark class="hl">4 enemy types</mark>, plus the tools that let Designers and Level Designers shape their behaviour themselves, live during sprint reviews.</dd></div>
+          <div><dt>Architecture</dt><dd>
+            <p><b>Inheritance first.</b> Each enemy has its own AI Controller, all inheriting from a <mark class="hl">common base controller</mark> that configures perception once for everyone.</p>
+            <p><b>Modular Behavior Trees.</b> <mark class="hl">3 main trees and 5 reusable sub-trees</mark>, all on a shared Blackboard, so a behaviour written once serves several enemies.</p>
+            <p><b>Custom nodes.</b> <mark class="hl">27 custom nodes</mark>: 17 Tasks, 2 Services and 8 Decorators.</p>
+            <p><b>EQS.</b> <mark class="hl">6 queries and 3 custom contexts</mark> for tactical positioning and finding targets or points.</p>
+            <p><b>Perception.</b> Sight, Hearing and Damage senses, with <mark class="hl">team affiliation</mark> (friend / enemy).</p>
+            <p><b>Spawning &amp; coordination.</b> <mark class="hl">4 spawner types</mark>, and an <mark class="hl">attack token</mark> system that limits how many enemies attack at the same time, so fights stay readable.</p>
+          </dd></div>
           <div><dt>Patrol System</dt><dd>Select an AI in the level and a <mark class="hl">Patrol System</mark> section appears in its Details. Level Designers pick the exact points it patrols, choose between several patrol modes, and set the wait time at each point and its random variation.</dd></div>
           <div><dt>Movement fallbacks</dt><dd>Level Designers can also place <mark class="hl">Target Points</mark> for the AI to move to. Without them, it moves freely; if it comes from a spawner, it <mark class="hl">roams the spawner’s territory</mark> to guard it. Every AI has a sensible behaviour, even with no setup.</dd></div>
           <div><dt>3D perception tool</dt><dd>Unreal’s default AI Perception debug doesn’t show sight in <mark class="hl">verticality</mark>, which matters as soon as levels have height. I built an editor tool that draws the AI’s full <mark class="hl">3D vision</mark> and lets Designers edit it, with the preview <mark class="hl">updating in real time in the editor</mark>.</dd></div>
@@ -202,8 +211,21 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
       </article>
 
 
+      <!-- 04 Methods -->
+      <article class="node pm__item reveal" id="methods" style="--c:var(--c-passions)">
+        <div class="node__head"><span class="n">04</span>Architecture &amp; team conventions<span class="meta">Methods &amp; quality</span></div>
+        <dl class="pm__rows">
+          <div><dt>Architecture</dt><dd><mark class="hl">Plug &amp; play Actor Components</mark> combined with inheritance, 6 Blueprint interfaces, and communication through <mark class="hl">Event Dispatchers</mark>, with attention to hard references and costly casts.</dd></div>
+          <div><dt>Defensive Blueprint</dt><dd>Programming rules inspired by <mark class="hl">MISRA</mark>, adapted to Blueprint: every reference is validated and fails with an explicit error, never silently; every Switch handles its Default case; no magic values; short single-purpose functions; no dead code.</dd></div>
+          <div><dt>Encapsulation</dt><dd>Private variables, Pure / Const getters, and gameplay functions that validate, clamp and notify. A deliberate choice between pull (getter) and push (dispatcher).</dd></div>
+          <div><dt>Written conventions</dt><dd>Naming prefixes, dispatchers prefixed “On”, no collapsed graphs, and a comment colour code (red = deprecated, orange = in progress, green = done). Every system is designed and discussed before it is built.</dd></div>
+          <div><dt>Built for Designers</dt><dd>Exposed variables grouped in a dedicated category, Data Assets, readable names. Versioned with <mark class="hl">Perforce</mark> streams.</dd></div>
+        </dl>
+      </article>
+
+      <!-- 05 Training -->
       <article class="node pm__item reveal" id="training" style="--c:var(--c-edu)">
-        <div class="node__head"><span class="n">04</span>Training the team<span class="meta">Adoption</span></div>
+        <div class="node__head"><span class="n">05</span>Training the team<span class="meta">Adoption</span></div>
         <dl class="pm__rows">
           <div><dt>What I did</dt><dd>A tool is only useful if people use it: I trained the whole team on the new systems and documented them, so anyone could add items, interactions and effects on their own.</dd></div>
         </dl>
@@ -229,6 +251,6 @@ TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
   </footer>
 </main>
 
-<script src="../js/main.js?v=8" defer></script>
+<script src="../js/main.js?v=9" defer></script>
 </body>
 </html>
