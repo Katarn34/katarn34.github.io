@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="abyss">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Abyss — Devlog · Esteban Lafargue</title>
+  <meta name="description" content="Project Abyss, in production: an underwater tech demo about understanding creatures. Readable creature AI, 3D navigation without NavMesh, and a Creature Tuner for Designers. Devlog and live roadmap.">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../css/style.css?v=13">
+  <link rel="stylesheet" href="../css/case.css?v=13">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="../" aria-label="Esteban Lafargue, home">EL<span>.</span></a>
+    <nav class="nav__links" aria-label="Devlog">
+      <a href="#plan">Plan</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#devlog">Devlog</a>
+      <a class="btn btn--primary" href="../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf">CV · PDF ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="case-hero">
+    <a class="back" href="../projects/">◂ All projects</a>
+    <div class="eyebrow" data-stop style="margin-top:18px;--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Devlog · In production</div>
+    <h1>Project Abyss<span class="dot">.</span></h1>
+    <p class="case-hero__pitch">A 10–15 minute underwater tech demo. You play a xenobiologist studying the wildlife of a small cove, with no weapons: you progress by <em>understanding</em> creatures, scanning them and observing their behaviours, down to an immense presence glimpsed in the dark.</p>
+    <dl class="facts">
+      <div><dt>Started</dt><dd>Oct 2026</dd></div>
+      <div><dt>Plan</dt><dd>~16 weeks · 6–8 h / week</dd></div>
+      <div><dt>Team</dt><dd>Solo</dd></div>
+      <div><dt>Engine</dt><dd>UE5 · Blueprint first</dd></div>
+      <div><dt>Budget</dt><dd>AI ≤ 2 ms · 60 fps 1080p</dd></div>
+    </dl>
+  </section>
+
+  <section id="plan" aria-labelledby="plan-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--ac)"><span class="stitle__tag" id="plan-title">What I’m building</span><span class="stitle__rule"></span></h2>
+    <div class="lessons">
+      <div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Curiosity<span class="meta">“I want to get closer.”</span></div><div class="node__body">Believable 3D steering, readable idle behaviours, a creature that comes to the player.</div></div>
+      <div class="node reveal" style="--c:var(--c-profile)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Tension<span class="meta">“It warns before acting.”</span></div><div class="node__body">A predator with progressive vigilance, explicit stages and telegraphed charges, all in data.</div></div>
+      <div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Readability<span class="meta">“I always understand.”</span></div><div class="node__body">Every observable behaviour emits a signal (posture, light, sound), with debug tools to check it.</div></div>
+    </div>
+
+    <div class="pm" style="margin-top:24px">
+      <article class="node pm__item reveal" style="--c:var(--c-xp)">
+        <div class="node__head"><span class="n">01</span>3D navigation without NavMesh<span class="meta">Continues Flying AI</span></div>
+        <dl class="pm__rows">
+          <div><dt>Idea</dt><dd>Unreal’s NavMesh only covers walkable surfaces, so creatures navigate in <mark class="hl">three layers</mark>: a Behavior Tree or State Tree decides <em>what</em> to do, an <mark class="hl">EQS</mark> query picks the next free waypoint towards that goal, and a <mark class="hl">steering component</mark> makes the creature swim there smoothly, banking in turns and chaining waypoints without stopping.</dd></div>
+          <div><dt>Why</dt><dd>EQS alone plans well but zigzags and stops at each point; steering alone is short-sighted and gets stuck in U-shaped rocks. It builds directly on my <a href="../flying-ai/">Flying AI</a>.</dd></div>
+        </dl>
+      </article>
+      <article class="node pm__item reveal" style="--c:var(--c-tools)">
+        <div class="node__head"><span class="n">02</span>The Creature Tuner<span class="meta">Editor Utility Widget</span></div>
+        <dl class="pm__rows">
+          <div><dt>Goal</dt><dd>A Designer picks a species, tunes it, spawns it in play and watches its perception and vigilance live, <mark class="hl">without opening a Blueprint graph</mark>. Target: a new species in under 3 minutes.</dd></div>
+          <div><dt>How</dt><dd>The editor widget and the play session live in two different worlds, so a <mark class="hl">Data Asset serves as the channel</mark> between them, through a bridge actor that only exists in non-shipping builds.</dd></div>
+        </dl>
+      </article>
+      <article class="node pm__item reveal" style="--c:var(--c-edu)">
+        <div class="node__head"><span class="n">03</span>The right framework for each creature<span class="meta">BT · State Tree</span></div>
+        <dl class="pm__rows">
+          <div><dt>Choice</dt><dd>A fish shoal with simple states (cruise, flee, regroup) runs on a <mark class="hl">State Tree</mark>; the sea serpent, with priorities and interruptions, runs on a <mark class="hl">Behavior Tree</mark>. Part of the goal is to show I work inside Unreal’s frameworks instead of reinventing them.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="roadmap" aria-labelledby="roadmap-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="roadmap-title">Roadmap</span><span class="stitle__rule"></span></h2>
+    <p class="lead prose" style="margin:0 0 24px">Synced from the project’s production plan. Every milestone ends playable.</p>
+    <div class="road" data-abyss-roadmap><noscript><p>The roadmap needs JavaScript.</p></noscript></div>
+  </section>
+
+  <section id="devlog" aria-labelledby="devlog-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="devlog-title">Devlog</span><span class="stitle__rule"></span></h2>
+    <div class="devlog" data-abyss-devlog></div>
+  </section>
+
+  <section class="contact" aria-labelledby="contact-title">
+    <div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
+      <h2 id="contact-title">Building living worlds? Let’s talk<span class="dot">.</span></h2>
+    </div>
+    <div class="contact__links">
+      <a class="link-pill" href="../#contact">Send a message <span>↗</span></a>
+      <a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
+      <a class="link-pill" href="../projects/">All projects <span>↗</span></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Esteban Lafargue</span>
+    <span>Hand-built · no framework · hosted on GitHub Pages</span>
+  </footer>
+</main>
+
+<script src="../js/abyss.js?v=13" defer></script>
+<script src="../js/main.js?v=13" defer></script>
+</body>
+</html>

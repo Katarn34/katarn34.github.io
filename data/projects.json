@@ -168,17 +168,19 @@
       "title": "Project Abyss",
       "category": "personal",
       "date": "2026-10",
-      "period": "In progress",
+      "period": "Oct 2026 – in progress",
       "team": "Solo",
       "role": "Technical Designer",
-      "pitch": "An underwater ecosystem with a tuning tool for Designers.",
+      "pitch": "An underwater tech demo where you progress by understanding creatures: readable creature AI, 3D navigation without NavMesh, and a Creature Tuner for Designers.",
       "tags": [
         "AI",
-        "Ecosystem",
+        "EQS",
+        "State Tree",
         "Tools"
       ],
-      "status": "wip",
-      "featured": 4
+      "status": "devlog",
+      "featured": 4,
+      "url": "abyss/"
     },
     {
       "id": "workshops",
