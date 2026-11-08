@@ -74,7 +74,7 @@
       <figure class="flow" style="padding-top:22px" aria-label="Diagram of the flying AI loop">
         <div class="flow__node" style="--c:var(--c-profile)"><b>AI Perception</b><span>Sight sense finds the target</span></div>
         <span class="flow__arrow" aria-hidden="true"></span>
-        <div class="flow__node" style="--c:var(--c-xp)"><b>AI Controller</b><span>Runs the EQS query on a timer, with a tunable interval</span></div>
+        <div class="flow__node" style="--c:var(--c-xp)"><b>AI Controller</b><span>Runs the EQS query on a delayed Tick, with a tunable interval</span></div>
         <span class="flow__arrow" aria-hidden="true"></span>
         <div class="flow__node" style="--c:var(--c-edu)"><b>EQS</b><span>Scores a 3D volume of points: clear of obstacles, close to the target</span></div>
         <span class="flow__arrow" aria-hidden="true"></span>
@@ -88,31 +88,61 @@
         <div class="node__head"><span class="n">01</span>A 3D volume from a 2D generator<span class="meta">EQS</span></div>
         <dl class="pm__rows">
           <div><dt>The trick</dt><dd>
-            <p>Unreal’s EQS grid generator is flat: it lays points on a plane. A flying AI needs <mark class="hl">volume</mark>. So I wrote a custom EQS <mark class="hl">context</mark> that returns several centres stacked in height, from a first to a last “floor”, with a vertical offset, placed relative to the AI. The grid is generated around each of them, and the flat generator becomes a <mark class="hl">3D volume</mark> of candidate points.</p>
+            <p>Unreal’s EQS grid generator is flat: it lays points on a plane. A flying AI needs <mark class="hl">volume</mark>. So I wrote a custom EQS <mark class="hl">context</mark> that returns one centre per “floor”: the AI’s location, pushed ahead along its forward vector by a <mark class="hl">start distance</mark>, then raised by <code>floor index × Z offset</code>, from a first to a last floor. The grid is generated around each centre (7,000 units radius, a point every 2,000), and the flat generator becomes a <mark class="hl">3D volume</mark> of candidate points in front of the ship.</p>
           </dd></div>
           <div><dt>Scoring</dt><dd>
-            <p><b>Filter:</b> a <mark class="hl">sphere trace</mark> test removes every point the ship couldn’t reach without hitting something; its radius is tunable to the ship’s size.</p>
-            <p><b>Score:</b> a <mark class="hl">distance</mark> test favours points closest to the target, read through the interface by a second custom context.</p>
+            <p><b>Filter:</b> a <mark class="hl">sphere trace</mark> from the AI (1,500 units radius) removes every point it couldn’t reach without hitting something. It only filters, it doesn’t score.</p>
+            <p><b>Score 1:</b> distance to the target, <mark class="hl">closer is better</mark> (weight ×1). The target is read through the interface by a second custom context.</p>
+            <p><b>Score 2:</b> distance to the AI itself, <mark class="hl">farther is better</mark> (weight ×0.5), so the ship keeps moving forward instead of hovering on the nearest safe point.</p>
           </dd></div>
-          <div><dt>Result</dt><dd>Re-run on a timer, the query keeps returning the best safe point ahead, so the AI <mark class="hl">re-plans continuously</mark> as the target or the obstacles move.</dd></div>
+          <div><dt>Result</dt><dd>The controller runs the query on its <mark class="hl">Tick, with a delayed tick interval</mark>, in <em>Single Best Item</em> mode. When it finishes, the best location is sent to the pawn through the interface (<code>Set New Safe Location</code>). The AI <mark class="hl">re-plans continuously</mark> as the target or the obstacles move.</dd></div>
         </dl>
         <div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/flying-ai/loop-target.jpg" aria-label="Moving the target in real time: the AI re-plans and follows it"><source src="../assets/video/flying-ai/loop-target.mp4" type="video/mp4"></video></div></div>
+      
+        <details class="bp">
+          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">3 graphs</span><span class="bp__toggle" aria-hidden="true"></span></summary>
+          <div class="bp__list">
+            <figure>
+              <button type="button" class="bp__thumb" data-full="../assets/img/flying-ai/bp/aic-eqs-loop.png" data-caption="AI Controller: run the EQS on a delayed Tick, Single Best Item, then pass the result to the pawn as its Safe Location" aria-label="Enlarge graph 1: AI Controller: run the EQS on a delayed Tick, Single Best Item, then pass the result to the pawn as its Safe Location"><img src="../assets/img/flying-ai/bp/aic-eqs-loop.png" alt="" width="1430" height="400" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
+              <figcaption><span class="bp__n">01</span>AI Controller: run the EQS on a delayed Tick, Single Best Item, then pass the result to the pawn as its Safe Location</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="bp__thumb" data-full="../assets/img/flying-ai/bp/eqs-query.png" data-caption="EQS_FlyingAvoidance: SimpleGrid around the 3D context, a sphere trace filter and two distance scores" aria-label="Enlarge graph 2: EQS_FlyingAvoidance: SimpleGrid around the 3D context, a sphere trace filter and two distance scores"><img src="../assets/img/flying-ai/bp/eqs-query.png" alt="" width="632" height="568" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
+              <figcaption><span class="bp__n">02</span>EQS_FlyingAvoidance: SimpleGrid around the 3D context, a sphere trace filter and two distance scores</figcaption>
+            </figure>
+            <figure>
+              <button type="button" class="bp__thumb" data-full="../assets/img/flying-ai/bp/eqc-3d-volume.png" data-caption="EQS context: one grid centre per floor, ahead of the AI by the start distance and raised by the Z offset" aria-label="Enlarge graph 3: EQS context: one grid centre per floor, ahead of the AI by the start distance and raised by the Z offset"><img src="../assets/img/flying-ai/bp/eqc-3d-volume.png" alt="" width="1360" height="474" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
+              <figcaption><span class="bp__n">03</span>EQS context: one grid centre per floor, ahead of the AI by the start distance and raised by the Z offset</figcaption>
+            </figure>
+          </div>
+        </details>
       </article>
 
       <article class="node pm__item reveal" id="flight" style="--c:var(--c-gameplay)">
         <div class="node__head"><span class="n">02</span>Flying like a ship, not a cursor<span class="meta">Pawn</span></div>
         <dl class="pm__rows">
           <div><dt>Movement</dt><dd>The pawn uses <mark class="hl">Floating Pawn Movement</mark> and adds movement input towards the latest safe location, so it moves smoothly instead of teleporting from point to point.</dd></div>
-          <div><dt>Rotation</dt><dd>Rotation is interpolated towards the direction of travel, with a tunable rotation power and a turning boost for tight turns.</dd></div>
-          <div><dt>Banking</dt><dd>The ship <mark class="hl">rolls into its turns</mark>: the change in heading drives the roll, clamped between a minimum and a maximum angle and interpolated at a tunable speed. It is a small detail, but it is what makes the flight read as believable.</dd></div>
+          <div><dt>Rotation</dt><dd>The target rotation comes from the <mark class="hl">velocity</mark>: pitch and yaw follow the direction of travel, and <code>RInterpTo</code> blends towards it at a tunable <em>Rotation Power</em>.</dd></div>
+          <div><dt>Banking</dt><dd>The ship <mark class="hl">rolls into its turns</mark>: the roll is the <mark class="hl">yaw difference</mark> between where the ship faces and where it is going, multiplied by <em>Banking Power</em> and clamped between <em>Min</em> and <em>Max Banking Roll</em>. A sharp turn gives a strong bank, a gentle one barely tilts. It is a small detail, but it is what makes the flight read as believable.</dd></div>
         </dl>
         <div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/flying-ai/loop-weave.jpg" aria-label="The ship weaving between walls and banking into its turns"><source src="../assets/video/flying-ai/loop-weave.mp4" type="video/mp4"></video></div></div>
+      
+        <details class="bp">
+          <summary><span class="bp__icon" aria-hidden="true">ƒ</span><span class="bp__label">View Blueprint</span><span class="bp__count">1 graph</span><span class="bp__toggle" aria-hidden="true"></span></summary>
+          <div class="bp__list">
+            <figure>
+              <button type="button" class="bp__thumb" data-full="../assets/img/flying-ai/bp/banking.png" data-caption="Smooth rotation with banking: yaw delta × Banking Power, clamped, then RInterpTo towards the velocity rotation" aria-label="Enlarge graph 1: Smooth rotation with banking: yaw delta × Banking Power, clamped, then RInterpTo towards the velocity rotation"><img src="../assets/img/flying-ai/bp/banking.png" alt="" width="1607" height="388" loading="lazy"><span class="bp__zoom" aria-hidden="true">⤢ Enlarge</span></button>
+              <figcaption><span class="bp__n">01</span>Smooth rotation with banking: yaw delta × Banking Power, clamped, then RInterpTo towards the velocity rotation</figcaption>
+            </figure>
+          </div>
+        </details>
       </article>
 
       <article class="node pm__item reveal" id="interface" style="--c:var(--c-tools)">
         <div class="node__head"><span class="n">03</span>Modular by design<span class="meta">Blueprint Interface</span></div>
         <dl class="pm__rows">
           <div><dt>What I did</dt><dd>The controller, the pawn and the EQS contexts never cast to each other: they communicate through a <mark class="hl">Blueprint Interface</mark> (get target location, set target, set new safe location, set movement state). Any pawn that implements it can use the same controller and query.</dd></div>
+          <div><dt>Movement modes</dt><dd>A <code>Movement State</code> enum (currently <em>Target</em>) shows how new ways of moving can be added side by side, such as patrolling or fleeing, without touching the avoidance logic.</dd></div>
           <div><dt>Why</dt><dd>The AI is meant as a <mark class="hl">solid starting structure</mark>, not a finished enemy: you plug in your own ship and add behaviour on top. In the tutorial I also show how to move the logic into a <mark class="hl">Behavior Tree</mark>, without making it the focus.</dd></div>
         </dl>
       </article>
@@ -125,7 +155,7 @@
     <div class="tune">
       <div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Flight<span class="meta">Pawn</span></div><ul class="tune__list"><li>Max Speed</li><li>Interp Speed</li><li>Rotation Power</li><li>Turning Boost</li></ul></div>
       <div class="node reveal" style="--c:var(--c-passions)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Banking<span class="meta">Pawn</span></div><ul class="tune__list"><li>Banking Power</li><li>Banking Speed</li><li>Min Banking Roll</li><li>Max Banking Roll</li></ul></div>
-      <div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Avoidance<span class="meta">Controller · EQS</span></div><ul class="tune__list"><li>EQS update interval</li><li>EQS Start Distance Multiplier</li><li>Sphere Trace Test Radius</li><li>Grid size, spacing and floors</li></ul></div>
+      <div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Avoidance<span class="meta">Controller · EQS</span></div><ul class="tune__list"><li>Tick interval (query rate)</li><li>Start EQS Distance</li><li>First / Last 3D Floor · Z Offset</li><li>Grid radius · spacing</li><li>Sphere trace radius</li></ul></div>
       <div class="node reveal" style="--c:var(--c-xp)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Perception<span class="meta">Controller</span></div><ul class="tune__list"><li>Sight Radius</li><li>Lose Sight Radius</li><li>Peripheral Vision Angle</li><li>Detection by affiliation</li></ul></div>
     </div>
   </section>
@@ -164,6 +194,18 @@
     <span>Hand-built · no framework · hosted on GitHub Pages</span>
   </footer>
 </main>
+
+<dialog class="lightbox" aria-label="Blueprint viewer">
+  <div class="lightbox__stage"><img alt=""></div>
+  <p class="lightbox__cap"></p>
+  <div class="lightbox__bar">
+    <span class="lightbox__hint">Click the graph to zoom · ← → to browse</span>
+    <button type="button" data-lb="prev" aria-label="Previous graph">◂</button>
+    <span class="lightbox__n mono"></span>
+    <button type="button" data-lb="next" aria-label="Next graph">▸</button>
+    <button type="button" data-lb="close" aria-label="Close">✕</button>
+  </div>
+</dialog>
 
 <script src="../js/main.js?v=12" defer></script>
 </body>
