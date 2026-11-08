@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="flying">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flying AI — Case study · Esteban Lafargue</title>
+  <meta name="description" content="Flying AI: a 3D flying enemy in Blueprint only that dodges obstacles in real time with EQS, built as a modular starter AI and as the tutorial behind my Unreal Authorized Instructor certification.">
+  <meta name="theme-color" content="#050505">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../css/style.css?v=12">
+  <link rel="stylesheet" href="../css/case.css?v=12">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="../" aria-label="Esteban Lafargue, home">EL<span>.</span></a>
+    <nav class="nav__links" aria-label="Case study">
+      <a href="#how">How it works</a>
+      <a href="#tuning">Tuning</a>
+      <a href="../projects/">All projects</a>
+      <a class="btn btn--primary" href="../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf">CV · PDF ↓</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="case-hero">
+    <a class="back" href="../projects/">◂ All projects</a>
+    <div class="eyebrow" data-stop style="margin-top:18px;--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Case Study 03 · R&amp;D · Tutorial</div>
+    <h1>Flying AI<span class="dot">.</span></h1>
+    <p class="case-hero__pitch">A 3D flying enemy, in Blueprint only, that dodges obstacles in real time instead of moving step by step. Built as a modular starter AI anyone can reuse, and as the tutorial behind my Unreal Authorized Instructor certification.</p>
+    <div class="case-hero__row">
+      <a class="btn btn--primary" href="#how">How it works ↓</a>
+      <a class="btn btn--ghost" href="https://youtu.be/hd8LiWmTqG4" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+    </div>
+    <dl class="facts">
+      <div><dt>Year</dt><dd>2026</dd></div>
+      <div><dt>Duration</dt><dd>&lt; 1 month</dd></div>
+      <div><dt>Team</dt><dd>Solo</dd></div>
+      <div><dt>Engine</dt><dd>UE5 · Blueprint only</dd></div>
+      <div><dt>Outcome</dt><dd><a href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR" target="_blank" rel="noopener">Instructor certification ↗</a></dd></div>
+    </dl>
+  </section>
+
+  <section class="node reveal" data-stop style="--c:var(--ac);margin-top:72px" aria-labelledby="demo-title">
+    <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="demo-title">Dodging a course of obstacles</span><span class="meta">12 s · loop</span></div>
+    <div class="media media--flat"><video class="loop" muted loop playsinline preload="metadata" poster="../assets/img/flying-ai/trajectory.jpg" aria-label="The flying AI weaving through a course of walls"><source src="../assets/video/flying-ai/trajectory.mp4" type="video/mp4"></video></div>
+    <p class="disclaimer">The ship model is a fan-made X-Wing, used in a free, non-commercial tutorial. Star Wars and X-Wing are trademarks of Lucasfilm Ltd.; this project is not affiliated with or endorsed by Lucasfilm.</p>
+  </section>
+
+  <section id="why" aria-labelledby="why-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-profile)"><span class="stitle__tag" id="why-title">Why I built it</span><span class="stitle__rule"></span></h2>
+    <div class="pm">
+      <article class="node pm__item reveal" style="--c:var(--c-profile)">
+        <dl class="pm__rows">
+          <div><dt>Problem</dt><dd>Flying AI in 3D, in Blueprint only, is often avoided or done roughly. Most examples I saw relied on <mark class="hl">line traces</mark>: the AI moved in jerky steps and never looked natural.</dd></div>
+          <div><dt>Goal</dt><dd>Push it further: an AI that moves <mark class="hl">continuously, in real time</mark>, choosing a safe path around obstacles while it flies, and that stays simple enough to be a <mark class="hl">starting structure</mark> anyone can build behaviour on.</dd></div>
+          <div><dt>Constraint</dt><dd>It became my tutorial for the Unreal Authorized Instructor certification, with a <mark class="hl">30-minute limit</mark>. So the system had to go straight to the point and be explainable live.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="how" aria-labelledby="how-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-xp)"><span class="stitle__tag" id="how-title">How it works</span><span class="stitle__rule"></span></h2>
+    <p class="lead prose" style="margin:0 0 24px">Three pieces talk through one Blueprint Interface: the controller decides where it is safe to go, the pawn decides how to fly there.</p>
+
+    <div class="node reveal" style="--c:var(--c-xp)">
+      <figure class="flow" style="padding-top:22px" aria-label="Diagram of the flying AI loop">
+        <div class="flow__node" style="--c:var(--c-profile)"><b>AI Perception</b><span>Sight sense finds the target</span></div>
+        <span class="flow__arrow" aria-hidden="true"></span>
+        <div class="flow__node" style="--c:var(--c-xp)"><b>AI Controller</b><span>Runs the EQS query on a timer, with a tunable interval</span></div>
+        <span class="flow__arrow" aria-hidden="true"></span>
+        <div class="flow__node" style="--c:var(--c-edu)"><b>EQS</b><span>Scores a 3D volume of points: clear of obstacles, close to the target</span></div>
+        <span class="flow__arrow" aria-hidden="true"></span>
+        <div class="flow__node" style="--c:var(--c-gameplay)"><b>Pawn</b><span>Flies to the safe location: Floating Pawn Movement, smooth rotation, banking</span></div>
+        <figcaption>Every exchange goes through the BPI_FlyingAI interface: set target, set new safe location, set movement state.</figcaption>
+      </figure>
+    </div>
+
+    <div class="pm" style="margin-top:24px">
+      <article class="node pm__item reveal" id="eqs" style="--c:var(--c-edu)">
+        <div class="node__head"><span class="n">01</span>A 3D volume from a 2D generator<span class="meta">EQS</span></div>
+        <dl class="pm__rows">
+          <div><dt>The trick</dt><dd>
+            <p>Unreal’s EQS grid generator is flat: it lays points on a plane. A flying AI needs <mark class="hl">volume</mark>. So I wrote a custom EQS <mark class="hl">context</mark> that returns several centres stacked in height, from a first to a last “floor”, with a vertical offset, placed relative to the AI. The grid is generated around each of them, and the flat generator becomes a <mark class="hl">3D volume</mark> of candidate points.</p>
+          </dd></div>
+          <div><dt>Scoring</dt><dd>
+            <p><b>Filter:</b> a <mark class="hl">sphere trace</mark> test removes every point the ship couldn’t reach without hitting something; its radius is tunable to the ship’s size.</p>
+            <p><b>Score:</b> a <mark class="hl">distance</mark> test favours points closest to the target, read through the interface by a second custom context.</p>
+          </dd></div>
+          <div><dt>Result</dt><dd>Re-run on a timer, the query keeps returning the best safe point ahead, so the AI <mark class="hl">re-plans continuously</mark> as the target or the obstacles move.</dd></div>
+        </dl>
+        <div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/flying-ai/loop-target.jpg" aria-label="Moving the target in real time: the AI re-plans and follows it"><source src="../assets/video/flying-ai/loop-target.mp4" type="video/mp4"></video></div></div>
+      </article>
+
+      <article class="node pm__item reveal" id="flight" style="--c:var(--c-gameplay)">
+        <div class="node__head"><span class="n">02</span>Flying like a ship, not a cursor<span class="meta">Pawn</span></div>
+        <dl class="pm__rows">
+          <div><dt>Movement</dt><dd>The pawn uses <mark class="hl">Floating Pawn Movement</mark> and adds movement input towards the latest safe location, so it moves smoothly instead of teleporting from point to point.</dd></div>
+          <div><dt>Rotation</dt><dd>Rotation is interpolated towards the direction of travel, with a tunable rotation power and a turning boost for tight turns.</dd></div>
+          <div><dt>Banking</dt><dd>The ship <mark class="hl">rolls into its turns</mark>: the change in heading drives the roll, clamped between a minimum and a maximum angle and interpolated at a tunable speed. It is a small detail, but it is what makes the flight read as believable.</dd></div>
+        </dl>
+        <div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video class="loop" muted loop playsinline preload="none" poster="../assets/img/flying-ai/loop-weave.jpg" aria-label="The ship weaving between walls and banking into its turns"><source src="../assets/video/flying-ai/loop-weave.mp4" type="video/mp4"></video></div></div>
+      </article>
+
+      <article class="node pm__item reveal" id="interface" style="--c:var(--c-tools)">
+        <div class="node__head"><span class="n">03</span>Modular by design<span class="meta">Blueprint Interface</span></div>
+        <dl class="pm__rows">
+          <div><dt>What I did</dt><dd>The controller, the pawn and the EQS contexts never cast to each other: they communicate through a <mark class="hl">Blueprint Interface</mark> (get target location, set target, set new safe location, set movement state). Any pawn that implements it can use the same controller and query.</dd></div>
+          <div><dt>Why</dt><dd>The AI is meant as a <mark class="hl">solid starting structure</mark>, not a finished enemy: you plug in your own ship and add behaviour on top. In the tutorial I also show how to move the logic into a <mark class="hl">Behavior Tree</mark>, without making it the focus.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="tuning" aria-labelledby="tuning-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-tools)"><span class="stitle__tag" id="tuning-title">Built for Designers</span><span class="stitle__rule"></span></h2>
+    <p class="lead prose" style="margin:0 0 24px">Everything that shapes the behaviour is a variable a Designer can change, without opening the graphs.</p>
+    <div class="tune">
+      <div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Flight<span class="meta">Pawn</span></div><ul class="tune__list"><li>Max Speed</li><li>Interp Speed</li><li>Rotation Power</li><li>Turning Boost</li></ul></div>
+      <div class="node reveal" style="--c:var(--c-passions)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Banking<span class="meta">Pawn</span></div><ul class="tune__list"><li>Banking Power</li><li>Banking Speed</li><li>Min Banking Roll</li><li>Max Banking Roll</li></ul></div>
+      <div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Avoidance<span class="meta">Controller · EQS</span></div><ul class="tune__list"><li>EQS update interval</li><li>EQS Start Distance Multiplier</li><li>Sphere Trace Test Radius</li><li>Grid size, spacing and floors</li></ul></div>
+      <div class="node reveal" style="--c:var(--c-xp)"><div class="node__head"><span class="pin" aria-hidden="true"></span>Perception<span class="meta">Controller</span></div><ul class="tune__list"><li>Sight Radius</li><li>Lose Sight Radius</li><li>Peripheral Vision Angle</li><li>Detection by affiliation</li></ul></div>
+    </div>
+  </section>
+
+  <section id="tests" class="node reveal" data-stop style="--c:var(--ac);margin-top:96px" aria-labelledby="tests-title">
+    <div class="node__head"><span class="node__icon" aria-hidden="true">▶</span><span id="tests-title">Real-time tests: moving the target around obstacles</span><span class="meta">53 s</span></div>
+    <video class="demo" controls preload="none" playsinline poster="../assets/img/flying-ai/tests.jpg"><source src="../assets/video/flying-ai/tests.mp4" type="video/mp4"></video>
+  </section>
+
+  <section id="post-mortem" aria-labelledby="pm-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="pm-title">What I’d do next</span><span class="stitle__rule"></span></h2>
+    <div class="pm">
+      <article class="node pm__item reveal" style="--c:var(--c-edu)">
+        <dl class="pm__rows">
+          <div><dt>Trade-off</dt><dd>The 30-minute tutorial format meant going straight to the point: the logic lives directly in the controller and the pawn.</dd></div>
+          <div class="pm__next"><dt>Next time</dt><dd>Package the movement and banking into an <mark class="hl">Actor Component</mark>, so any pawn gets flight by adding one component, and offer the Behavior Tree version as the default for richer behaviours.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" aria-labelledby="contact-title">
+    <div>
+      <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
+      <h2 id="contact-title">Need AI your Designers can tune<span class="dot">?</span></h2>
+    </div>
+    <div class="contact__links">
+      <a class="link-pill" href="../#contact">Send a message <span>↗</span></a>
+      <a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
+      <a class="link-pill" href="../projects/">All projects <span>↗</span></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Esteban Lafargue</span>
+    <span>Hand-built · no framework · hosted on GitHub Pages</span>
+  </footer>
+</main>
+
+<script src="../js/main.js?v=12" defer></script>
+</body>
+</html>

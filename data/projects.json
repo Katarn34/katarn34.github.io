@@ -63,10 +63,11 @@
         "Tutorial",
         "Tuning"
       ],
-      "status": "video",
-      "url": "https://youtu.be/hd8LiWmTqG4",
-      "thumb": "https://i.ytimg.com/vi/hd8LiWmTqG4/hqdefault.jpg",
-      "featured": 2
+      "status": "case-study",
+      "url": "flying-ai/",
+      "thumb": "assets/img/flying-ai/trajectory.jpg",
+      "featured": 2,
+      "hover": "assets/video/flying-ai/card-hover.mp4"
     },
     {
       "id": "vr-fabre",
