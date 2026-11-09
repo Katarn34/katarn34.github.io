@@ -6,6 +6,18 @@
   const hosts = document.querySelectorAll('[data-projects]');
   if (!hosts.length) return;
 
+  const FRL = document.documentElement.lang === 'fr';
+  const CTA_FR = {
+    'case-study': 'Lire l’étude de cas ▷',
+    video: 'Voir la vidéo ↗',
+    external: 'Jouer sur itch.io ↗',
+    nda: 'Sous NDA · voir Expériences ▷',
+    devlog: 'Lire le devlog ▷',
+    soon: 'Étude de cas bientôt',
+    wip: 'En cours'
+  };
+  const L = (p, k) => (FRL && p.fr && p.fr[k] != null ? p.fr[k] : p[k]);
+  const CL = (c) => (FRL && c.label_fr ? c.label_fr : c.label);
   const CTA = {
     'case-study': 'Read case study ▷',
     video: 'Watch the video ↗',
@@ -20,21 +32,22 @@
 
   function card(p, cats, base) {
     const cat = cats[p.category] || { label: p.category, color: '--c-projects' };
+    const ctaMap = FRL ? CTA_FR : CTA;
     const linked = p.url && !['soon', 'wip'].includes(p.status);
     const tag = linked ? 'a' : 'div';
     const href = linked ? ` href="${esc(abs(p.url, base))}"` : '';
     const ext = linked && /^https?:/.test(p.url) ? ' target="_blank" rel="noopener"' : '';
     const media = p.thumb
       ? `<img src="${esc(abs(p.thumb, base))}" alt="" loading="lazy">${p.hover ? `<video muted loop playsinline preload="none" src="${esc(abs(p.hover, base))}"></video>` : ''}`
-      : `<span class="card__ph card__ph--${esc(p.status)}">${p.status === 'nda' ? 'NDA · no visuals' : esc(cat.label)}</span>`;
+      : `<span class="card__ph card__ph--${esc(p.status)}">${p.status === 'nda' ? (FRL ? 'NDA · sans visuels' : 'NDA · no visuals') : esc(CL(cat))}</span>`;
     return `<${tag} class="node card reveal${linked ? '' : ' card--soon'}" style="--c:var(${cat.color})"${href}${ext}>
-      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(p.title)}<span class="meta">${esc(p.period)}</span></div>
+      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(L(p, 'title'))}<span class="meta">${esc(L(p, 'period'))}</span></div>
       <div class="card__media">${media}</div>
       <div class="card__body">
-        <div class="card__cat"><span class="chip" style="--c:var(${cat.color})">${esc(cat.label)}</span><span class="card__team">${esc(p.team)}</span></div>
-        <p class="card__pitch">${esc(p.pitch)}</p>
-        <p class="card__role">${esc(p.role)}</p>
-        <span class="card__cta">${CTA[p.status] || ''}</span>
+        <div class="card__cat"><span class="chip" style="--c:var(${cat.color})">${esc(CL(cat))}</span><span class="card__team">${esc(L(p, 'team'))}</span></div>
+        <p class="card__pitch">${esc(L(p, 'pitch'))}</p>
+        <p class="card__role">${esc(L(p, 'role'))}</p>
+        <span class="card__cta">${ctaMap[p.status] || ''}</span>
       </div>
     </${tag}>`;
   }
@@ -69,9 +82,9 @@
     const counts = list.reduce((m, p) => ((m[p.category] = (m[p.category] || 0) + 1), m), {});
     const keys = Object.keys(cats).filter((k) => counts[k]);
     host.innerHTML = `
-      <div class="filters" role="group" aria-label="Filter projects">
-        <button type="button" class="filter" aria-pressed="true" data-f="all">All <span>${list.length}</span></button>
-        ${keys.map((k) => `<button type="button" class="filter" aria-pressed="false" data-f="${k}" style="--c:var(${cats[k].color})">${esc(cats[k].label)} <span>${counts[k]}</span></button>`).join('')}
+      <div class="filters" role="group" aria-label="${FRL ? 'Filtrer les projets' : 'Filter projects'}">
+        <button type="button" class="filter" aria-pressed="true" data-f="all">${FRL ? 'Tous' : 'All'} <span>${list.length}</span></button>
+        ${keys.map((k) => `<button type="button" class="filter" aria-pressed="false" data-f="${k}" style="--c:var(${cats[k].color})">${esc(CL(cats[k]))} <span>${counts[k]}</span></button>`).join('')}
       </div>
       <div class="timeline" aria-live="polite"></div>`;
     const tl = host.querySelector('.timeline');

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html class="no-js" data-theme="abyss" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Project Abyss — Journal de développement · Esteban Lafargue</title>
+<meta content="Project Abyss, en production : une démo technique sous-marine où l’on progresse en comprenant les créatures. IA lisible, navigation 3D sans NavMesh et Creature Tuner pour les Designers. Journal de développement et feuille de route en direct." name="description"/>
+<link href="https://katarn34.github.io/abyss/" hreflang="en" rel="alternate"/>
+<link href="https://katarn34.github.io/fr/abyss/" hreflang="fr" rel="alternate"/>
+<meta content="#050505" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="../../css/style.css?v=14" rel="stylesheet"/>
+<link href="../../css/case.css?v=14" rel="stylesheet"/>
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+<header class="nav">
+<div class="nav__inner">
+<a aria-label="Esteban Lafargue, accueil" class="nav__logo" href="../">EL<span>.</span></a>
+<nav aria-label="Devlog" class="nav__links">
+<a href="#plan">Plan</a>
+<a href="#roadmap">Feuille de route</a>
+<a href="#devlog">Devlog</a>
+<a aria-label="Version anglaise" class="lang" data-lang-switch="" href="../../abyss/" hreflang="en" lang="en">EN</a>
+<a class="btn btn--primary" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf" href="../../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf">CV · PDF ↓</a>
+</nav>
+</div>
+</header>
+<main class="wrap">
+<section class="case-hero">
+<a class="back" href="../projects/">◂ Tous les projets</a>
+<div class="eyebrow" data-stop="" style="margin-top:18px;--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Devlog · En production</div>
+<h1>Project Abyss<span class="dot">.</span></h1>
+<p class="case-hero__pitch">Une démo technique sous-marine de 10 à 15 minutes. Vous incarnez un xénobiologiste qui étudie la faune d’une petite crique, sans aucune arme : vous progressez en <em>comprenant</em> les créatures, en les scannant et en observant leurs comportements, jusqu’à une présence immense entrevue dans l’obscurité.</p>
+<dl class="facts">
+<div><dt>Début</dt><dd>Oct 2026</dd></div>
+<div><dt>Plan</dt><dd>~16 semaines · 6–8 h / semaine</dd></div>
+<div><dt>Équipe</dt><dd>Solo</dd></div>
+<div><dt>Moteur</dt><dd>UE5 · Blueprint d’abord</dd></div>
+<div><dt>Budget</dt><dd>IA ≤ 2 ms · 60 fps en 1080p</dd></div>
+</dl>
+</section>
+<section aria-labelledby="plan-title" id="plan" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--ac)"><span class="stitle__tag" id="plan-title">Ce que je construis</span><span class="stitle__rule"></span></h2>
+<div class="lessons">
+<div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Curiosité<span class="meta">« J’ai envie de m’approcher. »</span></div><div class="node__body">Un pilotage 3D crédible, des comportements au repos lisibles, une créature qui vient vers le joueur.</div></div>
+<div class="node reveal" style="--c:var(--c-profile)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Tension<span class="meta">« Il prévient avant d’agir. »</span></div><div class="node__body">Un prédateur à la vigilance progressive, avec des paliers explicites et des charges télégraphiées, le tout en données.</div></div>
+<div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Lisibilité<span class="meta">« Je comprends toujours. »</span></div><div class="node__body">Chaque comportement observable émet un signal (posture, lumière, son), avec des outils de debug pour le vérifier.</div></div>
+</div>
+<div class="pm" style="margin-top:24px">
+<article class="node pm__item reveal" style="--c:var(--c-xp)">
+<div class="node__head"><span class="n">01</span>Navigation 3D sans NavMesh<span class="meta">Suite de Flying AI</span></div>
+<dl class="pm__rows">
+<div><dt>Idée</dt><dd>Le NavMesh d’Unreal ne couvre que les surfaces où l’on marche : les créatures naviguent donc en <mark class="hl">trois couches</mark>. Un Behavior Tree ou un State Tree décide <em>quoi</em> faire, une requête <mark class="hl">EQS</mark> choisit le prochain point de passage libre vers cet objectif, et un <mark class="hl">composant de steering</mark> fait nager la créature jusque-là en douceur, en s’inclinant dans les virages et en enchaînant les points sans s’arrêter.</dd></div>
+<div><dt>Pourquoi</dt><dd>L’EQS seul planifie bien mais zigzague et s’arrête à chaque point ; le steering seul voit trop court et se coince dans les rochers en U. C’est la suite directe de mon <a href="../flying-ai/">Flying AI</a>.</dd></div>
+</dl>
+</article>
+<article class="node pm__item reveal" style="--c:var(--c-tools)">
+<div class="node__head"><span class="n">02</span>Le Creature Tuner<span class="meta">Editor Utility Widget</span></div>
+<dl class="pm__rows">
+<div><dt>Objectif</dt><dd>Un Designer choisit une espèce, la règle, la fait apparaître en jeu et observe sa perception et sa vigilance en direct, <mark class="hl">sans ouvrir un seul graphe Blueprint</mark>. Objectif : une nouvelle espèce en moins de 3 minutes.</dd></div>
+<div><dt>Comment</dt><dd>Le widget d’éditeur et la session de jeu vivent dans deux mondes différents : un <mark class="hl">Data Asset sert donc de canal</mark> entre eux, via un acteur passerelle qui n’existe que hors des builds de production.</dd></div>
+</dl>
+</article>
+<article class="node pm__item reveal" style="--c:var(--c-edu)">
+<div class="node__head"><span class="n">03</span>Le bon framework pour chaque créature<span class="meta">BT · State Tree</span></div>
+<dl class="pm__rows">
+<div><dt>Choix</dt><dd>Un banc de poissons aux états simples (croisière, fuite, regroupement) tourne sur un <mark class="hl">State Tree</mark> ; le serpent de mer, avec ses priorités et ses interruptions, sur un <mark class="hl">Behavior Tree</mark>. L’objectif est aussi de montrer que je travaille avec les frameworks d’Unreal au lieu de les réinventer.</dd></div>
+</dl>
+</article>
+</div>
+</section>
+<section aria-labelledby="roadmap-title" id="roadmap" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="roadmap-title">Feuille de route</span><span class="stitle__rule"></span></h2>
+<p class="lead prose" style="margin:0 0 24px">Synchronisée avec le plan de production du projet. Chaque jalon se termine par une version jouable.</p>
+<div class="road" data-abyss-roadmap="" data-base="../../"><noscript><p>The roadmap needs JavaScript.</p></noscript></div>
+</section>
+<section aria-labelledby="devlog-title" id="devlog" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="devlog-title">Devlog</span><span class="stitle__rule"></span></h2>
+<div class="devlog" data-abyss-devlog=""></div>
+</section>
+<section aria-labelledby="contact-title" class="contact">
+<div>
+<div class="eyebrow" data-stop="" style="--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Event OnContact</div>
+<h2 id="contact-title">Vous créez des mondes vivants ? Parlons-en<span class="dot">.</span></h2>
+</div>
+<div class="contact__links">
+<a class="link-pill" href="../#contact">Envoyer un message <span>↗</span></a>
+<a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
+<a class="link-pill" href="../projects/">Tous les projets <span>↗</span></a>
+</div>
+</section>
+<footer class="footer">
+<span>© 2026 Esteban Lafargue</span>
+<span>Fait main · sans framework · hébergé sur GitHub Pages</span>
+</footer>
+</main>
+<script defer="" src="../../js/abyss.js?v=14"></script>
+<script defer="" src="../../js/main.js?v=14"></script>
+</body>
+</html>

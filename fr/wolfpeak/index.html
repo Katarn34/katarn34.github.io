@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="no-js" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>WolfPeak Studio — Étude de cas · Esteban Lafargue</title>
+<meta content="WolfPeak Studio (NDA) : refonte de l’inventaire, du craft et des interactions en une architecture évolutive et compatible multijoueur, et Action Objects, un système d’effets en C++ que les Designers configurent sans code." name="description"/>
+<link href="https://katarn34.github.io/wolfpeak/" hreflang="en" rel="alternate"/>
+<link href="https://katarn34.github.io/fr/wolfpeak/" hreflang="fr" rel="alternate"/>
+<meta content="#050505" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="../../css/style.css?v=14" rel="stylesheet"/>
+<link href="../../css/case.css?v=14" rel="stylesheet"/>
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+<header class="nav">
+<div class="nav__inner">
+<a aria-label="Esteban Lafargue, accueil" class="nav__logo" href="../">EL<span>.</span></a>
+<nav aria-label="Étude de cas" class="nav__links">
+<a href="#systems">Systèmes</a>
+<a href="../projects/">Tous les projets</a>
+<a href="../#contact">Contact</a>
+<a aria-label="Version anglaise" class="lang" data-lang-switch="" href="../../wolfpeak/" hreflang="en" lang="en">EN</a>
+<a class="btn btn--primary" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf" href="../../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf">CV · PDF ↓</a>
+</nav>
+</div>
+</header>
+<main class="wrap">
+<!-- ===== Hero ===== -->
+<section class="case-hero">
+<a class="back" href="../projects/">◂ Tous les projets</a>
+<div class="eyebrow" data-stop="" style="margin-top:18px;--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Étude de cas 02 · Professionnel</div>
+<h1>WolfPeak Studio<span class="dot">.</span></h1>
+<p class="case-hero__pitch">Reprendre des systèmes de gameplay qui cassaient dès qu’on y touchait, et les reconstruire pour que les Designers ajoutent du contenu en toute sécurité, en multijoueur, sans attendre le code.</p>
+<dl class="facts">
+<div><dt>Période</dt><dd>juil. 2025 – auj.</dd></div>
+<div><dt>Rôles</dt><dd>Gameplay Programmer (stage), puis Technical Designer</dd></div>
+<div><dt>Moteur</dt><dd>Unreal Engine 5 · C++ / Blueprint</dd></div>
+<div><dt>Équipe</dt><dd>7 personnes</dd></div>
+<div><dt>Responsabilité</dt><dd>Chaque système ci-dessous : conçu et réalisé par moi</dd></div>
+</dl>
+<div class="nda">
+<span class="nda__tag">NDA</span>
+<p>Aucune vidéo, capture ou ligne de code du jeu n’est montrée ici. Les systèmes sont décrits de façon générale ; les schémas et l’exemple de code sont des illustrations simplifiées écrites pour cette page.</p>
+</div>
+</section>
+<!-- ===== At a glance ===== -->
+<section aria-labelledby="glance-title" class="node reveal" data-stop="" style="--c:var(--c-xp);margin-top:72px">
+<div class="node__head"><span aria-hidden="true" class="node__icon">⇉</span><h2 id="glance-title" style="margin:0;font-size:inherit">En bref</h2></div>
+<ul class="glance">
+<li><b>4 systèmes</b><span>Inventaire, craft, interaction et équipement, refondus et documentés</span></li>
+<li><b>0 bug</b><span>Les systèmes refondus restent stables, quels que soient les tests des Designers</span></li>
+<li><b>&lt; 1 minute</b><span>Pour créer un nouvel objet ou un nouveau texte d’interaction, sans programmeur</span></li>
+<li><b>Action Objects</b><span>Des effets d’objets que les Designers configurent sans code, sur une base C++</span></li>
+<li><b>4 IA ennemies</b><span>30+ nœuds custom, des sous-arbres modulaires et 5 outils de debug utilisés chaque jour par les Designers</span></li>
+<li><b>Cartes de compétences</b><span>Un système complet de cartes en CommonUI, avec les systèmes de vie et d’XP derrière</span></li>
+</ul>
+</section>
+<!-- ===== Systems ===== -->
+<section aria-labelledby="systems-title" id="systems" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="systems-title">Les systèmes que j’ai créés</span><span class="stitle__rule"></span></h2>
+<div class="pm">
+<!-- 01 Refactor -->
+<article class="node pm__item reveal" id="refactor" style="--c:var(--c-gameplay)">
+<div class="node__head"><span class="n">01</span>Inventaire, craft, interaction &amp; équipement<span class="meta">Refonte · Technical Designer</span></div>
+<dl class="pm__rows">
+<div><dt>Problème</dt><dd>Ces quatre systèmes avaient été construits tôt dans la production, sans architecture définie ni documentation. Ils étaient très couplés : toute modification de l’un créait des bugs partout ailleurs, si bien que l’équipe n’osait plus y toucher.</dd></div>
+<div><dt>Ce que j’ai fait</dt><dd>
+<p>J’ai réparé les systèmes existants pour que le jeu continue de fonctionner, marqué l’ancien code comme <mark class="hl">DEPRECATED</mark>, puis conçu et reconstruit une <mark class="hl">architecture évolutive</mark> pour chaque nouveau système et chaque nouvel objet.</p>
+<p><b>Des interactions pilotées par les données.</b> Chaque objet porte des <mark class="hl">Gameplay Tags</mark> qui décrivent ce qu’on peut en faire. Quand un joueur interagit, le tag indique au système quelle interaction lancer, et une <mark class="hl">Data Table</mark> fournit le texte à afficher pour ce type. Un nouvel objet ou une nouvelle interaction, c’est une ligne de données, pas du nouveau code.</p>
+<p><b>Des responsabilités claires, prêtes pour plusieurs joueurs.</b> Chaque système sait qui a créé quoi et à qui ça appartient, grâce à de vraies références plutôt qu’à des raccourcis comme <code>Get Player Character</code> à l’index 0 ou des casts hasardeux. Aujourd’hui, le jeu tourne en écran partagé local, avec un widget par joueur et le bon Owning Player ; le réseau était géré par mon mentor, avec qui j’ai travaillé étroitement en produisant des builds de test pour repérer tôt les erreurs de programmation et les problèmes multijoueur.</p>
+</dd></div>
+<div class="pm__next"><dt>Impact</dt><dd>
+<p><b>Plus aucun bug :</b> les systèmes restent stables quels que soient les tests des Designers.</p>
+<p><b>Un nouvel objet en moins d’une minute :</b> dupliquer le <mark class="hl">Data Asset</mark> d’un objet, remplir ses données, placer l’objet dans le monde avec ce Data Asset dans ses Details. Terminé.</p>
+<p><b>Un nouveau texte d’interaction en une minute environ :</b> ajouter une ligne pour le tag dans la Data Table des interactions, ou créer un nouveau tag si besoin.</p>
+<p><b>Facile à étendre :</b> les nouvelles demandes sont devenues simples à ajouter, comme des interactions propres à chaque objet dans l’inventaire : maintenir pour consommer certains objets, un simple clic pour d’autres.</p>
+</dd></div>
+</dl>
+<figure aria-label="Schéma : le Gameplay Tag d’un objet choisit l’interaction, et une Data Table fournit le texte affiché" class="flow">
+<div class="flow__node" style="--c:var(--c-edu)"><b>Objet</b><span>Data Asset + Gameplay Tags<br/><code>Interact.Pickup</code></span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-gameplay)"><b>Système d’interaction</b><span>Lit le tag, lance l’interaction correspondante</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-tools)"><b>Data Table</b><span>Tag → texte affiché<br/><code>“Pick up”</code></span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-projects)"><b>UI</b><span>Affiche le bon texte à chaque joueur</span></div>
+<figcaption>Illustration simplifiée du flux de données.</figcaption>
+</figure>
+</article>
+<!-- 02 Action Objects -->
+<article class="node pm__item reveal" id="action-objects" style="--c:var(--c-tools)">
+<div class="node__head"><span class="n">02</span>Action Objects<span class="meta">C++ · outils pour les Designers</span></div>
+<dl class="pm__rows">
+<div><dt>Problème</dt><dd>Les effets d’objets (capacités, consommables, bonus d’équipement) demandaient un programmeur à chaque fois. Les Designers ne pouvaient pas créer ni régler un effet seuls.</dd></div>
+<div><dt>Ce que j’ai fait</dt><dd>
+<p>J’ai conçu les <mark class="hl">Action Objects</mark>, un système d’effets sur une <mark class="hl">base C++</mark>. Les Designers créent les effets qu’ils veulent et règlent chaque valeur nécessaire, directement sur l’objet.</p>
+<p>La clé : grâce aux objets <mark class="hl">EditInlineNew</mark> et <mark class="hl">Instanced</mark>, le panneau Details n’affiche <mark class="hl">que les variables du type d’effet choisi</mark>. Pas de code, pas de champs inutiles.</p>
+<p><b>Trois classes C++, tout le reste en Blueprint.</b> Le studio travaille presque entièrement en Blueprint, j’ai donc gardé le C++ au minimum : une <mark class="hl">classe d’action abstraite</mark>, instanciée en ligne dans les Data Assets, dont la fonction d’exécution a une base C++ entièrement surchargeable en Blueprint (avec accès au World depuis un UObject) ; une <mark class="hl">Blueprint Function Library</mark> qui crée une instance vivante d’une action à partir du modèle du Designer ; et un <mark class="hl">Primary Data Asset</mark> d’objet qui contient la liste des actions exécutées quand l’objet est utilisé ou consommé.</p>
+<p><b>Exemple : Modify Stat.</b> Ajouté à un objet, il permet à un Designer de choisir n’importe quelle stat par un <mark class="hl">Gameplay Tag</mark>, puis de la restaurer ou de la retirer, instantanément ou sur une durée choisie. Le même Action Object couvre une potion de soin, une perte d’endurance ou un poison. Les stats sont lues et modifiées <mark class="hl">par Gameplay Tag</mark> sur le composant qui les porte, ce qui garde les systèmes découplés.</p>
+</dd></div>
+<div class="pm__next"><dt>Impact</dt><dd><mark class="hl">8 effets</mark> créés en Blueprint à ce jour, sans toucher au C++. Les derniers alimentent un <mark class="hl">système de compétences en Blueprint</mark>, construit ainsi plutôt qu’avec GAS pour que l’équipe n’ait pas à passer par le C++.</dd></div>
+</dl>
+<div class="ao">
+<figure aria-label="Illustration du panneau Details : un objet avec deux effets, chacun n’affichant que ses propres variables" class="details">
+<div class="details__bar">Details</div>
+<div class="details__sec">▾ Item</div>
+<div class="details__row"><span>Nom</span><span class="details__val">Forest Tonic</span></div>
+<div class="details__sec">▾ Actions <em>2 array elements</em></div>
+<div class="details__el"><span class="details__idx">Index [0]</span><span class="details__pick">Modify Stat ▾</span></div>
+<div class="details__row details__row--in"><span>Stat</span><span class="details__val">Stat.Health</span></div>
+<div class="details__row details__row--in"><span>Mode</span><span class="details__val">Restore ▾</span></div>
+<div class="details__row details__row--in"><span>Amount</span><span class="details__val">25.0</span></div>
+<div class="details__row details__row--in"><span>Over Time</span><span class="details__val">☑</span></div>
+<div class="details__row details__row--in"><span>Durée</span><span class="details__val">5.0 s</span></div>
+<div class="details__el"><span class="details__idx">Index [1]</span><span class="details__pick">Modify Stat ▾</span></div>
+<div class="details__row details__row--in"><span>Stat</span><span class="details__val">Stat.Stamina</span></div>
+<div class="details__row details__row--in"><span>Mode</span><span class="details__val">Remove ▾</span></div>
+<div class="details__row details__row--in"><span>Amount</span><span class="details__val">10.0</span></div>
+<div class="details__row details__row--in"><span>Over Time</span><span class="details__val">☐</span></div>
+<figcaption>Ce que voit un Designer : chaque effet n’expose que ses propres réglages. Illustration, pas une capture du projet.</figcaption>
+</figure>
+<figure aria-label="Exemple C++ simplifié" class="code">
+<div class="code__bar"><span>ActionObject.h</span><span>exemple simplifié</span></div>
+<pre><code><span class="k">UCLASS</span>(Abstract, <span class="h">EditInlineNew</span>, DefaultToInstanced, BlueprintType)
+<span class="k">class</span> UActionObject : <span class="k">public</span> UObject
+{
+    GENERATED_BODY()
+<span class="k">public</span>:
+    <span class="k">UFUNCTION</span>(BlueprintNativeEvent)
+    <span class="k">void</span> Execute(AActor* Instigator, AActor* Target);
+};
+
+<span class="c">// Each effect only declares the values it needs</span>
+<span class="k">UCLASS</span>(DisplayName = <span class="s">"Modify Stat"</span>)
+<span class="k">class</span> UAction_ModifyStat : <span class="k">public</span> UActionObject
+{
+    GENERATED_BODY()
+    <span class="k">UPROPERTY</span>(EditAnywhere, meta = (Categories = <span class="s">"Stat"</span>))
+    FGameplayTag Stat;
+    <span class="k">UPROPERTY</span>(EditAnywhere) EStatMode Mode = EStatMode::Restore;
+    <span class="k">UPROPERTY</span>(EditAnywhere) <span class="k">float</span> Amount = 25.f;
+    <span class="k">UPROPERTY</span>(EditAnywhere) <span class="k">bool</span>  bOverTime = <span class="k">false</span>;
+    <span class="k">UPROPERTY</span>(EditAnywhere, meta = (EditCondition = <span class="s">"bOverTime"</span>))
+    <span class="k">float</span> Duration = 5.f;
+};
+
+<span class="c">// On the item: an array of effects, edited inline</span>
+<span class="k">UPROPERTY</span>(EditAnywhere, <span class="h">Instanced</span>)
+TArray&lt;TObjectPtr&lt;UActionObject&gt;&gt; Actions;</code></pre>
+<figcaption>Écrit pour cette page afin de montrer la technique, pas le code de WolfPeak.</figcaption>
+</figure>
+</div>
+</article>
+<!-- 03 AI -->
+<article class="node pm__item reveal" id="ai" style="--c:var(--c-xp)">
+<div class="node__head"><span class="n">03</span>IA ennemie &amp; outils pour les Designers<span class="meta">Gameplay Programmer stagiaire</span></div>
+<dl class="pm__rows">
+<div><dt>Périmètre</dt><dd>L’IA a été mon plus gros chantier sur le projet : <mark class="hl">4 types d’ennemis</mark>, et les outils qui permettent aux Designers et Level Designers de façonner eux-mêmes leur comportement, en direct pendant les revues de sprint.</dd></div>
+<div><dt>Ennemis</dt><dd>
+<ul class="enemies">
+<li><b>Duelliste au corps à corps</b>Conçu pour le combat rapproché : esquive les coups, choisit ses attaques selon le comportement du joueur, coup de pied, dégainement de l’épée, attaque sautée. Une anticipation et un feedback marqués pour que le joueur lise chaque action.</li>
+<li><b>Archer</b>Garde toujours la bonne distance avec le joueur tout en tirant, et se déplace en hauteur. Une anticipation claire avant chaque tir.</li>
+<li><b>Variantes de nuée</b>De petits ennemis de corps à corps, faibles, qui foncent en ligne droite et gênent le joueur : certains appliquent des malus, d’autres laissent un malus à leur mort, d’autres entravent ses déplacements, l’un d’eux s’autodétruit.</li>
+</ul>
+</dd></div>
+<div><dt>Architecture</dt><dd>
+<p><b>L’héritage d’abord.</b> Chaque ennemi a son propre AI Controller, tous hérités d’un <mark class="hl">controller de base commun</mark> qui configure la perception une fois pour tous.</p>
+<p><b>Des Behavior Trees modulaires.</b> <mark class="hl">3 arbres principaux et 5 sous-arbres réutilisables</mark>, sur un Blackboard commun : un comportement écrit une fois sert à plusieurs ennemis.</p>
+<p><b>Nœuds custom.</b> <mark class="hl">30+ nœuds custom</mark> : Tasks, Services, Decorators et contextes EQS.</p>
+<p><b>EQS.</b> <mark class="hl">6 requêtes</mark> avec des contextes custom, pour le positionnement tactique et la recherche de cibles ou de points.</p>
+<p><b>Perception.</b> Sens Sight, Hearing et Damage, avec <mark class="hl">affiliation d’équipe</mark> (ami / ennemi).</p>
+<p><b>Apparition &amp; coordination.</b> <mark class="hl">4 types de spawners</mark>, et un système de <mark class="hl">jetons d’attaque</mark> qui limite le nombre d’ennemis attaquant en même temps, pour des combats lisibles.</p>
+</dd></div>
+<div><dt>Patrol System</dt><dd>Sélectionnez une IA dans le niveau : une section <mark class="hl">Patrol System</mark> apparaît dans ses Details. Les Level Designers choisissent les points exacts de sa patrouille, le temps d’attente à chaque point et sa variation aléatoire. Deux modes : <mark class="hl">aller-retour</mark> (de A à X, puis retour par chaque point) ou <mark class="hl">boucle</mark> (de A à X, puis retour direct au départ pour fermer le circuit).</dd></div>
+<div><dt>Comportements par défaut</dt><dd>Les Level Designers peuvent aussi placer des <mark class="hl">Target Points</mark> vers lesquels l’IA se déplace. Sans eux, elle se déplace librement ; si elle vient d’un spawner, elle <mark class="hl">patrouille sur le territoire du spawner</mark> pour le protéger. Chaque IA a un comportement cohérent, même sans réglage.</dd></div>
+<div><dt>5 outils de debug</dt><dd>
+<ul class="tools">
+<li><b>Perception 3D</b>Le debug d’AI Perception d’Unreal ne montre pas la vue en verticalité. Mon outil d’éditeur dessine toute la vision 3D de l’IA et permet aux Designers de la modifier, avec une mise à jour en temps réel.</li>
+<li><b>Zones des spawners</b>Montre la zone d’action de chaque spawner et permet aux Designers de remodeler son NavMesh dynamique en temps réel.</li>
+<li><b>Jetons d’attaque</b>Montre quelle IA s’apprête à attaquer : la chorégraphie et l’ordre des actions ennemies deviennent visibles.</li>
+<li><b>Last Known Position</b>Montre où chaque IA a vu sa cible pour la dernière fois, pour comprendre et régler sa recherche.</li>
+<li><b>Plugin LineOfSight</b>Un plugin que j’ai implémenté : il crée dynamiquement une ligne de visée au sol et renvoie tous les acteurs touchés ou sur le point de l’être. Placé dans un <mark class="hl">Anim Notify State</mark>, il permet aux Designers de régler la zone de n’importe quelle attaque dans l’animation et d’en voir le résultat aussitôt en gameplay.</li>
+</ul>
+</dd></div>
+<div class="pm__next"><dt>Impact</dt><dd>Ces outils étaient utilisés en permanence par les Designers et les Level Designers. Pendant les revues de sprint, nous réglions l’IA <mark class="hl">en direct</mark> : zones d’action, lisibilité de chaque attaque et comportement, vitesse des animations et rapidité d’exécution des tâches du Behavior Tree, sans demander un programmeur à chaque changement.</dd></div>
+</dl>
+<div class="ao">
+<figure aria-label="Illustration de la section Patrol System dans le panneau Details" class="details">
+<div class="details__bar">Details · BP_Enemy</div>
+<div class="details__sec">▾ Patrol System</div>
+<div class="details__row"><span>Patrol Points</span><span class="details__val">4 elements</span></div>
+<div class="details__row"><span>Patrol Mode</span><span class="details__val">Loop ▾</span></div>
+<div class="details__row"><span>Wait Time</span><span class="details__val">2.0 s</span></div>
+<div class="details__row"><span>Wait Variation</span><span class="details__val">± 0.5 s</span></div>
+<div class="details__sec">▾ Movement</div>
+<div class="details__row"><span>Target Points</span><span class="details__val">None</span></div>
+<div class="details__row"><span>Spawner Territory</span><span class="details__val">Roam ☑</span></div>
+<figcaption>Ce que voit un Level Designer sur une IA. Illustration, pas une capture du projet.</figcaption>
+</figure>
+<figure aria-label="Vue de côté : le debug de perception par défaut est plat, l’outil montre l’angle vertical de la vision de l’IA" class="sight">
+<svg aria-label="Vue de côté du cône de vision 3D d’une IA avec son angle vertical" role="img" viewbox="0 0 420 250">
+<line stroke="#2a3140" stroke-width="2" x1="20" x2="400" y1="215" y2="215"></line>
+<path d="M70 140 L390 40 L390 240 Z" fill="#4da3ff22" stroke="#4da3ff" stroke-width="1.5"></path>
+<line stroke="#ffffff55" stroke-dasharray="5 5" x1="70" x2="390" y1="140" y2="140"></line>
+<rect fill="#1c2230" height="155" stroke="#2a3140" width="40" x="300" y="60"></rect>
+<circle cx="320" cy="50" fill="#3ddc97" r="9"></circle>
+<circle cx="70" cy="140" fill="#ff5f6d" r="12"></circle>
+<rect fill="#ff5f6d55" height="63" rx="6" width="24" x="58" y="152"></rect>
+<text fill="#a3a3a3" font-family="JetBrains Mono, monospace" font-size="11" x="130" y="128">debug par défaut : plat</text>
+<text fill="#4da3ff" font-family="JetBrains Mono, monospace" font-size="11" x="150" y="22">angle vertical, modifiable en direct</text>
+<text fill="#3ddc97" font-family="JetBrains Mono, monospace" font-size="11" text-anchor="end" x="306" y="54">joueur sur une corniche</text>
+</svg>
+<figcaption>Vue de côté : dès que le niveau a de la hauteur, l’angle vertical décide si l’IA voit le joueur. Illustration.</figcaption>
+</figure>
+</div>
+</article>
+<!-- 04 Health & XP -->
+<article class="node pm__item reveal" id="health-xp" style="--c:var(--c-profile)">
+<div class="node__head"><span class="n">04</span>Vie &amp; progression<span class="meta">Systèmes de gameplay</span></div>
+<dl class="pm__rows">
+<div><dt>Vie</dt><dd>
+<p>Un <mark class="hl">composant de vie plug &amp; play</mark> : ajouté à n’importe quel acteur, il se branche sur le système de dégâts natif d’Unreal et prévient les autres systèmes par des dispatchers.</p>
+<p>Les ennemis affichent une <mark class="hl">barre de vie au-dessus de leur tête</mark>, pas le joueur. Je l’ai faite sous forme de classe de Widget Component dédiée qui <mark class="hl">s’initialise seule</mark>, pour que personne n’ait à la brancher à la main, et j’ai réglé la contrainte de l’écran partagé : un Widget Component en mode Screen ne s’affiche que dans le viewport du joueur 1. Elle fonctionne avec plusieurs joueurs.</p>
+</dd></div>
+<div><dt>Courbe d’XP</dt><dd>
+<p>Les seuils de niveau suivent une <mark class="hl">formule quadratique</mark> (coefficient × niveau² + base) avec des paramètres nommés que les Designers peuvent régler. Les gros gains d’XP sont traités en boucle, ce qui permet <mark class="hl">plusieurs passages de niveau</mark> d’un coup, et le seuil d’un niveau reste séparé de l’XP restante.</p>
+<p><b>Pourquoi une formule et pas une Curve Float ?</b> L’extrapolation d’une courbe ne prolonge pas une progression quadratique au-delà de sa dernière clé : les niveaux suivants seraient faux. Une formule fonctionne à n’importe quel niveau.</p>
+</dd></div>
+</dl>
+</article>
+<!-- 05 Skill cards -->
+<article class="node pm__item reveal" id="skill-cards" style="--c:var(--c-projects)">
+<div class="node__head"><span class="n">05</span>Système de cartes de compétences<span class="meta">CommonUI · UI Programmer</span></div>
+<dl class="pm__rows">
+<div><dt>Ce que j’ai fait</dt><dd>
+<p>Un système complet de cartes de compétences en <mark class="hl">CommonUI</mark>, jouable à la <mark class="hl">manette ou au clavier et à la souris</mark> : ouvrir le menu, révéler 3 cartes, en confirmer une, revenir au jeu.</p>
+<p><b>Une seule machine à états.</b> Le parcours est piloté par un enum et une fonction d’entrée unique, et la navigation est bloquée pendant les transitions : aucun input ne peut casser une séquence en cours.</p>
+<p><b>Une confirmation qui ne casse pas la mise en page.</b> La carte choisie passe au premier plan sur un fondu au noir. Pour cela, une <mark class="hl">carte proxy</mark> est placée par-dessus grâce à une conversion de géométrie qui reste juste à n’importe quel DPI, sans toucher à la vraie mise en page.</p>
+<p><b>Finitions.</b> Des animations de focus manette et souris réversibles sans saut visuel, plus la gestion du bouton retour et du focus par défaut avec les Activatable Widgets.</p>
+</dd></div>
+</dl>
+<figure aria-label="Schéma du parcours de sélection des cartes" class="flow">
+<div class="flow__node" style="--c:var(--c-projects)"><b>Menu</b><span>Fonction d’entrée unique</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-tools)"><b>Révélation</b><span>3 cartes, navigation bloquée pendant l’animation</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-edu)"><b>Confirmation</b><span>Carte proxy sur un fondu au noir</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-gameplay)"><b>Retour au jeu</b><span>Focus et bouton retour restaurés</span></div>
+<figcaption>Illustration simplifiée de la machine à états.</figcaption>
+</figure>
+</article>
+<!-- 06 Methods -->
+<article class="node pm__item reveal" id="methods" style="--c:var(--c-passions)">
+<div class="node__head"><span class="n">06</span>Architecture &amp; conventions d’équipe<span class="meta">Méthodes &amp; qualité</span></div>
+<dl class="pm__rows">
+<div><dt>Architecture</dt><dd>Des <mark class="hl">Actor Components plug &amp; play</mark> combinés à l’héritage, 6 interfaces Blueprint, et une communication par <mark class="hl">Event Dispatchers</mark>, avec une attention aux hard references et aux casts coûteux.</dd></div>
+<div><dt>Blueprint défensif</dt><dd>Des règles de programmation inspirées de <mark class="hl">MISRA</mark>, adaptées au Blueprint : chaque référence est validée et échoue avec une erreur explicite, jamais en silence ; chaque Switch traite son cas Default ; pas de valeurs magiques ; des fonctions courtes à responsabilité unique ; pas de code mort.</dd></div>
+<div><dt>Encapsulation</dt><dd>Variables privées, getters Pure / Const, et fonctions de gameplay qui valident, bornent et notifient. Un choix réfléchi entre pull (getter) et push (dispatcher).</dd></div>
+<div><dt>Conventions écrites</dt><dd>Préfixes de nommage, dispatchers préfixés « On », pas de collapsed graphs, et un code couleur des commentaires (rouge = deprecated, orange = en cours, vert = terminé). Chaque système est conçu et discuté avant d’être réalisé.</dd></div>
+<div><dt>Pensé pour les Designers</dt><dd>Variables exposées regroupées dans une catégorie dédiée, Data Assets, noms lisibles. Versionné avec les streams <mark class="hl">Perforce</mark>.</dd></div>
+</dl>
+</article>
+<!-- 05 Training -->
+<article class="node pm__item reveal" id="training" style="--c:var(--c-edu)">
+<div class="node__head"><span class="n">07</span>Former l’équipe<span class="meta">Adoption</span></div>
+<dl class="pm__rows">
+<div><dt>Ce que j’ai fait</dt><dd>
+<p>Un outil n’est utile que si on s’en sert : j’ai donc formé toute l’équipe aux systèmes que j’ai créés :</p>
+<ul class="enemies">
+<li><b>Documentation écrite &amp; vidéos</b>De la documentation technique et théorique sur des technologies comme les Gameplay Tags et leur usage dans le projet, et sur chaque système que j’ai créé.</li>
+<li><b>Documentation C++</b>Tout ce que j’ai écrit en C++, documenté pour une équipe qui travaille surtout en Blueprint.</li>
+<li><b>Sessions en direct</b>Des sessions vocales pour expliquer les systèmes en temps réel, avec des exemples préparés à l’avance.</li>
+</ul>
+</dd></div>
+</dl>
+</article>
+</div>
+</section>
+<section aria-labelledby="contact-title" class="contact">
+<div>
+<div class="eyebrow" data-stop="" style="--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Event OnContact</div>
+<h2 id="contact-title">Besoin de systèmes sur lesquels votre équipe peut bâtir<span class="dot"> ?</span></h2>
+</div>
+<div class="contact__links">
+<a class="link-pill" href="../#contact">Envoyer un message <span>↗</span></a>
+<a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
+<a class="link-pill" href="../projects/">Tous les projets <span>↗</span></a>
+</div>
+</section>
+<footer class="footer">
+<span>© 2026 Esteban Lafargue</span>
+<span>Fait main · sans framework · hébergé sur GitHub Pages</span>
+</footer>
+</main>
+<script defer="" src="../../js/main.js?v=14"></script>
+</body>
+</html>

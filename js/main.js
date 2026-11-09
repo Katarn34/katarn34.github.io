@@ -23,7 +23,7 @@
     const id = box.dataset.yt;
     const btn = box.querySelector('.yt__btn');
     if (!btn || !/^[\w-]{11}$/.test(id)) {
-      if (btn) { btn.disabled = true; btn.querySelector('.yt__label').textContent = '[Showreel — link to come]'; }
+      if (btn) { btn.disabled = true; btn.querySelector('.yt__label').textContent = document.documentElement.lang === 'fr' ? '[Showreel — lien à venir]' : '[Showreel — link to come]'; }
       return;
     }
     btn.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/maxresdefault.jpg)`;
@@ -171,25 +171,28 @@
   const form = document.querySelector('form[data-web3forms]');
   if (!form) return;
   const status = form.querySelector('.form__status');
+  const FRL = document.documentElement.lang === 'fr';
+  const MSG = FRL ? { off: 'Le formulaire n’est pas encore relié. Utilisez le lien email en attendant.', sending: 'Envoi…', ok: 'Message envoyé. Merci, je vous réponds très vite.', err: 'Un problème est survenu. Écrivez-moi à estebanlafargue34@gmail.com.' }
+                  : { off: 'The form is not connected yet. Please use the email link for now.', sending: 'Sending…', ok: 'Message sent. Thank you, I’ll get back to you soon.', err: 'Something went wrong. Please write to estebanlafargue34@gmail.com.' };
   const btn = form.querySelector('.form__send');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (form.access_key.value === 'WEB3FORMS_ACCESS_KEY') {
       status.className = 'form__status is-err';
-      status.textContent = 'The form is not connected yet. Please use the email link for now.';
+      status.textContent = MSG.off;
       return;
     }
-    btn.disabled = true; status.className = 'form__status'; status.textContent = 'Sending…';
+    btn.disabled = true; status.className = 'form__status'; status.textContent = MSG.sending;
     try {
       const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
       const json = await res.json();
       if (!json.success) throw new Error(json.message);
       form.reset();
       status.className = 'form__status is-ok';
-      status.textContent = 'Message sent. Thank you, I’ll get back to you soon.';
+      status.textContent = MSG.ok;
     } catch {
       status.className = 'form__status is-err';
-      status.textContent = 'Something went wrong. Please write to estebanlafargue34@gmail.com.';
+      status.textContent = MSG.err;
     } finally { btn.disabled = false; }
   });
 })();

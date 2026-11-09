@@ -1,29 +1,35 @@
 {
-  "_readme": "Project list, read by js/projects.js. One entry per project, sorted by date automatically (newest first). 'featured': a number puts the project on the home page, in that order. Edit freely, like a Data Table: no code needed.",
+  "_readme": "Project list, read by js/projects.js. One entry per project, sorted by date automatically (newest first). 'featured': a number puts the project on the home page, in that order. Edit freely, like a Data Table: no code needed. Each project has a 'fr' block for the French site (same fields; missing ones fall back to English).",
   "categories": {
     "professional": {
       "label": "Professional",
-      "color": "--c-xp"
+      "color": "--c-xp",
+      "label_fr": "Professionnel"
     },
     "student": {
       "label": "Student projects",
-      "color": "--c-edu"
+      "color": "--c-edu",
+      "label_fr": "Projets étudiants"
     },
     "personal": {
       "label": "Personal",
-      "color": "--c-projects"
+      "color": "--c-projects",
+      "label_fr": "Personnel"
     },
     "jam": {
       "label": "Game Jams",
-      "color": "--c-soft"
+      "color": "--c-soft",
+      "label_fr": "Game Jams"
     },
     "rnd": {
       "label": "R&D · Tools",
-      "color": "--c-tools"
+      "color": "--c-tools",
+      "label_fr": "R&D · Outils"
     },
     "teaching": {
       "label": "Teaching",
-      "color": "--c-gameplay"
+      "color": "--c-gameplay",
+      "label_fr": "Enseignement"
     }
   },
   "projects": [
@@ -46,7 +52,19 @@
       "url": "klappen/",
       "thumb": "assets/img/klappen/building-demo.jpg",
       "hover": "assets/video/klappen/card-hover.mp4",
-      "featured": 1
+      "featured": 1,
+      "fr": {
+        "period": "2025 · ~8 mois",
+        "team": "Équipe de 3",
+        "role": "Gameplay & UI Programmer · Technical Designer",
+        "pitch": "Un jeu de construction cozy : système de construction avec snapping, ressources PCG par biome, optimisation HISM.",
+        "tags": [
+          "Construction",
+          "PCG",
+          "HISM",
+          "UI"
+        ]
+      }
     },
     {
       "id": "flying-ai",
@@ -67,7 +85,19 @@
       "url": "flying-ai/",
       "thumb": "assets/img/flying-ai/trajectory.jpg",
       "featured": 2,
-      "hover": "assets/video/flying-ai/card-hover.mp4"
+      "hover": "assets/video/flying-ai/card-hover.mp4",
+      "fr": {
+        "period": "2026 · < 1 mois",
+        "team": "Solo",
+        "role": "AI Programmer · Technical Designer · Instructeur",
+        "pitch": "Une IA volante 3D 100 % Blueprint qui esquive les obstacles en temps réel, conçue comme IA de départ modulaire et comme tutoriel de ma certification Unreal Authorized Instructor.",
+        "tags": [
+          "IA",
+          "EQS",
+          "Tutoriel",
+          "Réglages"
+        ]
+      }
     },
     {
       "id": "vr-fabre",
@@ -82,7 +112,18 @@
         "Tools",
         "VR"
       ],
-      "status": "soon"
+      "status": "soon",
+      "fr": {
+        "title": "Jeu VR · Musée Fabre",
+        "period": "2025 · 10 jours",
+        "team": "[Taille de l’équipe]",
+        "role": "Gameplay Programmer · Outils",
+        "pitch": "Des outils d’intégration pour 20+ Artistes 3D, joué au musée le 12 février 2026.",
+        "tags": [
+          "Outils",
+          "VR"
+        ]
+      }
     },
     {
       "id": "bp-conventions",
@@ -96,7 +137,17 @@
       "tags": [
         "Methods & Quality"
       ],
-      "status": "soon"
+      "status": "soon",
+      "fr": {
+        "title": "Conventions Blueprint",
+        "period": "En cours",
+        "team": "Solo",
+        "role": "Technical Designer",
+        "pitch": "Des règles Blueprint défensives dans l’esprit de MISRA, avec des graphes avant / après.",
+        "tags": [
+          "Méthodes & Qualité"
+        ]
+      }
     },
     {
       "id": "wolfpeak",
@@ -116,7 +167,19 @@
       "status": "case-study",
       "url": "wolfpeak/",
       "featured": 3,
-      "thumb": "assets/img/wolfpeak/wolfpeak-card.jpg"
+      "thumb": "assets/img/wolfpeak/wolfpeak-card.jpg",
+      "fr": {
+        "period": "juil. 2025 – auj.",
+        "team": "Studio · NDA",
+        "role": "Gameplay Programmer, puis Technical Designer",
+        "pitch": "IA ennemie et outils pour les Designers, architecture d’inventaire et d’interaction refondue, système d’effets sans code, vie, XP et système de cartes de compétences en CommonUI. Décrit sans visuels (NDA).",
+        "tags": [
+          "IA",
+          "Outils",
+          "UI",
+          "C++"
+        ]
+      }
     },
     {
       "id": "interim-14",
@@ -131,7 +194,17 @@
         "Horror",
         "Game Jam"
       ],
-      "status": "soon"
+      "status": "soon",
+      "fr": {
+        "period": "2026 · 1 semaine",
+        "team": "[Taille de l’équipe]",
+        "role": "[Rôle]",
+        "pitch": "Un jeu d’horreur minimaliste réalisé en une semaine de game jam.",
+        "tags": [
+          "Horreur",
+          "Game Jam"
+        ]
+      }
     },
     {
       "id": "splashdown",
@@ -145,7 +218,16 @@
       "tags": [
         "Party game"
       ],
-      "status": "soon"
+      "status": "soon",
+      "fr": {
+        "period": "2025 · 3 mois",
+        "team": "[Taille de l’équipe]",
+        "role": "[Rôle]",
+        "pitch": "Un party game réalisé à l’école pour un événement de la ville.",
+        "tags": [
+          "Party game"
+        ]
+      }
     },
     {
       "id": "project-defender",
@@ -161,7 +243,17 @@
         "Solo"
       ],
       "status": "external",
-      "url": "https://katarn34.itch.io/star-wars-project-defender"
+      "url": "https://katarn34.itch.io/star-wars-project-defender",
+      "fr": {
+        "period": "2024 · 2 mois",
+        "team": "Solo",
+        "role": "Tout",
+        "pitch": "Un fan game de combat spatial réalisé seul en deux mois.",
+        "tags": [
+          "Combat spatial",
+          "Solo"
+        ]
+      }
     },
     {
       "id": "abyss",
@@ -180,7 +272,19 @@
       ],
       "status": "devlog",
       "featured": 4,
-      "url": "abyss/"
+      "url": "abyss/",
+      "fr": {
+        "period": "oct. 2026 – en cours",
+        "team": "Solo",
+        "role": "Technical Designer",
+        "pitch": "Une démo technique sous-marine où l’on progresse en comprenant les créatures : IA lisible, navigation 3D sans NavMesh et Creature Tuner pour les Designers.",
+        "tags": [
+          "IA",
+          "EQS",
+          "State Tree",
+          "Outils"
+        ]
+      }
     },
     {
       "id": "workshops",
@@ -195,7 +299,18 @@
         "Blueprint",
         "Teaching"
       ],
-      "status": "soon"
+      "status": "soon",
+      "fr": {
+        "title": "Ateliers Blueprint à paliers",
+        "period": "2025 – auj.",
+        "team": "60+ étudiants",
+        "role": "Unreal Engine Instructor · Brassart",
+        "pitch": "Des ateliers Blueprint Bronze / Argent / Or, avec un énoncé pour les étudiants et un corrigé pour les instructeurs.",
+        "tags": [
+          "Blueprint",
+          "Enseignement"
+        ]
+      }
     }
   ]
 }

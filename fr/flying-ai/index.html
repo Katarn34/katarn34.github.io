@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="no-js" data-theme="flying" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Flying AI — Étude de cas · Esteban Lafargue</title>
+<meta content="Flying AI : un ennemi volant en 3D, 100 % Blueprint, qui esquive les obstacles en temps réel grâce à l’EQS, conçu comme une IA de départ modulaire et comme le tutoriel de ma certification Unreal Authorized Instructor." name="description"/>
+<link href="https://katarn34.github.io/flying-ai/" hreflang="en" rel="alternate"/>
+<link href="https://katarn34.github.io/fr/flying-ai/" hreflang="fr" rel="alternate"/>
+<meta content="#050505" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="../../css/style.css?v=14" rel="stylesheet"/>
+<link href="../../css/case.css?v=14" rel="stylesheet"/>
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+<header class="nav">
+<div class="nav__inner">
+<a aria-label="Esteban Lafargue, accueil" class="nav__logo" href="../">EL<span>.</span></a>
+<nav aria-label="Étude de cas" class="nav__links">
+<a href="#how">Fonctionnement</a>
+<a href="#tuning">Réglages</a>
+<a href="../projects/">Tous les projets</a>
+<a aria-label="Version anglaise" class="lang" data-lang-switch="" href="../../flying-ai/" hreflang="en" lang="en">EN</a>
+<a class="btn btn--primary" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf" href="../../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf">CV · PDF ↓</a>
+</nav>
+</div>
+</header>
+<main class="wrap">
+<section class="case-hero">
+<a class="back" href="../projects/">◂ Tous les projets</a>
+<div class="eyebrow" data-stop="" style="margin-top:18px;--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Étude de cas 03 · R&amp;D · Tutoriel</div>
+<h1>Flying AI<span class="dot">.</span></h1>
+<p class="case-hero__pitch">Un ennemi volant en 3D, 100 % Blueprint, qui esquive les obstacles en temps réel au lieu d’avancer par à-coups. Conçu comme une IA de départ modulaire que chacun peut réutiliser, et comme le tutoriel de ma certification Unreal Authorized Instructor.</p>
+<div class="case-hero__row">
+<a class="btn btn--primary" href="#how">Comment ça marche ↓</a>
+<a class="btn btn--ghost" href="https://youtu.be/hd8LiWmTqG4" rel="noopener" target="_blank">Voir sur YouTube ↗</a>
+</div>
+<dl class="facts">
+<div><dt>Année</dt><dd>2026</dd></div>
+<div><dt>Durée</dt><dd>&lt; 1 mois</dd></div>
+<div><dt>Équipe</dt><dd>Solo</dd></div>
+<div><dt>Moteur</dt><dd>UE5 · 100 % Blueprint</dd></div>
+<div><dt>Résultat</dt><dd><a href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR" rel="noopener" target="_blank">Certification d’instructeur ↗</a></dd></div>
+</dl>
+</section>
+<section aria-labelledby="demo-title" class="node reveal" data-stop="" style="--c:var(--ac);margin-top:72px">
+<div class="node__head"><span aria-hidden="true" class="node__icon">▶</span><span id="demo-title">Esquive d’un parcours d’obstacles</span><span class="meta">12 s · en boucle</span></div>
+<div class="media media--flat"><video aria-label="L’IA volante slalome entre des murs" class="loop" loop="" muted="" playsinline="" poster="../../assets/img/flying-ai/trajectory.jpg" preload="metadata"><source src="../../assets/video/flying-ai/trajectory.mp4" type="video/mp4"/></video></div>
+<p class="disclaimer">Le modèle du vaisseau est un X-Wing créé par des fans, utilisé dans un tutoriel gratuit et non commercial. Star Wars et X-Wing sont des marques de Lucasfilm Ltd. ; ce projet n’est ni affilié à Lucasfilm ni approuvé par Lucasfilm.</p>
+</section>
+<section aria-labelledby="why-title" id="why" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-profile)"><span class="stitle__tag" id="why-title">Pourquoi je l’ai créé</span><span class="stitle__rule"></span></h2>
+<div class="pm">
+<article class="node pm__item reveal" style="--c:var(--c-profile)">
+<dl class="pm__rows">
+<div><dt>Problème</dt><dd>Une IA volante en 3D, en Blueprint uniquement, est souvent évitée ou faite approximativement. La plupart des exemples que je voyais reposaient sur des <mark class="hl">line traces</mark> : l’IA avançait par à-coups et ne paraissait jamais naturelle.</dd></div>
+<div><dt>Objectif</dt><dd>Aller plus loin : une IA qui se déplace <mark class="hl">en continu, en temps réel</mark>, en choisissant un chemin sûr autour des obstacles pendant qu’elle vole, et qui reste assez simple pour servir de <mark class="hl">structure de départ</mark> sur laquelle chacun ajoute ses comportements.</dd></div>
+<div><dt>Contrainte</dt><dd>Il est devenu mon tutoriel pour la certification Unreal Authorized Instructor, avec une <mark class="hl">limite de 30 minutes</mark>. Le système devait donc aller droit au but et pouvoir s’expliquer en direct.</dd></div>
+</dl>
+</article>
+</div>
+</section>
+<section aria-labelledby="how-title" id="how" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-xp)"><span class="stitle__tag" id="how-title">Fonctionnement</span><span class="stitle__rule"></span></h2>
+<p class="lead prose" style="margin:0 0 24px">Trois éléments communiquent par une seule Blueprint Interface : le controller décide où il est sûr d’aller, le pawn décide comment y voler.</p>
+<div class="node reveal" style="--c:var(--c-xp)">
+<figure aria-label="Schéma de la boucle de l’IA volante" class="flow" style="padding-top:22px">
+<div class="flow__node" style="--c:var(--c-profile)"><b>AI Perception</b><span>Le sens Sight trouve la cible</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-xp)"><b>AI Controller</b><span>Lance la requête EQS sur un Tick retardé, à intervalle réglable</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-edu)"><b>EQS</b><span>Note un volume 3D de points : dégagés des obstacles, proches de la cible</span></div>
+<span aria-hidden="true" class="flow__arrow"></span>
+<div class="flow__node" style="--c:var(--c-gameplay)"><b>Pawn</b><span>Vole vers la position sûre : Floating Pawn Movement, rotation lissée, banking</span></div>
+<figcaption>Chaque échange passe par l’interface BPI_FlyingAI : set target, set new safe location, set movement state.</figcaption>
+</figure>
+</div>
+<div class="pm" style="margin-top:24px">
+<article class="node pm__item reveal" id="eqs" style="--c:var(--c-edu)">
+<div class="node__head"><span class="n">01</span>Un volume 3D à partir d’un générateur 2D<span class="meta">EQS</span></div>
+<dl class="pm__rows">
+<div><dt>L’astuce</dt><dd>
+<p>Le générateur de grille EQS d’Unreal est plat : il pose des points sur un plan. Une IA volante a besoin de <mark class="hl">volume</mark>. J’ai donc écrit un <mark class="hl">contexte</mark> EQS custom qui renvoie un centre par « étage » : la position de l’IA, avancée le long de son vecteur avant d’une <mark class="hl">distance de départ</mark>, puis montée de <code>numéro d’étage × décalage Z</code>, du premier au dernier étage. La grille est générée autour de chaque centre (7 000 unités de rayon, un point tous les 2 000), et le générateur plat devient un <mark class="hl">volume 3D</mark> de points candidats devant le vaisseau.</p>
+</dd></div>
+<div><dt>Notation</dt><dd>
+<p><b>Filtre :</b> un <mark class="hl">sphere trace</mark> depuis l’IA (1 500 unités de rayon) élimine chaque point qu’elle ne pourrait pas atteindre sans heurter quelque chose. Il filtre seulement, il ne note pas.</p>
+<p><b>Score 1 :</b> la distance à la cible, <mark class="hl">plus près vaut mieux</mark> (poids ×1). La cible est lue via l’interface par un second contexte custom.</p>
+<p><b>Score 2 :</b> la distance à l’IA elle-même, <mark class="hl">plus loin vaut mieux</mark> (poids ×0,5), pour que le vaisseau continue d’avancer au lieu de stagner sur le point sûr le plus proche.</p>
+</dd></div>
+<div><dt>Résultat</dt><dd>Le controller lance la requête sur son <mark class="hl">Tick, avec un intervalle de tick retardé</mark>, en mode <em>Single Best Item</em>. À la fin, la meilleure position est envoyée au pawn via l’interface (<code>Set New Safe Location</code>). L’IA <mark class="hl">recalcule son trajet en continu</mark> quand la cible ou les obstacles bougent.</dd></div>
+</dl>
+<div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video aria-label="La cible bouge en temps réel : l’IA recalcule et la suit" class="loop" loop="" muted="" playsinline="" poster="../../assets/img/flying-ai/loop-target.jpg" preload="none"><source src="../../assets/video/flying-ai/loop-target.mp4" type="video/mp4"/></video></div></div>
+<details class="bp">
+<summary><span aria-hidden="true" class="bp__icon">ƒ</span><span class="bp__label">Voir le Blueprint</span><span class="bp__count">3 graphes</span><span aria-hidden="true" class="bp__toggle"></span></summary>
+<div class="bp__list">
+<figure>
+<button aria-label="Agrandir le graphe 1 : AI Controller : lancer l’EQS sur un Tick retardé, en Single Best Item, puis transmettre le résultat au pawn comme Safe Location" class="bp__thumb" data-caption="AI Controller : lancer l’EQS sur un Tick retardé, en Single Best Item, puis transmettre le résultat au pawn comme Safe Location" data-full="../../assets/img/flying-ai/bp/aic-eqs-loop.png" type="button"><img alt="" height="400" loading="lazy" src="../../assets/img/flying-ai/bp/aic-eqs-loop.png" width="1430"/><span aria-hidden="true" class="bp__zoom">⤢ Agrandir</span></button>
+<figcaption><span class="bp__n">01</span>AI Controller : lancer l’EQS sur un Tick retardé, en Single Best Item, puis transmettre le résultat au pawn comme Safe Location</figcaption>
+</figure>
+<figure>
+<button aria-label="Agrandir le graphe 2 : EQS_FlyingAvoidance : SimpleGrid autour du contexte 3D, un filtre par sphere trace et deux scores de distance" class="bp__thumb" data-caption="EQS_FlyingAvoidance : SimpleGrid autour du contexte 3D, un filtre par sphere trace et deux scores de distance" data-full="../../assets/img/flying-ai/bp/eqs-query.png" type="button"><img alt="" height="568" loading="lazy" src="../../assets/img/flying-ai/bp/eqs-query.png" width="632"/><span aria-hidden="true" class="bp__zoom">⤢ Agrandir</span></button>
+<figcaption><span class="bp__n">02</span>EQS_FlyingAvoidance : SimpleGrid autour du contexte 3D, un filtre par sphere trace et deux scores de distance</figcaption>
+</figure>
+<figure>
+<button aria-label="Agrandir le graphe 3 : Contexte EQS : un centre de grille par étage, devant l’IA à la distance de départ et monté du décalage Z" class="bp__thumb" data-caption="Contexte EQS : un centre de grille par étage, devant l’IA à la distance de départ et monté du décalage Z" data-full="../../assets/img/flying-ai/bp/eqc-3d-volume.png" type="button"><img alt="" height="474" loading="lazy" src="../../assets/img/flying-ai/bp/eqc-3d-volume.png" width="1360"/><span aria-hidden="true" class="bp__zoom">⤢ Agrandir</span></button>
+<figcaption><span class="bp__n">03</span>Contexte EQS : un centre de grille par étage, devant l’IA à la distance de départ et monté du décalage Z</figcaption>
+</figure>
+</div>
+</details>
+</article>
+<article class="node pm__item reveal" id="flight" style="--c:var(--c-gameplay)">
+<div class="node__head"><span class="n">02</span>Voler comme un vaisseau, pas comme un curseur<span class="meta">Pawn</span></div>
+<dl class="pm__rows">
+<div><dt>Déplacement</dt><dd>Le pawn utilise le <mark class="hl">Floating Pawn Movement</mark> et ajoute un input de déplacement vers la dernière position sûre : il se déplace en douceur au lieu de sauter de point en point.</dd></div>
+<div><dt>Rotation</dt><dd>La rotation visée vient de la <mark class="hl">vélocité</mark> : le pitch et le yaw suivent la direction de vol, et <code>RInterpTo</code> s’en rapproche à une vitesse réglable, <em>Rotation Power</em>.</dd></div>
+<div><dt>Banking</dt><dd>Le vaisseau <mark class="hl">s’incline dans ses virages</mark> : le roulis vaut l’<mark class="hl">écart de yaw</mark> entre là où le vaisseau regarde et là où il va, multiplié par <em>Banking Power</em> et borné entre <em>Min</em> et <em>Max Banking Roll</em>. Un virage serré donne une forte inclinaison, un virage doux l’incline à peine. C’est un détail, mais c’est lui qui rend le vol crédible.</dd></div>
+</dl>
+<div class="ao"><div class="media media--flat" style="flex:1 1 420px"><video aria-label="Le vaisseau slalome entre les murs en s’inclinant dans ses virages" class="loop" loop="" muted="" playsinline="" poster="../../assets/img/flying-ai/loop-weave.jpg" preload="none"><source src="../../assets/video/flying-ai/loop-weave.mp4" type="video/mp4"/></video></div></div>
+<details class="bp">
+<summary><span aria-hidden="true" class="bp__icon">ƒ</span><span class="bp__label">Voir le Blueprint</span><span class="bp__count">1 graphe</span><span aria-hidden="true" class="bp__toggle"></span></summary>
+<div class="bp__list">
+<figure>
+<button aria-label="Agrandir le graphe 1 : Rotation lissée avec banking : écart de yaw × Banking Power, borné, puis RInterpTo vers la rotation de la vélocité" class="bp__thumb" data-caption="Rotation lissée avec banking : écart de yaw × Banking Power, borné, puis RInterpTo vers la rotation de la vélocité" data-full="../../assets/img/flying-ai/bp/banking.png" type="button"><img alt="" height="388" loading="lazy" src="../../assets/img/flying-ai/bp/banking.png" width="1607"/><span aria-hidden="true" class="bp__zoom">⤢ Agrandir</span></button>
+<figcaption><span class="bp__n">01</span>Rotation lissée avec banking : écart de yaw × Banking Power, borné, puis RInterpTo vers la rotation de la vélocité</figcaption>
+</figure>
+</div>
+</details>
+</article>
+<article class="node pm__item reveal" id="interface" style="--c:var(--c-tools)">
+<div class="node__head"><span class="n">03</span>Modulaire par conception<span class="meta">Blueprint Interface</span></div>
+<dl class="pm__rows">
+<div><dt>Ce que j’ai fait</dt><dd>Le controller, le pawn et les contextes EQS ne se castent jamais entre eux : ils communiquent par une <mark class="hl">Blueprint Interface</mark> (get target location, set target, set new safe location, set movement state). N’importe quel pawn qui l’implémente peut utiliser le même controller et la même requête.</dd></div>
+<div><dt>Modes de déplacement</dt><dd>Un enum <code>Movement State</code> (actuellement <em>Target</em>) montre comment ajouter de nouvelles façons de se déplacer côte à côte, comme patrouiller ou fuir, sans toucher à la logique d’évitement.</dd></div>
+<div><dt>Pourquoi</dt><dd>L’IA est pensée comme une <mark class="hl">structure de départ solide</mark>, pas comme un ennemi fini : on y branche son propre vaisseau et on ajoute des comportements par-dessus. Dans le tutoriel, je montre aussi comment passer la logique dans un <mark class="hl">Behavior Tree</mark>, sans en faire le sujet principal.</dd></div>
+</dl>
+</article>
+</div>
+</section>
+<section aria-labelledby="tuning-title" id="tuning" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-tools)"><span class="stitle__tag" id="tuning-title">Pensé pour les Designers</span><span class="stitle__rule"></span></h2>
+<p class="lead prose" style="margin:0 0 24px">Tout ce qui façonne le comportement est une variable qu’un Designer peut modifier, sans ouvrir les graphes.</p>
+<div class="tune">
+<div class="node reveal" style="--c:var(--c-gameplay)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Vol<span class="meta">Pawn</span></div><ul class="tune__list"><li>Max Speed</li><li>Interp Speed</li><li>Rotation Power</li><li>Turning Boost</li></ul></div>
+<div class="node reveal" style="--c:var(--c-passions)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Banking<span class="meta">Pawn</span></div><ul class="tune__list"><li>Banking Power</li><li>Banking Speed</li><li>Min Banking Roll</li><li>Max Banking Roll</li></ul></div>
+<div class="node reveal" style="--c:var(--c-edu)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Évitement<span class="meta">Controller · EQS</span></div><ul class="tune__list"><li>Intervalle de tick (fréquence des requêtes)</li><li>Start EQS Distance</li><li>First / Last 3D Floor · Z Offset</li><li>Rayon · espacement de la grille</li><li>Rayon du sphere trace</li></ul></div>
+<div class="node reveal" style="--c:var(--c-xp)"><div class="node__head"><span aria-hidden="true" class="pin"></span>Perception<span class="meta">Controller</span></div><ul class="tune__list"><li>Sight Radius</li><li>Lose Sight Radius</li><li>Peripheral Vision Angle</li><li>Détection par affiliation</li></ul></div>
+</div>
+</section>
+<section aria-labelledby="tests-title" class="node reveal" data-stop="" id="tests" style="--c:var(--ac);margin-top:96px">
+<div class="node__head"><span aria-hidden="true" class="node__icon">▶</span><span id="tests-title">Tests en temps réel : la cible se déplace autour des obstacles</span><span class="meta">53 s</span></div>
+<video class="demo" controls="" playsinline="" poster="../../assets/img/flying-ai/tests.jpg" preload="none"><source src="../../assets/video/flying-ai/tests.mp4" type="video/mp4"/></video>
+</section>
+<section aria-labelledby="pm-title" id="post-mortem" style="margin-top:96px">
+<h2 class="stitle" style="--c:var(--c-edu)"><span class="stitle__tag" id="pm-title">Ce que je ferais ensuite</span><span class="stitle__rule"></span></h2>
+<div class="pm">
+<article class="node pm__item reveal" style="--c:var(--c-edu)">
+<dl class="pm__rows">
+<div><dt>Compromis</dt><dd>Le format de tutoriel de 30 minutes imposait d’aller droit au but : la logique se trouve directement dans le controller et le pawn.</dd></div>
+<div class="pm__next"><dt>La prochaine fois</dt><dd>Regrouper le déplacement et le banking dans un <mark class="hl">Actor Component</mark>, pour qu’un pawn puisse voler en ajoutant un seul composant, et proposer la version Behavior Tree par défaut pour des comportements plus riches.</dd></div>
+</dl>
+</article>
+</div>
+</section>
+<section aria-labelledby="contact-title" class="contact">
+<div>
+<div class="eyebrow" data-stop="" style="--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Event OnContact</div>
+<h2 id="contact-title">Besoin d’une IA que vos Designers peuvent régler<span class="dot"> ?</span></h2>
+</div>
+<div class="contact__links">
+<a class="link-pill" href="../#contact">Envoyer un message <span>↗</span></a>
+<a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
+<a class="link-pill" href="../projects/">Tous les projets <span>↗</span></a>
+</div>
+</section>
+<footer class="footer">
+<span>© 2026 Esteban Lafargue</span>
+<span>Fait main · sans framework · hébergé sur GitHub Pages</span>
+</footer>
+</main>
+<dialog aria-label="Visionneuse Blueprint" class="lightbox">
+<div class="lightbox__stage"><img alt=""/></div>
+<p class="lightbox__cap"></p>
+<div class="lightbox__bar">
+<span class="lightbox__hint">Cliquez sur le graphe pour zoomer · ← → pour naviguer</span>
+<button aria-label="Graphe précédent" data-lb="prev" type="button">◂</button>
+<span class="lightbox__n mono"></span>
+<button aria-label="Graphe suivant" data-lb="next" type="button">▸</button>
+<button aria-label="Fermer" data-lb="close" type="button">✕</button>
+</div>
+</dialog>
+<script defer="" src="../../js/main.js?v=14"></script>
+</body>
+</html>
