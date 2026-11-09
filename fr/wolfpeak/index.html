@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>WolfPeak Studio — Étude de cas · Esteban Lafargue</title>
-<meta content="WolfPeak Studio (NDA) : refonte de l’inventaire, du craft et des interactions en une architecture évolutive et compatible multijoueur, et Action Objects, un système d’effets en C++ que les Designers configurent sans code." name="description"/>
+<meta content="WolfPeak Studio (NDA) : refactorisation de l’inventaire, du craft et des interactions en une architecture évolutive et compatible multijoueur, et Action Objects, un système d’effets en C++ que les Designers configurent sans code." name="description"/>
 <link href="https://katarn34.github.io/wolfpeak/" hreflang="en" rel="alternate"/>
 <link href="https://katarn34.github.io/fr/wolfpeak/" hreflang="fr" rel="alternate"/>
 <meta content="#050505" name="theme-color"/>
@@ -25,7 +25,7 @@
 <a href="../projects/">Tous les projets</a>
 <a href="../#contact">Contact</a>
 <a aria-label="Version anglaise" class="lang" data-lang-switch="" href="../../wolfpeak/" hreflang="en" lang="en">EN</a>
-<a class="btn btn--primary" download="CV (EN) - Technical Designer - Esteban Lafargue.pdf" href="../../assets/CV%20(EN)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf">CV · PDF ↓</a>
+<a class="btn btn--primary" download="CV (FR) - Technical Designer - Esteban Lafargue.pdf" href="../../assets/CV%20(FR)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf">CV · PDF ↓</a>
 </nav>
 </div>
 </header>
@@ -52,8 +52,8 @@
 <section aria-labelledby="glance-title" class="node reveal" data-stop="" style="--c:var(--c-xp);margin-top:72px">
 <div class="node__head"><span aria-hidden="true" class="node__icon">⇉</span><h2 id="glance-title" style="margin:0;font-size:inherit">En bref</h2></div>
 <ul class="glance">
-<li><b>4 systèmes</b><span>Inventaire, craft, interaction et équipement, refondus et documentés</span></li>
-<li><b>0 bug</b><span>Les systèmes refondus restent stables, quels que soient les tests des Designers</span></li>
+<li><b>4 systèmes</b><span>Inventaire, craft, interaction et équipement, refactorisés et documentés</span></li>
+<li><b>0 bug</b><span>Les systèmes refactorisés restent stables, quels que soient les tests des Designers</span></li>
 <li><b>&lt; 1 minute</b><span>Pour créer un nouvel objet ou un nouveau texte d’interaction, sans programmeur</span></li>
 <li><b>Action Objects</b><span>Des effets d’objets que les Designers configurent sans code, sur une base C++</span></li>
 <li><b>4 IA ennemies</b><span>30+ nœuds custom, des sous-arbres modulaires et 5 outils de debug utilisés chaque jour par les Designers</span></li>
@@ -66,7 +66,7 @@
 <div class="pm">
 <!-- 01 Refactor -->
 <article class="node pm__item reveal" id="refactor" style="--c:var(--c-gameplay)">
-<div class="node__head"><span class="n">01</span>Inventaire, craft, interaction &amp; équipement<span class="meta">Refonte · Technical Designer</span></div>
+<div class="node__head"><span class="n">01</span>Inventaire, craft, interaction &amp; équipement<span class="meta">Refactorisation · Technical Designer</span></div>
 <dl class="pm__rows">
 <div><dt>Problème</dt><dd>Ces quatre systèmes avaient été construits tôt dans la production, sans architecture définie ni documentation. Ils étaient très couplés : toute modification de l’un créait des bugs partout ailleurs, si bien que l’équipe n’osait plus y toucher.</dd></div>
 <div><dt>Ce que j’ai fait</dt><dd>

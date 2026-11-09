@@ -104,6 +104,11 @@ def build(page):
                 el[a] = "../" + el[a]
         if el.has_attr("data-base"):
             el["data-base"] = "../" + el["data-base"]
+    # French CV
+    for a in soup.select('a[download]'):
+        if "CV%20(EN)" in a.get("href", ""):
+            a["href"] = a["href"].replace("CV%20(EN)", "CV%20(FR)")
+            a["download"] = "CV (FR) - Technical Designer - Esteban Lafargue.pdf"
     # language switch: FR page points back to the English page
     for a in soup.select("a[data-lang-switch]"):
         a["href"] = "../" * (depth + 1) + page
