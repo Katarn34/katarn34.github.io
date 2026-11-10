@@ -13,6 +13,7 @@
     external: 'Jouer sur itch.io ↗',
     nda: 'Sous NDA · voir Expériences ▷',
     devlog: 'Lire le devlog ▷',
+    info: 'Projet de stage',
     soon: 'Étude de cas bientôt',
     wip: 'En cours'
   };
@@ -24,6 +25,7 @@
     external: 'Play on itch.io ↗',
     nda: 'Under NDA · see Experience ▷',
     devlog: 'Read the devlog ▷',
+    info: 'Internship project',
     soon: 'Case study coming soon',
     wip: 'In progress'
   };
@@ -33,7 +35,7 @@
   function card(p, cats, base) {
     const cat = cats[p.category] || { label: p.category, color: '--c-projects' };
     const ctaMap = FRL ? CTA_FR : CTA;
-    const linked = p.url && !['soon', 'wip'].includes(p.status);
+    const linked = p.url && !['soon', 'wip', 'info'].includes(p.status);
     const tag = linked ? 'a' : 'div';
     const href = linked ? ` href="${esc(abs(p.url, base))}"` : '';
     const ext = linked && /^https?:/.test(p.url) ? ' target="_blank" rel="noopener"' : '';

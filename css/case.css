@@ -249,3 +249,33 @@
 .entry__media, .entry__fig img { width: 100%; border-radius: 8px; border: 1px solid var(--line-soft); }
 .entry__fig { margin: 0; display: flex; flex-direction: column; gap: 6px; }
 .entry__fig figcaption { font: 12px var(--mono); color: var(--text-faint); }
+
+/* ---------- Skills row, next case study ---------- */
+.skills-row { margin-top: 18px; }
+.next-proj { display: flex; flex-wrap: wrap; color: var(--text); transition: transform .25s, border-color .25s; }
+.next-proj:hover { color: var(--text); transform: translateY(-3px); border-color: color-mix(in srgb, var(--c) 60%, var(--line)); }
+.next-proj__media { position: relative; flex: 1 1 320px; min-height: 200px; background: var(--node-2); overflow: hidden; }
+.next-proj__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.next-proj__body { flex: 1 1 360px; min-width: 0; padding: 24px 26px; display: flex; flex-direction: column; gap: 10px; }
+.next-proj__title { font-size: 28px; font-weight: 600; color: var(--text-strong); letter-spacing: -.02em; }
+
+/* ---------- About ---------- */
+.about-hero { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px; }
+.about-hero__text { flex: 999 1 520px; min-width: 0; }
+.about-hero__side { flex: 1 1 240px; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 40px; }
+.avatar--lg { width: 210px; height: 210px; padding: 4px; }
+.badge-link { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--node); color: var(--text-muted); font-size: 13px; }
+.badge-link:hover { border-color: var(--c-edu); color: var(--text-muted); }
+.badge-link b { display: block; color: var(--text-strong); font-weight: 600; font-size: 14px; }
+.edu { display: flex; align-items: center; gap: 16px; }
+.edu p { margin: 0; }
+.interests .chip { font-size: 14px; padding: 6px 14px; }
+
+/* ---------- Tutorials ---------- */
+.tuto__body { padding: 22px; }
+.tuto__text { max-width: 860px; }
+.tuto__text p { margin: 0 0 14px; }
+.tuto__meta { margin: 0; display: grid; gap: 8px; }
+.tuto__meta div { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.tuto__meta dt { flex: 0 0 90px; font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); padding-top: 3px; }
+.tuto__meta dd { flex: 1 1 300px; margin: 0; color: var(--text-strong); font-size: 14px; }

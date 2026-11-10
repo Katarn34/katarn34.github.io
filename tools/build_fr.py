@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup, NavigableString, Comment, Tag
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DICT = ROOT / "tools" / "i18n" / "fr.json"
-PAGES = ["", "projects/", "klappen/", "klappen/building/", "wolfpeak/", "flying-ai/", "abyss/"]
+PAGES = ["", "projects/", "klappen/", "klappen/building/", "wolfpeak/", "flying-ai/", "abyss/", "about/", "tutorials/"]
 SKIP = {"script", "style", "pre", "code", "noscript"}
 ATTRS = ["alt", "title", "aria-label", "placeholder", "data-caption"]
 RES = re.compile(r"^((?:\.\./)*)(assets|css|js|data)/")

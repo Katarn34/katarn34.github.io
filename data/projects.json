@@ -311,6 +311,31 @@
           "Enseignement"
         ]
       }
+    },
+    {
+      "id": "fairy-tag",
+      "title": "Fairy Tag · Mythspawn",
+      "category": "professional",
+      "date": "2023-08",
+      "period": "2023 · internship",
+      "team": "Mythspawn · with my mentor",
+      "role": "Gameplay Programmer (intern)",
+      "pitch": "Refactoring on Fairy Tag: with my mentor, I repaired and reworked broken Blueprints and game modes, learned Unreal’s Gameplay Framework, and reorganised the project’s folder architecture.",
+      "tags": [
+        "Refactoring",
+        "Gameplay Framework"
+      ],
+      "status": "info",
+      "fr": {
+        "period": "2023 · stage",
+        "team": "Mythspawn · avec mon mentor",
+        "role": "Gameplay Programmer (stage)",
+        "pitch": "Refactorisation sur Fairy Tag : avec mon mentor, j’ai réparé et retravaillé des Blueprints et des game modes qui ne fonctionnaient plus, appris le Gameplay Framework d’Unreal et réorganisé l’architecture des dossiers du projet.",
+        "tags": [
+          "Refactorisation",
+          "Gameplay Framework"
+        ]
+      }
     }
   ]
 }

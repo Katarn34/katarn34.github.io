@@ -272,3 +272,12 @@ main.wrap { position: relative; }
 /* ---------- Language switch ---------- */
 .nav__links .lang { padding: 8px 12px; border: 1px solid #ffffff26; border-radius: 6px; color: var(--text-strong); font: 500 12px var(--mono); letter-spacing: .08em; }
 .nav__links .lang:hover { border-color: var(--ac); color: var(--ac); background: transparent; }
+
+/* ---------- YouTube button, badge ---------- */
+.btn--yt { background: #ff0033; color: #fff; }
+.btn--yt:hover { color: #fff; background: #e0002d; transform: translateY(-1px); box-shadow: 0 6px 24px #ff003366; }
+.yt-ico { width: 22px; height: 22px; color: #fff; flex: none; }
+.avatar-wrap { position: relative; flex: none; }
+.badge-mini { position: absolute; right: -6px; bottom: -4px; border-radius: 10px; box-shadow: 0 4px 14px #000a; transition: transform .2s; }
+.badge-mini:hover { transform: scale(1.06); }
+.badge-mini img { display: block; }
