@@ -281,3 +281,22 @@ main.wrap { position: relative; }
 .badge-mini { position: absolute; right: -6px; bottom: -4px; border-radius: 10px; box-shadow: 0 4px 14px #000a; transition: transform .2s; }
 .badge-mini:hover { transform: scale(1.06); }
 .badge-mini img { display: block; }
+
+/* ---------- Home: tutorials & about teasers ---------- */
+.home-tuto, .home-about { display: flex; flex-wrap: wrap; }
+.home-tuto__media { position: relative; flex: 1 1 360px; min-height: 240px; overflow: hidden; background: var(--node-2); display: flex; align-items: center; justify-content: center; }
+.home-tuto__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+.home-tuto__media:hover img { transform: scale(1.03); }
+.home-tuto__media .yt__play { position: relative; background: #05050599; }
+.home-tuto__body, .home-about__body { flex: 1 1 420px; min-width: 0; padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 14px; }
+.home-tuto__body h3 { margin: 0; font-size: 24px; font-weight: 600; color: var(--text-strong); letter-spacing: -.01em; }
+.home-tuto__body p { margin: 0; }
+.home-tuto__body .hero__actions { margin-top: 4px; }
+.home-about__lead { margin: 0; font-size: 18px; color: var(--text-strong); max-width: 760px; }
+.home-about__facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 10px; font-size: 14px; }
+.home-about__facts li { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line-soft); background: #ffffff05; color: var(--text-muted); }
+.home-about__facts b { display: block; font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 2px; }
+.home-about .btn { align-self: flex-start; }
+.home-about__badge { flex: 0 1 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; border-left: 1px solid var(--line-soft); font: 12px var(--mono); color: var(--text-muted); }
+.home-about__badge:hover { color: var(--c-edu); }
+@media (max-width: 760px) { .home-about__badge { border-left: 0; border-top: 1px solid var(--line-soft); flex-basis: 100%; } }

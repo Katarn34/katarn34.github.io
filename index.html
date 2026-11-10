@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=15">
+  <link rel="stylesheet" href="css/style.css?v=16">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -23,8 +23,7 @@
   <div class="nav__inner">
     <a class="nav__logo" href="#top" aria-label="Esteban Lafargue, home">EL<span>.</span></a>
     <nav class="nav__links" aria-label="Main">
-      <a href="#work">Work</a>
-      <a href="projects/">All projects</a>
+      <a href="projects/">Projects</a>
       <a href="tutorials/">Tutorials</a>
       <a href="about/">About</a>
       <a href="#contact">Contact</a>
@@ -86,6 +85,22 @@
   </section>
 
   <!-- ===== Skills ===== -->
+  <section id="tutorials" aria-labelledby="tut-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-tools)"><span class="stitle__tag" id="tut-title">Tutorials</span><span class="stitle__rule"></span></h2>
+    <div class="node home-tuto reveal" style="--c:var(--c-tools)">
+      <a class="home-tuto__media" href="tutorials/"><img src="assets/img/flying-ai/trajectory.jpg" alt="" loading="lazy"><span class="yt__play" aria-hidden="true"></span></a>
+      <div class="home-tuto__body">
+        <div class="eyebrow"><span class="exec" aria-hidden="true"></span>Unreal Authorized Instructor · 60+ students</div>
+        <h3>Flying AI: real-time obstacle avoidance &amp; target tracking</h3>
+        <p>The tutorial that earned me the instructor certification, published on the Epic Developer Community: a 3D flying AI in Blueprint only, built step by step.</p>
+        <div class="hero__actions">
+          <a class="btn btn--yt" href="https://youtu.be/hd8LiWmTqG4" target="_blank" rel="noopener"><svg class="yt-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z" fill="currentColor"/><path d="M9.8 15.2 15.6 12 9.8 8.8z" fill="#ff0033"/></svg>Watch on YouTube</a>
+          <a class="btn btn--ghost" href="tutorials/">All tutorials ▷</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="skills" aria-labelledby="skills-title" style="margin-top:96px">
     <h2 class="stitle" style="--c:var(--c-gameplay)"><span class="stitle__tag" id="skills-title">UE5 Expertise</span><span class="stitle__rule"></span></h2>
     <div class="skills">
@@ -109,6 +124,23 @@
   </section>
 
   <!-- ===== Event OnContact ===== -->
+  <section id="about" aria-labelledby="about-title" style="margin-top:96px">
+    <h2 class="stitle" style="--c:var(--c-profile)"><span class="stitle__tag" id="about-title">About</span><span class="stitle__rule"></span></h2>
+    <div class="node home-about reveal" style="--c:var(--c-profile)">
+      <div class="home-about__body">
+        <p class="home-about__lead">4+ years of daily Unreal Engine practice, at the crossroads of game design and programming. I build complete mechanics and AI so Designers can iterate without waiting, and I teach the engine every week.</p>
+        <ul class="home-about__facts">
+          <li><b>Education</b>Bachelor’s in Game Design · Brassart Montpellier · 2022 – 2025</li>
+          <li><b>Certification</b>Unreal Authorized Instructor · Silver · 2026</li>
+          <li><b>Languages</b>French (native) · English (fluent)</li>
+          <li><b>Outside the engine</b>Club handball (10 years) · cosmology · Star Wars</li>
+        </ul>
+        <a class="btn btn--primary" href="about/">More about me ▷</a>
+      </div>
+      <a class="home-about__badge" href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR" target="_blank" rel="noopener" aria-label="Unreal Authorized Instructor Silver badge, verify"><img src="assets/img/badge-uai-silver.png" alt="" width="120" height="120"><span>Verify ↗</span></a>
+    </div>
+  </section>
+
   <section id="contact" class="contact contact--form" aria-labelledby="contact-title">
     <div class="contact__intro">
       <div class="eyebrow" data-stop style="--c:var(--ac)"><span class="exec" aria-hidden="true"></span>Event OnContact</div>
@@ -147,7 +179,7 @@
   </footer>
 </main>
 
-<script src="js/projects.js?v=15" defer></script>
-<script src="js/main.js?v=15" defer></script>
+<script src="js/projects.js?v=16" defer></script>
+<script src="js/main.js?v=16" defer></script>
 </body>
 </html>
