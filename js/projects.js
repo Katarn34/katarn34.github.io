@@ -32,12 +32,12 @@
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const abs = (u, base) => (!u || /^(https?:|#|mailto:)/.test(u) ? u : base + u);
 
-  function card(p, cats, base) {
+  function card(p, cats, base, linkBase) {
     const cat = cats[p.category] || { label: p.category, color: '--c-projects' };
     const ctaMap = FRL ? CTA_FR : CTA;
     const linked = p.url && !['soon', 'wip', 'info'].includes(p.status);
     const tag = linked ? 'a' : 'div';
-    const href = linked ? ` href="${esc(abs(p.url, base))}"` : '';
+    const href = linked ? ` href="${esc(abs(p.url, linkBase))}"` : '';
     const ext = linked && /^https?:/.test(p.url) ? ' target="_blank" rel="noopener"' : '';
     const media = p.thumb
       ? `<img src="${esc(abs(p.thumb, base))}" alt="" loading="lazy">${p.hover ? `<video muted loop playsinline preload="none" src="${esc(abs(p.hover, base))}"></video>` : ''}`
@@ -67,13 +67,14 @@
 
   hosts.forEach(async (host) => {
     const base = host.dataset.base || '';
+    const linkBase = host.dataset.linkBase ?? base; // page links stay inside the current language
     let data;
     try { data = await (await fetch(base + 'data/projects.json')).json(); } catch { return; }
     const cats = data.categories;
     const list = [...data.projects].sort((a, b) => b.date.localeCompare(a.date));
 
     if (host.dataset.projects === 'featured') {
-      host.innerHTML = `<div class="cards">${list.filter((p) => p.featured).sort((a, b) => a.featured - b.featured).map((p) => card(p, cats, base)).join('')}</div>`;
+      host.innerHTML = `<div class="cards">${list.filter((p) => p.featured).sort((a, b) => a.featured - b.featured).map((p) => card(p, cats, base, linkBase)).join('')}</div>`;
       const n = document.querySelector('[data-projects-count]');
       if (n) n.textContent = list.length;
       wireHover(host);
@@ -96,7 +97,7 @@
       tl.innerHTML = years.map((y) => `
         <section class="year" aria-label="${y}">
           <h2 class="year__label stitle" style="--c:var(--ac)"><span class="stitle__tag">${y}</span><span class="stitle__rule"></span></h2>
-          <div class="cards">${items.filter((p) => p.date.startsWith(y)).map((p) => card(p, cats, base)).join('')}</div>
+          <div class="cards">${items.filter((p) => p.date.startsWith(y)).map((p) => card(p, cats, base, linkBase)).join('')}</div>
         </section>`).join('');
       wireHover(tl);
       document.dispatchEvent(new CustomEvent('layout:changed'));
