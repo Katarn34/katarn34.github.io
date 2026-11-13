@@ -1,22 +1,22 @@
 /* Home v2: elevator-pitch hero, proof strip, bento featured work, compact tutorial, balanced contact */
 
-.home2 section + section { margin-top: 64px; }
+.home2 section + section { margin-top: 112px; }
 
 /* ---------- Hero ---------- */
-.hero2 { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 48px; align-items: center; padding: 56px 0 8px; }
+.hero2 { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 64px; align-items: center; padding: 80px 0 16px; }
 .hero2__id { margin: 14px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; font-weight: 600; }
 .hero2__name { font-size: clamp(22px, 2.4vw, 28px); color: var(--text-strong); letter-spacing: -.01em; }
 .hero2__title { font: 500 14px var(--mono); color: var(--ac); letter-spacing: .02em; }
-.hero2__pitch { margin: 18px 0 0; font-size: clamp(34px, 4.6vw, 56px); font-weight: 600; line-height: 1.06; letter-spacing: -.03em; color: var(--text-strong); max-width: 760px; }
+.hero2__pitch { margin: 24px 0 0; font-size: clamp(34px, 4.6vw, 56px); font-weight: 600; line-height: 1.06; letter-spacing: -.03em; color: var(--text-strong); max-width: 760px; }
 .hero2__pitch em { font-style: normal; color: var(--ac); }
-.hero2__sub { margin: 18px 0 0; max-width: 620px; font-size: 17px; color: var(--text-muted); }
+.hero2__sub { margin: 24px 0 0; max-width: 620px; font-size: 17px; color: var(--text-muted); }
 .hero2__sub a { color: var(--text-strong); border-bottom: 1px solid var(--line); }
-.hero2 .hero__actions { margin-top: 28px; }
+.hero2 .hero__actions { margin-top: 36px; }
 .hero2 .hero__side { max-width: none; }
 
 /* Proof strip: verified numbers only */
 .proof { margin: 36px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); background: color-mix(in srgb, var(--node) 85%, transparent); overflow: hidden; }
-.proof > div { padding: 16px 18px; border-left: 1px solid var(--line-soft); }
+.proof > div { padding: 22px 24px; border-left: 1px solid var(--line-soft); }
 .proof > div:first-child { border-left: 0; }
 .proof dt { font-size: clamp(24px, 2.6vw, 32px); font-weight: 600; line-height: 1; color: var(--text-strong); letter-spacing: -.02em; }
 .proof dt span { color: var(--c, var(--ac)); }
@@ -26,18 +26,18 @@
 .reel .node__head .meta { font-family: var(--mono); }
 
 /* ---------- Bento featured work ---------- */
-.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 28px; }
 .bento__item--1 { grid-column: span 7; }
 .bento__item--2 { grid-column: span 5; }
 .bento__item--3 { grid-column: span 5; }
 .bento__item--4 { grid-column: span 7; }
-.bento .card__body { padding: 14px 18px 16px; gap: 8px; }
+.bento .card__body { padding: 20px 22px 22px; gap: 10px; }
 .bento__hook { margin: 0; font-size: 17px; font-weight: 500; line-height: 1.35; color: var(--text-strong); }
 .bento__metric { margin: 0; font: 13px var(--mono); color: var(--c); }
 .bento__metric::before { content: "▸ "; }
 .bento .card__cta { padding-top: 4px; }
 .bento .node__head .meta { font-family: var(--mono); }
-.work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.work-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 32px; }
 .work-foot p { margin: 0; color: var(--text-muted); font-size: 14px; }
 
 /* ---------- Tutorial strip ---------- */
@@ -51,8 +51,8 @@
 .tuto-strip__cta { display: flex; flex-direction: column; gap: 10px; padding-right: 8px; }
 
 /* ---------- Contact ---------- */
-.contact2 { margin-top: 72px; padding: 40px 0 8px; border-top: 1px solid #2a2a2a; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: stretch; }
-.contact2__intro { display: flex; flex-direction: column; gap: 16px; }
+.contact2 { margin-top: 128px; padding: 64px 0 16px; border-top: 1px solid #2a2a2a; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: stretch; }
+.contact2__intro { display: flex; flex-direction: column; gap: 20px; }
 .contact2 h2 { margin: 0; font-size: clamp(30px, 4vw, 42px); font-weight: 600; line-height: 1.1; color: var(--text-strong); letter-spacing: -.02em; }
 .contact2__lead { margin: 0; color: var(--text-muted); max-width: 520px; }
 .direct { margin-top: auto; }
@@ -88,10 +88,10 @@
   .tuto-strip { grid-template-columns: 1fr; }
   .direct__list a { grid-template-columns: 76px minmax(0, 1fr) auto; padding: 11px 14px; }
 }
-.hero2 .proof { grid-column: 1 / -1; margin-top: 8px; }
+.hero2 .proof { grid-column: 1 / -1; margin-top: 24px; }
 
 /* ---------- Watch row: reel + tutorial side by side ---------- */
-.watch { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 20px; align-items: stretch; }
+.watch { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); gap: 28px; align-items: stretch; }
 .watch .reel { display: flex; flex-direction: column; }
 .watch .reel .yt { flex: 1; }
 .tuto-card { display: flex; flex-direction: column; }
@@ -99,7 +99,7 @@
 .tuto-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .tuto-card__media:hover img { transform: scale(1.04); }
 .tuto-card__media .yt__play { position: relative; transform: scale(.8); background: #05050599; }
-.tuto-card__body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 16px 18px 18px; }
+.tuto-card__body { flex: 1; display: flex; flex-direction: column; gap: 12px; padding: 20px 22px 22px; }
 .tuto-card h3 { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.3; color: var(--text-strong); }
 .tuto-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
 .tuto-card__cta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -116,3 +116,5 @@
   .watch { grid-template-columns: 1fr; }
   .bento__item--1 .card__media, .bento__item--4 .card__media, .bento__item--2 .card__media, .bento__item--3 .card__media { aspect-ratio: 16 / 9; min-height: 0; flex: 0 0 auto; }
 }
+.home2 .stitle { margin-bottom: 32px; }
+@media (max-width: 640px) { .home2 section + section { margin-top: 80px; } .contact2 { margin-top: 96px; padding-top: 48px; } .bento { gap: 20px; } }
