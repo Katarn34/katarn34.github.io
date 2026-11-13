@@ -15,7 +15,8 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="../css/style.css?v=18" rel="stylesheet"/>
+<link href="../css/style.css?v=19" rel="stylesheet"/>
+<link href="../css/home.css?v=19" rel="stylesheet"/>
 <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
@@ -32,18 +33,17 @@
 </nav>
 </div>
 </header>
-<main class="wrap" id="top">
-<!-- ===== Event BeginPlay ===== -->
-<section class="hero">
-<div class="hero__text">
+<main class="wrap home2" id="top">
+<!-- ===== Event BeginPlay: the 30-second pitch ===== -->
+<section class="hero2">
+<div class="hero2__text">
 <div class="eyebrow" data-stop="" style="--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Event BeginPlay · Montpellier, France</div>
-<h1>Esteban<br/>Lafargue<span class="dot">.</span></h1>
-<div class="hero__role">Technical Designer <span>/</span> Unreal Engine 5</div>
-<div class="hero__sub">Systèmes de gameplay et d’IA · Outils pour les Designers · <a href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR">Unreal Authorized Instructor ↗</a></div>
-<p class="hero__quote">« Les Designers ne devraient pas attendre le code pour itérer. »</p>
+<h1 class="hero2__id"><span class="hero2__name">Esteban Lafargue</span><span class="hero2__title">Technical Designer / Unreal Engine 5</span></h1>
+<p class="hero2__pitch">Je crée des systèmes de gameplay et d’IA que les Designers règlent <em>sans attendre le code.</em></p>
+<p class="hero2__sub">IA ennemie, systèmes de construction et outils sans code sous UE5, livrés en équipe studio. J’enseigne aussi Unreal à 60+ étudiants en tant qu’<a href="https://credential.unrealengine.com/6269a4dd-d59d-4328-9836-d44b8f31e6c1#acc.znKtwOjR" rel="noopener" target="_blank">Unreal Authorized Instructor ↗</a></p>
 <div class="hero__actions">
-<a class="btn btn--primary" href="#work">Voir mes projets →</a>
-<a class="btn btn--ghost" href="#contact">Contact</a>
+<a class="btn btn--primary" href="#reel">▶ Voir la bande démo</a>
+<a class="btn btn--ghost" href="#work">Voir les projets</a>
 <span class="status">Disponible · sur site ou en remote</span>
 </div>
 </div>
@@ -67,48 +67,59 @@
 </aside>
 <a class="btn btn--ghost hero__about" href="about/">Qui suis-je ? <span aria-hidden="true">▷</span></a>
 </div>
+<dl aria-label="Résultats clés" class="proof reveal">
+<div style="--c:var(--c-gameplay)"><dt><span>0</span> bug</dt><dd>après la refactorisation de l’inventaire et du craft de WolfPeak</dd></div>
+<div style="--c:var(--c-tools)"><dt><span>&lt; 1</span> min</dt><dd>pour qu’un Designer ajoute un objet, sans code</dd></div>
+<div style="--c:var(--c-xp)"><dt><span>30+</span></dt><dd>nœuds Behavior Tree et EQS sur mesure pour 4 types d’ennemis</dd></div>
+<div style="--c:var(--c-edu)"><dt><span>60+</span></dt><dd>étudiants formés à Unreal Engine chaque semaine</dd></div>
+</dl>
 </section>
-<!-- ===== Showreel ===== -->
-<section aria-labelledby="reel-title" class="node reveal" data-stop="" style="--c:var(--c-projects);margin-top:72px">
-<div class="node__head"><span aria-hidden="true" class="node__icon">▶</span><span id="reel-title">Lancer le showreel</span><span class="meta">60–90 s</span></div>
-<div class="yt" data-title="Showreel — Esteban Lafargue" data-yt="uDd7VYA2TL0">
-<button class="yt__btn" type="button"><span aria-hidden="true" class="yt__play"></span><span class="yt__label">Lancer le showreel</span></button>
+<!-- ===== Watch: reel + tutorial ===== -->
+<section aria-label="Vidéos" class="watch">
+<div aria-labelledby="reel-title" class="node reel reveal" data-stop="" id="reel" style="--c:var(--c-projects)">
+<div class="node__head"><span aria-hidden="true" class="node__icon">▶</span><span id="reel-title">Play Gameplay Reel</span><span class="meta">60–90 s</span></div>
+<div class="yt" data-title="Gameplay Reel — Esteban Lafargue" data-yt="uDd7VYA2TL0" style="background:#000 url(https://i.ytimg.com/vi/uDd7VYA2TL0/hqdefault.jpg) center/cover">
+<button class="yt__btn" type="button"><span aria-hidden="true" class="yt__play"></span><span class="yt__label">Lancer la bande démo</span></button>
 </div>
-</section>
-<!-- ===== Case studies ===== -->
-<section aria-labelledby="work-title" id="work" style="margin-top:96px">
-<h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="work-title">Projets phares</span><span class="stitle__rule"></span></h2>
-<div data-base="../" data-link-base="" data-projects="featured"><noscript><p><a href="projects/">See all projects</a></p></noscript></div>
-<p class="more"><a class="btn btn--ghost" href="projects/">Voir tous les projets (<span data-projects-count="">10</span>) · par type et par date ▷</a></p>
-</section>
-<!-- ===== Skills ===== -->
-<section aria-labelledby="tut-title" id="tutorials" style="margin-top:96px">
-<h2 class="stitle" style="--c:var(--c-tools)"><span class="stitle__tag" id="tut-title">Tutoriels</span><span class="stitle__rule"></span></h2>
-<div class="node home-tuto reveal" style="--c:var(--c-tools)">
-<a class="home-tuto__media" href="tutorials/"><img alt="" loading="lazy" src="../assets/img/flying-ai/trajectory.jpg"/><span aria-hidden="true" class="yt__play"></span></a>
-<div class="home-tuto__body">
-<div class="eyebrow"><span aria-hidden="true" class="exec"></span>Unreal Authorized Instructor · 60+ étudiants</div>
+</div>
+<div class="node tuto-card reveal" id="tutorials" style="--c:var(--c-tools)">
+<div class="node__head"><span aria-hidden="true" class="node__icon">▶</span><span id="tut-title">Tutoriel</span><span class="meta">Epic Dev Community</span></div>
+<a aria-label="Ouvrir la page des tutoriels" class="tuto-card__media" href="tutorials/"><img alt="" loading="lazy" src="../assets/img/flying-ai/trajectory.jpg"/><span aria-hidden="true" class="yt__play"></span></a>
+<div class="tuto-card__body">
 <h3>Flying AI : évitement d’obstacles et suivi de cible en temps réel</h3>
-<p>Le tutoriel qui m’a valu la certification d’instructeur, publié sur l’Epic Developer Community : une IA volante 3D 100 % Blueprint, construite pas à pas.</p>
-<div class="hero__actions">
-<a class="btn btn--yt" href="https://youtu.be/hd8LiWmTqG4" rel="noopener" target="_blank"><svg aria-hidden="true" class="yt-ico" viewbox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z" fill="currentColor"></path><path d="M9.8 15.2 15.6 12 9.8 8.8z" fill="#ff0033"></path></svg>Voir sur YouTube</a>
+<p>Le tutoriel qui m’a valu la certification d’instructeur : une IA volante 3D, 100 % Blueprint.</p>
+<div class="tuto-card__cta">
+<a class="btn btn--yt" href="https://youtu.be/hd8LiWmTqG4" rel="noopener" target="_blank"><svg aria-hidden="true" class="yt-ico" viewbox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8z" fill="currentColor"></path><path d="M9.8 15.2 15.6 12 9.8 8.8z" fill="#ff0033"></path></svg>YouTube</a>
 <a class="btn btn--ghost" href="tutorials/">Tous les tutoriels ▷</a>
 </div>
 </div>
 </div>
 </section>
-<!-- ===== Experience ===== -->
+<!-- ===== Featured work: bento ===== -->
+<section aria-labelledby="work-title" id="work">
+<h2 class="stitle" style="--c:var(--c-projects)"><span class="stitle__tag" id="work-title">Projets phares</span><span class="stitle__rule"></span></h2>
+<div data-base="../" data-layout="bento" data-link-base="" data-projects="featured"><noscript><p><a href="projects/">See all projects</a></p></noscript></div>
+<div class="work-foot">
+<p>Game jams, projets d’école et outils sont sur la page Projets, triés par type et par date.</p>
+<a class="btn btn--ghost" href="projects/"><span>Tous les projets · <span data-projects-count="">10</span> ▷</span></a>
+</div>
+</section>
 <!-- ===== Event OnContact ===== -->
-<section aria-labelledby="contact-title" class="contact contact--form" id="contact">
-<div class="contact__intro">
+<section aria-labelledby="contact-title" class="contact2" id="contact">
+<div class="contact2__intro">
 <div class="eyebrow" data-stop="" style="--c:var(--ac)"><span aria-hidden="true" class="exec"></span>Event OnContact</div>
 <h2 id="contact-title">Créons des outils que vos Designers adorent<span class="dot">.</span></h2>
-<p class="contact__lead">Un poste, un projet ou une question sur l’un de mes systèmes : écrivez-moi ici, je réponds en général sous 48 heures.</p>
-<div class="contact__links">
-<a class="link-pill" href="mailto:estebanlafargue34@gmail.com">Email <span>↗</span></a>
-<a class="link-pill" href="https://www.linkedin.com/in/esteban-lafargue/">LinkedIn <span>↗</span></a>
-<a class="link-pill" href="https://katarn34.itch.io">itch.io <span>↗</span></a>
-<a class="link-pill" href="https://youtube.com/@estebanlafargue">YouTube <span>↗</span></a>
+<p class="contact2__lead">Un poste, un projet ou une question sur l’un de mes systèmes : je réponds en général sous 48 heures.</p>
+<div class="node direct" style="--c:var(--ac)">
+<div class="node__head"><span aria-hidden="true" class="node__icon">◆</span>Liens directs<span class="meta">Montpellier · UTC+1</span></div>
+<ul class="direct__list">
+<li><a href="mailto:estebanlafargue34@gmail.com"><b>Email</b><span>estebanlafargue34@gmail.com</span><i>↗</i></a></li>
+<li><a href="https://www.linkedin.com/in/esteban-lafargue/" rel="noopener" target="_blank"><b>LinkedIn</b><span>in/esteban-lafargue</span><i>↗</i></a></li>
+<li><a href="https://youtube.com/@estebanlafargue" rel="noopener" target="_blank"><b>YouTube</b><span>@estebanlafargue</span><i>↗</i></a></li>
+<li><a href="https://katarn34.itch.io" rel="noopener" target="_blank"><b>itch.io</b><span>katarn34.itch.io</span><i>↗</i></a></li>
+<li><a download="CV (FR) - Technical Designer - Esteban Lafargue.pdf" href="../assets/CV%20(FR)%20-%20Technical%20Designer%20-%20Esteban%20Lafargue.pdf"><b>CV</b><span>PDF · Français</span><i>↓</i></a></li>
+</ul>
+<div class="direct__foot"><span class="status">Disponible</span><span>CDI ou CDD · sur site ou à distance</span></div>
 </div>
 </div>
 <form action="https://api.web3forms.com/submit" class="node form" data-web3forms="" method="POST" style="--c:var(--ac)">
@@ -123,7 +134,7 @@
 <label class="field"><span>Email</span><input autocomplete="email" name="email" required="" type="email"/></label>
 </div>
 <label class="field"><span>Studio / entreprise <em>(facultatif)</em></span><input autocomplete="organization" name="company"/></label>
-<label class="field"><span>Message</span><textarea name="message" required="" rows="5"></textarea></label>
+<label class="field form__msg"><span>Message</span><textarea name="message" required="" rows="4"></textarea></label>
 <button class="btn btn--primary form__send" type="submit">Envoyer ▷</button>
 <p aria-live="polite" class="form__status" role="status"></p>
 </div>
@@ -134,7 +145,7 @@
 <span>Fait main · sans framework · hébergé sur GitHub Pages</span>
 </footer>
 </main>
-<script defer="" src="../js/projects.js?v=18"></script>
-<script defer="" src="../js/main.js?v=18"></script>
+<script defer="" src="../js/projects.js?v=19"></script>
+<script defer="" src="../js/main.js?v=19"></script>
 </body>
 </html>
