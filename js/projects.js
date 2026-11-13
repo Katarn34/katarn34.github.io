@@ -54,6 +54,26 @@
     </${tag}>`;
   }
 
+  /* Bento card (home): one-line hook + proof metric, no role line */
+  function bento(p, cats, base, linkBase, i) {
+    const cat = cats[p.category] || { label: p.category, color: '--c-projects' };
+    const linked = p.url && !['soon', 'wip', 'info'].includes(p.status);
+    const tag = linked ? 'a' : 'div';
+    const href = linked ? ` href="${esc(abs(p.url, linkBase))}"` : '';
+    const media = p.thumb
+      ? `<img src="${esc(abs(p.thumb, base))}" alt="" loading="lazy">${p.hover ? `<video muted loop playsinline preload="none" src="${esc(abs(p.hover, base))}"></video>` : ''}`
+      : `<span class="card__ph card__ph--${esc(p.status)}">${esc(L(p, 'title'))}</span>`;
+    return `<${tag} class="node card bento__item bento__item--${i} reveal" style="--c:var(${cat.color})"${href}>
+      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(L(p, 'title'))}<span class="meta">${esc(CL(cat))} · ${esc(L(p, 'period'))}</span></div>
+      <div class="card__media">${media}</div>
+      <div class="card__body">
+        <p class="bento__hook">${esc(L(p, 'hook') || L(p, 'pitch'))}</p>
+        ${p.metric ? `<p class="bento__metric">${esc(L(p, 'metric'))}</p>` : ''}
+        <span class="card__cta">${(FRL ? CTA_FR : CTA)[p.status] || ''}</span>
+      </div>
+    </${tag}>`;
+  }
+
   function wireHover(root) {
     root.querySelectorAll('.card').forEach((c) => {
       const v = c.querySelector('video');
@@ -74,7 +94,10 @@
     const list = [...data.projects].sort((a, b) => b.date.localeCompare(a.date));
 
     if (host.dataset.projects === 'featured') {
-      host.innerHTML = `<div class="cards">${list.filter((p) => p.featured).sort((a, b) => a.featured - b.featured).map((p) => card(p, cats, base, linkBase)).join('')}</div>`;
+      const feat = list.filter((p) => p.featured).sort((a, b) => a.featured - b.featured);
+      host.innerHTML = host.dataset.layout === 'bento'
+        ? `<div class="bento">${feat.map((p, i) => bento(p, cats, base, linkBase, i + 1)).join('')}</div>`
+        : `<div class="cards">${feat.map((p) => card(p, cats, base, linkBase)).join('')}</div>`;
       const n = document.querySelector('[data-projects-count]');
       if (n) n.textContent = list.length;
       wireHover(host);
