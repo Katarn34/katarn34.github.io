@@ -32,5 +32,11 @@
  "CV": "CV",
  "PDF · English": "PDF · Français",
  "Open to work": "Disponible",
- "Permanent or fixed-term · on site or remote": "CDI ou CDD · sur site ou à distance"
+ "Permanent or fixed-term · on site or remote": "CDI ou CDD · sur site ou à distance",
+ "I bridge game design and programming: I code the systems in Blueprint and C++, then hand them to Designers as data and tools.": "Je fais le pont entre game design et programmation : je code les systèmes en Blueprint et C++, puis je les donne aux Designers sous forme de données et d’outils.",
+ "for a Designer to add a new item, without a programmer": "pour ajouter un objet, sans programmeur",
+ "<span>8</span> effects": "<span>8</span> effets",
+ "created by the team without touching C++": "créés par l’équipe sans toucher au C++",
+ "<span>5</span> debug tools": "<span>5</span> outils de debug",
+ "to see and tune enemy AI live": "pour voir et régler l’IA ennemie en direct"
 }
