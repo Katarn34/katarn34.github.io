@@ -64,7 +64,7 @@
       ? `<img src="${esc(abs(p.thumb, base))}" alt="" loading="lazy">${p.hover ? `<video muted loop playsinline preload="none" src="${esc(abs(p.hover, base))}"></video>` : ''}`
       : `<span class="card__ph card__ph--${esc(p.status)}">${esc(L(p, 'title'))}</span>`;
     return `<${tag} class="node card bento__item bento__item--${i} reveal" style="--c:var(${cat.color})"${href}>
-      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(L(p, 'title'))}<span class="meta">${esc(CL(cat))} · ${esc(L(p, 'period'))}</span></div>
+      <div class="node__head"><span class="node__icon" aria-hidden="true">ƒ</span>${esc(L(p, 'title'))}<span class="meta">${esc(L(p, 'kind') || CL(cat))} · ${esc(L(p, 'period'))}</span></div>
       <div class="card__media">${media}</div>
       <div class="card__body">
         <p class="bento__hook">${esc(L(p, 'hook') || L(p, 'pitch'))}</p>

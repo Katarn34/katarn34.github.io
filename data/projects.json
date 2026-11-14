@@ -65,10 +65,12 @@
           "UI"
         ],
         "hook": "Un système de construction qui s’aimante là où le joueur l’attend, sur un terrain allégé grâce aux HISM.",
-        "metric": "Projet de fin d’études · équipe de 3 · 8 mois"
+        "metric": "Équipe de 3 · 8 mois · Bachelor Game Design",
+        "kind": "Projet de fin d’études"
       },
       "hook": "A building system that snaps where players expect, on terrain that stays light with HISM.",
-      "metric": "Graduation project · team of 3 · 8 months"
+      "metric": "Team of 3 · 8 months · Bachelor’s in Game Design",
+      "kind": "Graduation project"
     },
     {
       "id": "flying-ai",
@@ -102,10 +104,12 @@
           "Réglages"
         ],
         "hook": "Une IA volante 3D, 100 % Blueprint, qui évite les obstacles en temps réel.",
-        "metric": "M’a valu la certification Unreal Authorized Instructor (Silver)"
+        "metric": "M’a valu la certification Unreal Authorized Instructor (Silver)",
+        "kind": "R&D · Tutoriel"
       },
       "hook": "A 3D flying AI in Blueprint only that dodges obstacles in real time.",
-      "metric": "Earned the Unreal Authorized Instructor (Silver) certification"
+      "metric": "Earned the Unreal Authorized Instructor (Silver) certification",
+      "kind": "R&D · Tutorial"
     },
     {
       "id": "vr-fabre",
@@ -187,11 +191,13 @@
           "UI",
           "C++"
         ],
-        "hook": "Les Designers ajoutent un objet en moins d’une minute, sans toucher au code.",
-        "metric": "0 bug après la refactorisation · 30+ nœuds d’IA sur mesure"
+        "hook": "Jeu multijoueur non annoncé, sous NDA. J’ai refactorisé ses systèmes d’objets et d’inventaire : un Designer ajoute un objet en moins d’une minute.",
+        "metric": "Gameplay Programmer, puis Technical Designer · équipe de 7",
+        "kind": "Studio · NDA"
       },
-      "hook": "Designers add a new item in under a minute, without touching code.",
-      "metric": "0 bugs after the refactor · 30+ custom AI nodes"
+      "hook": "Unannounced multiplayer game, under NDA. I rebuilt its item and inventory systems so Designers add an item in under a minute.",
+      "metric": "Gameplay Programmer, then Technical Designer · team of 7",
+      "kind": "Studio · NDA"
     },
     {
       "id": "interim-14",
@@ -297,10 +303,12 @@
           "Outils"
         ],
         "hook": "Des créatures qu’on comprend au lieu de les combattre : navigation 3D sans NavMesh et un Creature Tuner pour les Designers.",
-        "metric": "En production · budget IA ≤ 2 ms"
+        "metric": "En production · budget IA ≤ 2 ms",
+        "kind": "Projet personnel"
       },
       "hook": "Creatures you read, not fight: 3D navigation without NavMesh and a Creature Tuner for Designers.",
-      "metric": "In production · AI budget ≤ 2 ms"
+      "metric": "In production · AI budget ≤ 2 ms",
+      "kind": "Personal project"
     },
     {
       "id": "workshops",
